@@ -43,14 +43,14 @@ to show drivers their parking garage/lot.
 
 During our team meetings we considered several alternatives, including:
 
-1. Parking share application that allowed users to share their parking spot with others.
-⋅⋅* We decided not to go this route after speaking to our TA about the idea in Lab. They mentioned it was not an original concept, and that we should try to avoid sharing type of applications, the market is oversaturated. From this idea though we focused our sights on parking garages.
+- Parking share application that allowed users to share their parking spot with others.
+	- We decided not to go this route after speaking to our TA about the idea in Lab. They mentioned it was not an original concept, and that we should try to avoid sharing type of applications, the market is oversaturated. From this idea though we focused our sights on parking garages.
 
-2. Application to help those with ALS to navigate their phones with an eye tracker.
-⋅⋅* Idea was scrapped because we were not familiar enough with the hardware and tools that would be involved in making the application.
+- Application to help those with ALS to navigate their phones with an eye tracker.
+	- Idea was scrapped because we were not familiar enough with the hardware and tools that would be involved in making the application.
 
-3. Book Sharing application that keeps track of books users have shared with one another as well as a community aspect that has groups of users sharing books with each other at random.
-⋅⋅* We chose not to go with idea because most of the app would be CRUD (Create, Remove, Update, Delete).
+- Book Sharing application that keeps track of books users have shared with one another as well as a community aspect that has groups of users sharing books with each other at random.
+	- We chose not to go with idea because most of the app would be CRUD (Create, Remove, Update, Delete).
 
 After our second meeting during our lab we bounced our ideas off the TA he gave us some feedback and from his feedback that the scope of our application was good, that we would be
 allowed to emulate car lots for the purpose of showcasing the application and that it was original. We chose to go with our parking lot idea idea. We also think it solves a
