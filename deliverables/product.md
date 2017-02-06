@@ -34,7 +34,8 @@ which is an application on the app store that helps you locate parking garages, 
 is a web application that just finds parking garages and prices. Our application will have similar functionality as there will be a map interface with pinned lots, however
 our applications will show the number of available spots to save the user's time and money, they do not have to go to a garage to find that there are no free lots.
 
-//TODO ** Parking lot owner benafits **
+Parking lot owners would have a large incentive to attract customers. Our application will advertise their location with an easy to find interface. As apposed to making signs
+to show drivers their parking garage/lot. 
 
 ----
 
@@ -56,5 +57,8 @@ allowed to emulate car lots for the purpose of showcasing the application and th
 problem that several of us have experienced. The problem of finding a parking lot that is not full during peak hours or when there are events going about such as a Blue Jay's game.
 It saves the user's time, it allows the user to discover new information compared to similar applications on the market that allows users to make a more informed decision, 
 and fulfills a useful common purpose.
+
+// TODO **MVP (minimum viable product)**
+// TODO **Mockup**
 
 
