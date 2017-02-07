@@ -26,7 +26,7 @@ Describe the different roles on the team and the responsibilities associated wit
 
 -General Manager (Manages Overhead): David
 -Software Developers:
--Front End:
+-Front End: Kevin
 -DataBase:
 -Back End:
 
