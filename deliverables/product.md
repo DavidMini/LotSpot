@@ -58,7 +58,7 @@ problem that several of us have experienced. The problem of finding a parking lo
 It saves the user's time, it allows the user to discover new information compared to similar applications on the market that allows users to make a more informed decision, 
 and fulfills a useful common purpose.
 
-MVP features:
+#### MVP features
 
 Phone Application:
 
@@ -99,7 +99,8 @@ Additional Features (done after meeting MVP features):
 	- Hours of operation
 
 
-Application Mockup
+#### Application Mockup:
+
 // TODO **Mockup**
 
 
