@@ -18,9 +18,9 @@ the application and their lot becomes easy to locate for all users.
 
 #### Q2: Who are your target users?
 
-Our target users are any commuters with a vehicle, as well as parking garage owners. This can include but not limited to those who drive to work or school but do 
-not have a dedicated parking lot. People who travel to an unfamiliar location and need parking. This covers all age demographics with a valid driver's
-licence and a vehicle.
+Our target users are drivers that are comming downtown for sort of event. These people are trying to find parking during high traffic and finding a spot can seriously 
+become an issue. Additionaly, events are not exclusive to large public events. A regular downtown friday is busy enough to cause issues for club goers trying to find parking.
+Our personas provide better clarity for what kind of demographic we are trying to hit, however, they are all commuters trying to find parking during a busy event day.
 
 // ** TODO ADD PERONA'S **
 
@@ -70,10 +70,7 @@ Phone Application:
 - Able to select a parking spot to get additional information (symbols used for each attribute).
 	- Address
 	- Rates (cost)
-	- Accessibility
-	- Height limit
-	- Overnight parking
-	- Hours of operation
+	- Spots remaining
 - Search
 	- using google map
 
@@ -91,6 +88,18 @@ Additional Features (done after meeting MVP features):
 	- filter parking lots by price
 	- filter parking lots by additional information (such as height limit, accessibility ect)
 
+- Recomended Lot
+	- input what hours you wish to park your car and recieve the best fitting parking lots (on compatibility)
+
+- Additional Parking Lot Informaiton
+	- Add information to parking locations that can be displayed and searched on
+	- Accessibility
+	- Height limit
+	- Overnight parking
+	- Hours of operation
+
+
+Application Mockup
 // TODO **Mockup**
 
 

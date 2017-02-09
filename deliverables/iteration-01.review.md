@@ -8,7 +8,6 @@
 ## Process - Reflection
 
 
-
 #### Decisions that turned out well
 
 List process-related (i.e. team organization) decisions that, in retrospect, turned out to be successful.
@@ -20,10 +19,6 @@ List process-related (i.e. team organization) decisions that, in retrospect, tur
 - Using slack for communication.
 	- Showed to be very useful tool to communicate.
 
- * 2 - 4 decisions.
- * Ordered from most to least important.
- * Explain why (i.e. give a supporting argument) you consider a decision to be successful.
- * Feel free to refer/link to process artifact(s).
 
 #### Decisions that did not turn out as well as we hoped
 
@@ -32,18 +27,19 @@ List process-related (i.e. team organization) decisions that, in retrospect, wer
 - We were originally set on doing a parking lot sharing application, but after getting some insight from our TA we found the market was over 
 	saturated with similar applications.
 
- * 2 - 4 decisions.
- * Ordered from most to least important.
- * Feel free to refer/link to process artifact(s).
+- Organizational tools such as trello over complicated our workflow process. We decided on toning down the amount of tools we use to keep
+	things simple and organized. In trello's case we will be using Github issues instead.
 
 
 #### Planned changes
 
 List any process-related changes you are planning to make (if there are any)
 
+- We are deciding to change our target user. Originally we were targeting any downtown commuter, but that is very generic. Instead we will be focusing
+	on individuals driving downtown for events. 
 
- * Ordered from most to least important.
- * Explain why you are making a change.
+- To match the new target audience we need to change our personas. Our new personas are interested in using our application exclusively during events, so
+	we will change their tasks to fit this new role. 
 
 
 ## Product - Review
@@ -56,10 +52,9 @@ List any process-related changes you are planning to make (if there are any)
 	- features that are essential to create a minimal viable product.
 - Navigation and User Interface
 	- mock example of user interface.
+	
 
- * From most to least important.
- * Refer/link to artifact(s) that show that a goal/task was met/completed.
- * If a goal/task was not part of the original iteration plan, please mention it.
+ * Proof for the goals/tasks can be found in the product.md file
 
 #### Goals and/or tasks that were planned but not met/completed:
 	
@@ -67,9 +62,9 @@ List any process-related changes you are planning to make (if there are any)
 	- We wanted to make several user personas but never completed them.
 	- Our target users is very broad, many with vehicles, although we came up with several concepts we left this as a lower priority.
 
- * From most to least important.
- * For each goal/task, explain why it was not met/completed.      
-   e.g. Did you change your mind, or did you just not get to it yet?
+ - UI features
+ 	- We came up with some ideas for how to display information and how functionality can work
+	- These are technical questions that will come back up once we begin application development, so we are holding them off for now
 
 ## Meeting Highlights
 
@@ -83,9 +78,3 @@ Going into the next iteration, our main insights are:
 - Making github issues that we will use to track small, and some large milestones.
 	- This is very important so we can keep track of our progress, we will try to create many small tasks and organize them by importance by assigning each
 	task a value for urgency/importance (scale of 1 to 5, 1 being urgent and important). As well as breaking up the workload and assigning members to issues.
-	
- * 2 - 4 items
- * Short (no more than one short paragraph per item)
- * High-level concepts that should guide your work for the next iteration.
- * These concepts should help you decide on where to focus your efforts.
- * Can be related to product and/or process.
