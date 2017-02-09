@@ -16,7 +16,7 @@ List process-related (i.e. team organization) decisions that, in retrospect, tur
 - Outlining multiple ideas and getting feedback from our TA before making a decision.
 	- This changed our direction from our original ideas but gave us a more concrete focus.
 - Research similar products
-	- This helped us notice what idea's had already been done in exess and helped narrow down our problem and user base.
+	- This helped us notice what idea's had already been done in excess and helped narrow down our problem and user base.
 - Using slack for communication.
 	- Showed to be very useful tool to communicate.
 
@@ -77,7 +77,7 @@ Going into the next iteration, our main insights are:
 
 - Focus on organization and structure.
 	- What tools/language we are using to create the application.
-		- making sure everyone has their environment set up.
+		- making sure everyone has their environment setup.
 	- Dividing up workload.
 	- How we will organize work flow. Kanban, Scrum or some sort of hybrid.
 - Making github issues that we will use to track small, and some large milestones.
