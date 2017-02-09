@@ -58,7 +58,39 @@ problem that several of us have experienced. The problem of finding a parking lo
 It saves the user's time, it allows the user to discover new information compared to similar applications on the market that allows users to make a more informed decision, 
 and fulfills a useful common purpose.
 
-// TODO **MVP (minimum viable product)**
+MVP features:
+
+Phone Application:
+
+- map
+	- google map
+	- search addresses and location
+- View all parking lots as pins on a map.
+	- color code pins (Green = lot has an available parking spot, Red = no free parking spots).
+- Able to select a parking spot to get additional information (symbols used for each attribute).
+	- Address
+	- Rates (cost)
+	- Accessibility
+	- Height limit
+	- Overnight parking
+	- Hours of operation
+- Search
+	- using google map
+
+Server Side:
+
+- Parking lot side application
+	- keep track of the number of available lots
+	- send update to server whenver there is a change
+	- get information from sensors
+
+
+Additional Features (done after meeting MVP features):
+
+- Search
+	- filter parking lots by price
+	- filter parking lots by additional information (such as height limit, accessibility ect)
+
 // TODO **Mockup**
 
 
