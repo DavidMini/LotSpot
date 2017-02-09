@@ -31,10 +31,11 @@ Describe the different roles on the team and the responsibilities associated wit
 
 Describe meetings (and other events) you are planning to have:
 Two weekly meetings 
-	-Monday 1-2pm General discussion - Overhead details - In person BA3200
-	-Thursday 1-2pm Tutorial, Discussion and presentation with TA. - In person BA 2185
-	- At home programming with some future programming sprint sessions. -Online
-	- Online code review - Sunday - Weekly - Online / Cover in meeting on Monday
+
+- Monday 1-2pm General discussion - Overhead details - In person BA3200
+- Thursday 1-2pm Tutorial, Discussion and presentation with TA. - In person BA 2185
+- At home programming with some future programming sprint sessions. -Online
+- Online code review - Sunday - Weekly - Online / Cover in meeting on Monday
 
  * When and where? In-person or online?
  * What's the purpose of each meeting?
@@ -43,12 +44,13 @@ Two weekly meetings
 #### Artifacts
 
 List/describe the artifacts you will produce in order to organize your team.
--GitHub issues.
+
+- GitHub issues.
 	- Keep track of priority issues.
-	-Make up a code from 1-5 in priority 1 being important 5 can be pushed back.
--Google Documents for itterations / product.md
--Slack server communication.
--Tasks distributed on roles and experience, and current workload.
+	- Make up a code from 1-5 in priority 1 being important 5 can be pushed back.
+- Google Documents for itterations / product.md
+- Slack server communication.
+- Tasks distributed on roles and experience, and current workload.
 
 
  * Artifacts can be To-do lists, Task boards, schedule(s), etc.
