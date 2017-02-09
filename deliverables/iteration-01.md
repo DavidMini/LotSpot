@@ -1,22 +1,18 @@
 # iteration-01
 
-# YOUR PRODUCT/TEAM NAME
+# Team21 - LotSpot!
 
- > _Note:_ This document is meant to be written during (or shortly after) your initial planning meeting.     
- > It does not really make sense for you to edit this document much (if at all) while working on the project - Instead, at the end of the planning phase, you can refer back to this document and decide which parts of your plan you are happy with and which parts you would like to change.
+## Iteration 01
 
-
-## Iteration XX
-
- * Start date: Jan 30, 2017
- * End date: FILL IN THE DATE WHEN YOU ARE PLANNING TO HAVE YOUR REVIEW MEETING
+ * Start date: January 30, 2017
+ * End date: Febuary 9, 2017
 
 ## Process
 
 (Optional:) Quick introduction
-- modified AGILE proccess.
+- modified AGILE process.
 - Aim for MVP focused implementation
-- Android Studios (Java)
+- Android Studio's (Java)
 - Java Backend - JSON server / alternative - MongoDB, Meteor Node.js
 - google maps API -- Open source project Leku (github)
 
@@ -35,7 +31,7 @@ Describe the different roles on the team and the responsibilities associated wit
 
 Describe meetings (and other events) you are planning to have:
 Two weekly meetings 
-	-Monday 1-2pm Genearl discussion - Overhead details - In person BA3200
+	-Monday 1-2pm General discussion - Overhead details - In person BA3200
 	-Thursday 1-2pm Tutorial, Discussion and presentation with TA. - In person BA 2185
 	- At home programming with some future programming sprint sessions. -Online
 	- Online code review - Sunday - Weekly - Online / Cover in meeting on Monday
@@ -52,7 +48,7 @@ List/describe the artifacts you will produce in order to organize your team.
 	-Make up a code from 1-5 in priority 1 being important 5 can be pushed back.
 -Google Documents for itterations / product.md
 -Slack server communication.
--Taks distrubuted on roles and experience, and current workload.
+-Tasks distributed on roles and experience, and current workload.
 
 
  * Artifacts can be To-do lists, Task boards, schedule(s), etc.
@@ -94,4 +90,5 @@ List/describe the artifacts you will produce in order to present your project id
  * Make sure to explain the purpose of each artifact (i.e. Why is it on your to-do list? Why is it useful for your team?)
  * Be concise, yet precise.         
    For example: "Build the website" is not precise at all, but "Build a static home page and upload it somewhere, so that it is publicly accessible" is much clearer.
+
 

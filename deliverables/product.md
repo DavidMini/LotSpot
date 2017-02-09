@@ -1,12 +1,12 @@
 # product
 
-# Team Cobra - Parking Space finder
+# Team21 - LotSpot!
 
 #### Q1: What are you planning to build?
 
 We are planning to build an android application that finds available public parking locations. There are two parts of the application that we are going to build, one side is the users
 end, which will be an android app that displays a map with parking lots. The parking lot will be green, yellow or red indicating how many available parking spots are available.
-The other side of the applications is a central server, the server will recieve updated information from parking locations and update their local database so the users have 
+The other side of the applications is a central server, the server will receive updated information from parking locations and update their local database so the users have 
 real time accuracy of how many lots are available.
 
 Concrete example of a common use case: User is on vacation with a rental car, unfamiliar with the area they do not want to waste time driving around searching for a spot,
@@ -28,13 +28,13 @@ licence and a vehicle.
 
 Our product incorporates an element not seen by other similar applications/tools. It shows the number of lots available. This will not be available for every lot as 
 the parking garage themselves must integrate some system of keeping track of available lots, in that limitation it will function just as well as other parking garage
-finding applications. This also allows users to make more infofrmed decisions, with information not readily available by other parking applications.
+finding applications. This also allows users to make more informed decisions, with information not readily available by other parking applications.
 Some similar products people use today to find parking are [ParkMe Parking](https://itunes.apple.com/ca/app/parkme-parking/id417605484?mt=8), 
 which is an application on the app store that helps you locate parking garages, and also be able to reserve spots. Another similar webb application [Parkopedia](http://en.parkopedia.ca/parking/locations/toronto_on_canada_dpz83dffmxp/?arriving=201702061230&leaving=201702061430),
 is a web application that just finds parking garages and prices. Our application will have similar functionality as there will be a map interface with pinned lots, however
 our applications will show the number of available spots to save the user's time and money, they do not have to go to a garage to find that there are no free lots.
 
-Parking lot owners would have a large incentive to attract customers. Our application will advertise their location with an easy to find interface. As apposed to making signs
+Parking lot owners would have a large incentive to attract customers. Our application will advertise their location with an easy to find interface. As opposed to making signs
 to show drivers their parking garage/lot. 
 
 ----
@@ -81,7 +81,7 @@ Server Side:
 
 - Parking lot side application
 	- keep track of the number of available lots
-	- send update to server whenver there is a change
+	- send update to server whenever there is a change
 	- get information from sensors
 
 
@@ -92,5 +92,6 @@ Additional Features (done after meeting MVP features):
 	- filter parking lots by additional information (such as height limit, accessibility ect)
 
 // TODO **Mockup**
+
 
 
