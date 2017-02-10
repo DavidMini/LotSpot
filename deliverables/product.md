@@ -20,6 +20,13 @@ Our target users are drivers that come downtown for events. These people are try
 become an issue. Additionaly, events are not exclusive to large public events. A regular downtown friday is busy enough to cause issues for club goers trying to find parking.
 Our personas provide better clarity for what kind of demographic we are trying to hit. However, they are all commuters trying to find parking during a busy event day.
 
+Complete persona: [Young mother persona](https://app.xtensio.com/folio/k8jma27e)
+
+Some other quick personas (not created with xtensio): 
+- Middle aged man who is coming alone downtown to watch the blue jays game.
+- University of Waterloo student that is coming downtown to watch a tiff premier she has been excited for.
+- Young proffesional living in missisauga who is coming downtown on friday night to go clubbing. She is the designated driver for her friends who will be joining her.
+
 #### Q3: Why would your users choose your product? What are they using today to solve their problem/need?
 
 Our product incorporates an element not seen by other similar applications/tools. It shows the number of parking lots available. This will not be available for every lot as 
