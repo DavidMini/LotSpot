@@ -1,5 +1,3 @@
-# iteration-01
-
 # Team21 - LotSpot!
 
 ## Iteration 01
@@ -42,16 +40,22 @@ Quick introduction
 
 #### Artifacts
 
-- GitHub issues
-	- To-do lists
+- To-do lists
+	- Using GitHub issues
 	- Keep track of priority issues
 	- Make up a code from 1-5 in priority 1 being important 5 can be pushed back
 
-- Google Documents for iterations / product.md
+- Google Documents
+	- Instructions for each iteration
+	- For product.md
 
-- Slack for team communication and disucussion
+- Online communication group
+	- Via Slack
+	- Assign tasks to team members online
+	- Team collaboration
 
-- Tasks distributed depending on each teammate's role, experience, and current workload
+- Tasks distribution
+	- Tasks assigned depending on each teammate's role, experience, and current workload
 
 ## Product
 
@@ -60,10 +64,12 @@ Quick introduction
 - Establish team communication via Slack
 	- Created a Slack team when we first established our group on Jan. 26, 2017
 	- Communicate more online on a regular basis
+
 - Decide on meeting times
 	- Decided on slack for mondays at 1-2pm
 	- Thursday 1-2pm
 	- Plan additional meetings through Slack as needed
+
 - Come up with several ideas for our product
 	- Discussed our product ideas on Jan. 30, 2017 (first meeting)
 
