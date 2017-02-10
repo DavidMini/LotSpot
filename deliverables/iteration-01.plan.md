@@ -20,11 +20,11 @@
 
 Describe the different roles on the team and the responsibilities associated with each role.
 
--General Manager (Manages Overhead): David
--Software Developers:
--Front End: Kevin
--DataBase:
--Back End:
+- General Manager (Manages Overhead): David
+- Software Developers:
+- Front End: Kevin
+- DataBase:
+- Back End:
 
 
 #### Events
@@ -72,7 +72,7 @@ List/describe the artifacts you will produce in order to organize your team.
 	- additional meetings planned through slack as needed.
 - Come up with several concepts for our product
 	- Group meeting we discussed our product ideas. Jan 30, 2017 (first meeting)
-- 
+
 
  * Describe your goals for this iteration and the tasks that you will have to complete in order to achieve these goals.
  * Order the items from most to least important.
