@@ -101,7 +101,17 @@ Additional Features (done after meeting MVP features):
 
 #### Application Mockup:
 
-// TODO **Mockup**
+Main
+![alt tag](https://github.com/csc301-winter-2017/project-team-21/blob/master/deliverables/main.jpg)
+
+Navigation
+![alt tag](https://github.com/csc301-winter-2017/project-team-21/blob/master/deliverables/navigation.jpg)
+
+Mini Info
+![alt tag](https://github.com/csc301-winter-2017/project-team-21/blob/master/deliverables/miniInfo.jpg)
+
+Details
+![alt tag](https://github.com/csc301-winter-2017/project-team-21/blob/master/deliverables/details.jpg)
 
 
 
