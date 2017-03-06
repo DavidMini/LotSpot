@@ -1,0 +1,28 @@
+{
+  "spots": [
+    {
+      "id": 1,
+      "lat": 32.22,
+      "lng": 46.33,
+      "title": "some name",
+      "capacity": 30,
+      "occupied": 1
+    },
+    {
+      "lat": 400,
+      "lng": 4090.2,
+      "title": "park-o-rama",
+      "capacity": 35,
+	  "occupied":0
+      "id": 2
+    },
+    {
+      "lat": 400,
+      "lng": 4090.2,
+      "title": "park-o-rama",
+      "capacity": 35,
+      "occupied":0,
+      "id": 3
+    }
+  ]
+}
