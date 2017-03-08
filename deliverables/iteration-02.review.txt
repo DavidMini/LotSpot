@@ -1,0 +1,112 @@
+﻿#LotSpot team-21
+
+> _Note:_ This document is meant to be written during (or shortly after) your review meeting, which should happen fairly close to the due date.      
+>      
+> _Suggestion:_ Have your review meeting a day or two before the due date. This way you will have some time to go over (and edit) this document, and all team members should have a chance to make their contribution.
+
+
+## Iteration XX - Review & Retrospect
+
+* When: March 8, 2017
+* Where: Physical meeting UofT BA3200 
+
+## Process - Reflection
+
+(Optional) Short introduction
+
+#### Decisions that turned out well
+
+List process-related (i.e. team organization) decisions that, in retrospect, turned out to be successful.
+
+
+- Bi-weekly in person meetings
+        - This kept us focused on our task and that we were on track to meet our deadline.
+- CRC Cards
+- Used to plan our data structure and classes, was quick and effective.  
+- Github Issues
+- Shows each team member's responsibilities.
+- Helped us keep track of priority tasks.
+- Slack server
+        - Constant communication helped us organize ourselves.
+
+
+
+* 2 - 4 decisions.
+* Ordered from most to least important.
+* Explain why (i.e. give a supporting argument) you consider a decision to be successful.
+* Feel free to refer/link to process artifact(s).
+
+#### Decisions that did not turn out as well as we hoped.
+
+List process-related (i.e. team organization) decisions that, in retrospect, were not as successful as you thought they would be.
+
+
+We planned too many tasks and our overhead was too large for this phase.
+
+
+We also had spent a lot of time setting up our environment, something we did not account for.
+
+* 2 - 4 decisions.
+* Ordered from most to least important.
+* Feel free to refer/link to process artifact(s).
+
+
+#### Planned changes
+
+List any process-related changes you are planning to make (if there are any)
+
+-Introduce peer review once a week, or after issues are resolved.
+        - Peer review merges, and pull requests done by other members.
+        - Work in pairs on tasks once video recording is complete.
+        - We are choosing to do this to cut down on time spent fixing issues.
+-A more concrete plan for progressing our program development.
+        - Our past github issues were too broad, more specific specifications.
+
+* Ordered from most to least important.
+* Explain why you are making a change.
+
+
+## Product - Review
+
+#### Goals and/or tasks that were met/completed:
+
+-Google Map implemented.
+-Markers and Interfaces for parking lots created.
+-Search bar.
+-Logo and Animated Video introduction.
+-Additional information on clicking lot marker.
+
+* From most to least important.
+* Refer/link to artifact(s) that show that a goal/task was met/completed.
+* If a goal/task was not part of the original iteration plan, please mention it.
+
+
+
+
+#### Goals and/or tasks that were planned but not met/completed:
+-Filter parking lot menu.
+-Listing of nearby parking lots on search.
+-Additional UI styling
+
+* From most to least important.
+* For each goal/task, explain why it was not met/completed.      
+  e.g. Did you change your mind, or did you just not get to it yet?
+
+## Meeting Highlights
+
+Going into the next iteration, our main insights are:
+
+
+-We need more concrete specifications for our tasks.
+        - To help keep all team members on track.
+        - Cut down on overhead of long discussions of implementation.
+-Implement factory design pattern.
+- For android have factory pattern of models that helps us create views.
+-MVC model implementation.
+- This can assist our workflow, in context of an android application.        
+
+* 2 - 4 items
+* Short (no more than one short paragraph per item)
+* High-level concepts that should guide your work for the next iteration.
+* These concepts should help you decide on where to focus your efforts.
+* Can be related to product and/or process.
