@@ -1,8 +1,12 @@
 package com.example.mapwithmarker;
 
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.EditText;
+
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -14,7 +18,9 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -59,6 +65,29 @@ public class MapsMarkerActivity extends AppCompatActivity
         //TODO: Cluster Markers
     }
 
+    public void onSearch(View view)
+    {
+        EditText location_tf = (EditText)findViewById(R.id.TFaddress);
+        String location = location_tf.getText().toString();
+        List<Address> addressList = null;
+        if(location != null || !location.equals(""))
+        {
+            Geocoder geocoder = new Geocoder(this);
+            try {
+                addressList = geocoder.getFromLocationName(location , 1);
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            Address address = addressList.get(0);
+            LatLng latLng = new LatLng(address.getLatitude() , address.getLongitude());
+            mGoogleMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
+            mGoogleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+
+        }
+    }
     public void addMarkers(){
         // Initial focus on UofT TODO:Set to current location
         LatLng uoft = new LatLng(43.662892, -79.395656);
