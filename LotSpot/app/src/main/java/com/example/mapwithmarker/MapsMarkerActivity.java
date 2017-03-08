@@ -59,9 +59,11 @@ public class MapsMarkerActivity extends AppCompatActivity
     }
 
     public void addMarkers(){
+        // Initial focus on UofT TODO:Set to current location
         LatLng uoft = new LatLng(43.662892, -79.395656);
-        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(uoft));
+        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(uoft, 14));
 
+        // List of
         LatLng latLngLot01 = new LatLng(43.666705, -79.405147);
         Marker lot01 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot01)
                 .title("Lot 01")
