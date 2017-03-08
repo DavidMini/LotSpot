@@ -1,13 +1,14 @@
 package com.utsg.csc301.team21.servercalls;
 
-import com.utsg.csc301.team21.models.ParkingLot;
+import com.utsg.csc301.team21.models.AbstractParkingLot;
 
 import java.util.List;
 
 /**
- * Created by hugh on 2017-03-07.
+ * ILotServer defines a facade for server calls.
+ * Implementation should be hidden.
  */
 
 public interface ILotServer {
-    public List<ParkingLot> getLotsFromGeo(double lat, double lng);
+    List<AbstractParkingLot> getLotsFromGeo(double lat, double lng);
 }

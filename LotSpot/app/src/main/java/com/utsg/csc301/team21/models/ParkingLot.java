@@ -3,15 +3,22 @@ package com.utsg.csc301.team21.models;
 import java.math.BigDecimal;
 
 /**
- * Created by hugh on 2017-03-07.
+ * Parking Lot
+ *  - Basic implementation of Abstract Parking Lot.
  */
 
-public class ParkingLot {
-    int capacity;
-    int occupancy;
-    BigDecimal pricePerHour; //let's assume all lots provide price per hour for now.
-    String name;
-    String address;
-    double lat;
-    double lng;
+public class ParkingLot extends AbstractParkingLot{
+
+
+    public ParkingLot(int id, int capacity, int occupancy, String name, String address, double lat, double lng, Double pricePerHour) {
+        this.id = id;
+        this.capacity = capacity;
+        this.occupancy = occupancy;
+        this.name = name;
+        this.address = address;
+        this.lat = lat;
+        this.lng = lng;
+        this.pricePerHour = BigDecimal.valueOf( pricePerHour);
+    }
+
 }
