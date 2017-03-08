@@ -1,6 +1,5 @@
 package com.example.mapwithmarker;
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -9,13 +8,12 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,7 +21,7 @@ import java.util.Map;
  * An activity that displays a Google map with a marker (pin) to indicate a particular location.
  */
 public class MapsMarkerActivity extends AppCompatActivity
-        implements OnMapReadyCallback {
+        implements OnMapReadyCallback, OnMarkerClickListener {
 
     // Global Variables
     private GoogleMap mGoogleMap;
@@ -52,10 +50,13 @@ public class MapsMarkerActivity extends AppCompatActivity
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        // Add a marker in Sydney, Australia,
-        // and move the map's camera to the same location.
+        // Set Map
         mGoogleMap = googleMap;
+        // Populate map with parking lot markers
         addMarkers();
+        // Set a listener for Marker click.
+        mGoogleMap.setOnMarkerClickListener(this);
+        //TODO: Cluster Markers
     }
 
     public void addMarkers(){
@@ -63,11 +64,12 @@ public class MapsMarkerActivity extends AppCompatActivity
         LatLng uoft = new LatLng(43.662892, -79.395656);
         mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(uoft, 14));
 
-        // List of
+        // List of Parking Lots
         LatLng latLngLot01 = new LatLng(43.666705, -79.405147);
         Marker lot01 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot01)
                 .title("Lot 01")
                 .icon(BitmapDescriptorFactory.fromAsset("marker_orange3.png")));
+
 
         LatLng latLngLot02 = new LatLng(43.665385, -79.403477);
         Marker lot02 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot02)
@@ -183,7 +185,17 @@ public class MapsMarkerActivity extends AppCompatActivity
         Marker lot24 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot24)
                 .title("Lot 24")
                 .icon(BitmapDescriptorFactory.fromAsset("marker_orange4.png")));
-
-
     }
+
+    /** Called when the user clicks a marker. */
+    @Override
+    public boolean onMarkerClick(final Marker marker) {
+        // Check if a click count was set, then resolve.TODO
+
+        // Return false to indicate that we have not consumed the event and that we wish
+        // for the default behavior to occur (which is for the camera to move such that the
+        // marker is centered and for the marker's info window to open, if it has one).
+        return false;
+    }
+
 }
