@@ -70,7 +70,19 @@ public class MapsMarkerActivity extends AppCompatActivity
         EditText location_tf = (EditText)findViewById(R.id.TFaddress);
         String location = location_tf.getText().toString();
         List<Address> addressList = null;
- 
+        if(location != null || !location.equals(""))
+        {
+            Geocoder geocoder = new Geocoder(this);
+            try {
+                addressList = geocoder.getFromLocationName(location , 1);
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+        }
     }
     public void addMarkers(){
         // Initial focus on UofT TODO:Set to current location
