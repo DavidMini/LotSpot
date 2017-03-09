@@ -3,24 +3,22 @@ package com.utsg.csc301.team21.models;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mapwithmarker.R;
 
-import java.math.BigDecimal;
-
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link LotDetailsBoxFragment.OnFragmentInteractionListener} interface
+ * {@link LotInfoBoxFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link LotDetailsBoxFragment#newInstance} factory method to
+ * Use the {@link LotInfoBoxFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class LotDetailsBoxFragment extends Fragment {
+public class LotInfoBoxFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "name";
@@ -36,7 +34,7 @@ public class LotDetailsBoxFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public LotDetailsBoxFragment() {
+    public LotInfoBoxFragment() {
         // Required empty public constructor
     }
 
@@ -48,11 +46,11 @@ public class LotDetailsBoxFragment extends Fragment {
      * @param capacity The max capacity of the lot.
      * @param occupancy The current amount of cars in the lot.
      * @param pricePerHour The price per hour of the lot.
-     * @return A new instance of fragment LotDetailsBoxFragment.
+     * @return A new instance of fragment LotInfoBoxFragment.
      */
-    public static LotDetailsBoxFragment newInstance(String name, int capacity, int occupancy,
-                                                    double pricePerHour) {
-        LotDetailsBoxFragment fragment = new LotDetailsBoxFragment();
+    public static LotInfoBoxFragment newInstance(String name, int capacity, int occupancy,
+                                                 double pricePerHour) {
+        LotInfoBoxFragment fragment = new LotInfoBoxFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, name);
         args.putInt(ARG_PARAM2, capacity);
@@ -66,8 +64,10 @@ public class LotDetailsBoxFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            this.name = getArguments().getString(ARG_PARAM1);
+            this.capacity = getArguments().getInt(ARG_PARAM2);
+            this.occupancy = getArguments().getInt(ARG_PARAM3);
+            this.pricePerHour = getArguments().getDouble(ARG_PARAM4);
         }
     }
 

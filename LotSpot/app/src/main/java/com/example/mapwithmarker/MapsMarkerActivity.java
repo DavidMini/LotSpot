@@ -1,9 +1,17 @@
 package com.example.mapwithmarker;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.res.Configuration;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.Uri;
 import android.os.Bundle;
+import android.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
@@ -17,6 +25,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
+import com.utsg.csc301.team21.models.LotInfoBoxFragment;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -27,22 +36,64 @@ import java.util.Map;
  * An activity that displays a Google map with a marker (pin) to indicate a particular location.
  */
 public class MapsMarkerActivity extends AppCompatActivity
-        implements OnMapReadyCallback, OnMarkerClickListener {
+        implements OnMapReadyCallback, OnMarkerClickListener,
+        LotInfoBoxFragment.OnFragmentInteractionListener {
 
     // Global Variables
     private GoogleMap mGoogleMap;
     private Map<Marker, View> markers = new HashMap<>();
+
+    // Drawer Variables
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private CharSequence mDrawerTitle;
+    private CharSequence mTitle;
+
+    // Used in displaying the lot info box
+    private boolean infoBoxExists = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Retrieve the content view that renders the map.
         setContentView(R.layout.activity_maps);
+
         // Get the SupportMapFragment and request notification
         // when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        // Adding button for opening drawer
+        mTitle = mDrawerTitle = getTitle();
+        final android.support.v7.app.ActionBar mActionBar = getSupportActionBar();
+
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerToggle = new ActionBarDrawerToggle(
+                this,                  /* host Activity */
+                mDrawerLayout,         /* DrawerLayout object */
+                R.string.drawer_open,  /* "open drawer" description */
+                R.string.drawer_close  /* "close drawer" description */
+        ) {
+
+            /** Called when a drawer has settled in a completely closed state. */
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                mActionBar.setTitle(mTitle);
+            }
+
+            /** Called when a drawer has settled in a completely open state. */
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                mActionBar.setTitle(mDrawerTitle);
+            }
+        };
+
+        // Set the drawer toggle as the DrawerListener
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+        mActionBar.setDisplayHomeAsUpEnabled(true);
+        mActionBar.setHomeButtonEnabled(true);
     }
 
     /**
@@ -63,6 +114,31 @@ public class MapsMarkerActivity extends AppCompatActivity
         // Set a listener for Marker click.
         mGoogleMap.setOnMarkerClickListener(this);
         //TODO: Cluster Markers
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Pass the event to ActionBarDrawerToggle, if it returns
+        // true, then it has handled the app icon touch event
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        // Handle your other action bar items...
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void onSearch(View view)
@@ -219,12 +295,45 @@ public class MapsMarkerActivity extends AppCompatActivity
     /** Called when the user clicks a marker. */
     @Override
     public boolean onMarkerClick(final Marker marker) {
-        // Check if a click count was set, then resolve.TODO
 
-        // Return false to indicate that we have not consumed the event and that we wish
-        // for the default behavior to occur (which is for the camera to move such that the
-        // marker is centered and for the marker's info window to open, if it has one).
-        return false;
+        // Animates the map and displays the marker's banner
+        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
+        marker.showInfoWindow();
+
+        // Prepares fragment managers
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        // Build new fragment
+        // TODO: Add lot info into the fragment
+        Fragment fragment = new LotInfoBoxFragment();
+
+        // Either creates the fragment or replaces the existing one
+        if(!infoBoxExists){
+            fragmentTransaction.add(R.id.mainLayout, fragment);
+            fragmentTransaction.commit();
+
+            infoBoxExists = true;
+        } else {
+            fragmentTransaction.replace(R.id.infobox, fragment);
+        }
+
+        // Tell API to ignore default marker functionality
+        return true;
     }
 
+    // Helper function that handles the removal of the info box fragment
+    private void destroyInfoBox(){
+        if(infoBoxExists){
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.remove(fragmentManager.findFragmentById(R.id.infobox));
+            infoBoxExists = false;
+        }
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        // Leave this empty
+    }
 }

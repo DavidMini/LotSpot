@@ -1,13 +1,41 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.utsg.csc301.team21.models.LotDetailsBoxFragment">
+    android:id="@+id/infobox"
+    android:layout_width="290dp"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
+    android:orientation="horizontal"
+    android:layout_gravity="bottom|center_horizontal"
+    android:layout_marginBottom="5dp"
+    tools:context="com.utsg.csc301.team21.models.LotInfoBoxFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <LinearLayout
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/infoboxName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Lot X" />
+
+        <TextView
+            android:id="@+id/infoboxSpaces"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/infobox_spaces" />
+
+        <TextView
+            android:id="@+id/infoboxCost"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/infobox_cost" />
+    </LinearLayout>
+
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/google_directions"
+        android:layout_gravity="center" />
+</LinearLayout>
