@@ -12,8 +12,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.SeekBar;
+import android.widget.Switch;
 
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -94,7 +99,43 @@ public class MapsMarkerActivity extends AppCompatActivity
 
         mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.setHomeButtonEnabled(true);
+
+        // Disable drawer movement when touching seekbar and button
+        SeekBar seekbar = (SeekBar) findViewById(R.id.seekBarPrice);
+        disableParentMovement(seekbar);
+        seekbar = (SeekBar) findViewById(R.id.seekBarDistance);
+        disableParentMovement(seekbar);
+        Switch button = (Switch) findViewById(R.id.switchDisabled);
+        disableParentMovement(button);
     }
+
+    public void disableParentMovement(View seekbar) {
+        seekbar.setOnTouchListener(new RelativeLayout.OnTouchListener()
+        {
+            @Override
+            public boolean onTouch(View v, MotionEvent event)
+            {
+                int action = event.getAction();
+                switch (action)
+                {
+                    case MotionEvent.ACTION_MOVE:
+                        // Disallow Drawer to intercept touch events.
+                        v.getParent().requestDisallowInterceptTouchEvent(true);
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        // Allow Drawer to intercept touch events.
+                        v.getParent().requestDisallowInterceptTouchEvent(false);
+                        break;
+                }
+
+                // Handle seekbar touch events.
+                v.onTouchEvent(event);
+                return true;
+            }
+        });
+    }
+
 
     /**
      * Manipulates the map when it's available.
