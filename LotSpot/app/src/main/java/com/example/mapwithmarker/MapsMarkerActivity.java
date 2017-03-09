@@ -199,11 +199,13 @@ public class MapsMarkerActivity extends AppCompatActivity
                 e.printStackTrace();
             }
 
-            Address address = addressList.get(0);
-            LatLng latLng = new LatLng(address.getLatitude() , address.getLongitude());
-            mGoogleMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
-            mGoogleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
-
+            // Checks if Google actually found a location
+            if (addressList.size() > 0) {
+                Address address = addressList.get(0);
+                LatLng latLng = new LatLng(address.getLatitude() , address.getLongitude());
+                mGoogleMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
+                mGoogleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+            }
         }
     }
     public void addMarkers(){
