@@ -70,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="20dp"
-            android:text="Drag Price ($/h)"
+            android:text="Drag Price ($30/h)"
             android:textColor="@color/drawerText"
             android:textSize="15dp"
             android:textStyle="bold"/>
@@ -91,7 +91,7 @@
             android:id="@+id/distance_slider"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Drag Distance (km)"
+            android:text="Drag Distance (10km)"
             android:textColor="@color/drawerText"
             android:textSize="15dp"
             android:textStyle="bold"
@@ -110,10 +110,10 @@
             app:dsb_indicatorColor='@color/themeDark'/>
 
         <TextView
-            android:id="@+id/height_restriction"
+            android:id="@+id/height_slider"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Height Restriction (m)"
+            android:text="Height Restriction (2m)"
             android:textColor="@color/drawerText"
             android:textSize="15dp"
             android:textStyle="bold"
@@ -123,7 +123,7 @@
             android:id="@+id/seekBarHeight"
             android:layout_width="200dp"
             android:layout_height="30dp"
-            android:layout_below="@+id/height_restriction"
+            android:layout_below="@+id/height_slider"
             app:dsb_min="1"
             app:dsb_max="5"
             app:dsb_value='2'

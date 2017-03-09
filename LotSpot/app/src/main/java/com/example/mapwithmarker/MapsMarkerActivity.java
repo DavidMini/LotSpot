@@ -16,9 +16,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Switch;
+import android.widget.TextView;
 
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -31,6 +33,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.utsg.csc301.team21.models.LotInfoBoxFragment;
+
+import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -102,11 +106,81 @@ public class MapsMarkerActivity extends AppCompatActivity
 
         // Disable drawer movement when touching seekbar and button
         View seekbar = findViewById(R.id.seekBarPrice);
-        disableParentMovement(seekbar);
+        dynamicSeekBar(seekbar, 1);
         seekbar = findViewById(R.id.seekBarDistance);
-        disableParentMovement(seekbar);
+        dynamicSeekBar(seekbar, 2);
+        seekbar = findViewById(R.id.seekBarHeight);
+        dynamicSeekBar(seekbar, 3);
         View button = findViewById(R.id.switchDisabled);
         disableParentMovement(button);
+
+    }
+
+    public void dynamicSeekBar(final View seekbar, int flag) {
+
+        if (flag == 1) {
+            seekbar.setOnTouchListener(new RelativeLayout.OnTouchListener()
+            {
+                @Override
+                public boolean onTouch(View v, MotionEvent event)
+                {
+                    DiscreteSeekBar ds = (DiscreteSeekBar) seekbar;
+                    int progress = ds.getProgress();
+
+                    TextView textview = (TextView) findViewById(R.id.price_slider);
+                    textview.setText("Drag Price ($" + progress +"/h)");
+
+                    // Handle seekbar touch events.
+                    v.onTouchEvent(event);
+                    return true;
+                }
+            });
+        } else if (flag == 2) {
+            seekbar.setOnTouchListener(new RelativeLayout.OnTouchListener()
+            {
+                @Override
+                public boolean onTouch(View v, MotionEvent event)
+                {
+                    DiscreteSeekBar ds = (DiscreteSeekBar) seekbar;
+                    int progress = ds.getProgress();
+
+                    TextView textview = (TextView) findViewById(R.id.distance_slider);
+                    textview.setText("Drag Price ($" + progress +"/h)");
+
+                    // Handle seekbar touch events.
+                    v.onTouchEvent(event);
+                    return true;
+                }
+            });
+        } else if (flag == 3) {
+            seekbar.setOnTouchListener(new RelativeLayout.OnTouchListener()
+            {
+                @Override
+                public boolean onTouch(View v, MotionEvent event)
+                {
+                    DiscreteSeekBar ds = (DiscreteSeekBar) seekbar;
+                    int progress = ds.getProgress();
+
+                    TextView textview = (TextView) findViewById(R.id.height_slider);
+                    textview.setText("Height Restriction (" + progress +"m)");
+
+                    // Handle seekbar touch events.
+                    v.onTouchEvent(event);
+                    return true;
+                }
+            });
+        }
+
+        //            if (flag == 1) {
+//            TextView textview = (TextView) findViewById(R.id.price_slider);
+//            textview.setText("Drag Price ($" + progress +"/h)");
+//        } else if (flag == 2) {
+//            TextView textview = (TextView) findViewById(R.id.distance_slider);
+//            textview.setText("Drag Distance (" + progress +"km)");
+//        } else if (flag == 3) {
+//            TextView textview = (TextView) findViewById(R.id.height_slider);
+//            textview.setText("Height Restriction (" + progress +"m)");
+//        }
 
     }
 
