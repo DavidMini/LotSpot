@@ -1,36 +1,56 @@
 <LinearLayout
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-
-        <EditText
-            android:id="@+id/TFaddress"
-            android:layout_width="290dp"
-            android:layout_height="wrap_content" />
-
-        <Button
-            android:id="@+id/Bsearch"
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:onClick="onSearch"
-            android:text="Search" />
-
-    </LinearLayout>
-
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.mapwithmarker.MapsMarkerActivity" />
+        android:orientation="vertical">
+
+
+        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="com.example.mapwithmarker.MapsMarkerActivity" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/tpWhite"
+            android:weightSum="1">
+
+
+            <EditText
+                android:id="@+id/TFaddress"
+                android:layout_width="290dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.21" />
+
+            <Button
+                android:id="@+id/Bsearch"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:onClick="onSearch"
+                android:text="Search" />
+
+        </LinearLayout>
+
+
+        <fragment
+            android:id="@+id/LotDetailBox"
+            android:name="com.utsg.csc301.team21.models.LotDetailsBoxFragment"
+            android:layout_gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+    </FrameLayout>
+
 </LinearLayout>
