@@ -101,12 +101,13 @@ public class MapsMarkerActivity extends AppCompatActivity
         mActionBar.setHomeButtonEnabled(true);
 
         // Disable drawer movement when touching seekbar and button
-        SeekBar seekbar = (SeekBar) findViewById(R.id.seekBarPrice);
+        View seekbar = findViewById(R.id.seekBarPrice);
         disableParentMovement(seekbar);
-        seekbar = (SeekBar) findViewById(R.id.seekBarDistance);
+        seekbar = findViewById(R.id.seekBarDistance);
         disableParentMovement(seekbar);
-        Switch button = (Switch) findViewById(R.id.switchDisabled);
+        View button = findViewById(R.id.switchDisabled);
         disableParentMovement(button);
+
     }
 
     public void disableParentMovement(View seekbar) {
