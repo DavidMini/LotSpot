@@ -129,7 +129,7 @@ public class MapsMarkerActivity extends AppCompatActivity
                     int progress = ds.getProgress();
 
                     TextView textview = (TextView) findViewById(R.id.price_slider);
-                    textview.setText("Drag Price ($" + progress +"/h)");
+                    textview.setText("Price ($" + progress +"/h)");
 
                     // Handle seekbar touch events.
                     v.onTouchEvent(event);
@@ -146,7 +146,7 @@ public class MapsMarkerActivity extends AppCompatActivity
                     int progress = ds.getProgress();
 
                     TextView textview = (TextView) findViewById(R.id.distance_slider);
-                    textview.setText("Drag Price ($" + progress +"/h)");
+                    textview.setText("Distance ($" + progress +"/h)");
 
                     // Handle seekbar touch events.
                     v.onTouchEvent(event);
