@@ -57,6 +57,7 @@ public class MapsMarkerActivity extends AppCompatActivity
     private ActionBarDrawerToggle mDrawerToggle;
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
+    private Marker searched = null;
 
     // Used in displaying the lot info box
     private boolean infoBoxExists = false;
@@ -262,7 +263,7 @@ public class MapsMarkerActivity extends AppCompatActivity
         EditText location_tf = (EditText)findViewById(R.id.TFaddress);
         String location = location_tf.getText().toString();
         List<Address> addressList = null;
-        if(location != null || !location.equals(""))
+        if( !location.equals(""))
         {
             Geocoder geocoder = new Geocoder(this);
             try {
@@ -277,7 +278,10 @@ public class MapsMarkerActivity extends AppCompatActivity
             if (addressList.size() > 0) {
                 Address address = addressList.get(0);
                 LatLng latLng = new LatLng(address.getLatitude() , address.getLongitude());
-                mGoogleMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
+                if(searched!= null){
+                    searched.remove();
+                }
+                searched = mGoogleMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
                 mGoogleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
             }
         }
