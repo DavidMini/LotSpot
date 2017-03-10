@@ -146,7 +146,7 @@ public class MapsMarkerActivity extends AppCompatActivity
                     int progress = ds.getProgress();
 
                     TextView textview = (TextView) findViewById(R.id.distance_slider);
-                    textview.setText("Distance ($" + progress +"/h)");
+                    textview.setText("Distance (" + progress +"km)");
 
                     // Handle seekbar touch events.
                     v.onTouchEvent(event);
