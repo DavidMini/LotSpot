@@ -54,6 +54,7 @@ public class MapsMarkerActivity extends AppCompatActivity
 
     // Drawer Variables
     private DrawerLayout mDrawerLayout;
+    private View mLeftDrawerView;
     private ActionBarDrawerToggle mDrawerToggle;
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
@@ -79,6 +80,7 @@ public class MapsMarkerActivity extends AppCompatActivity
         final android.support.v7.app.ActionBar mActionBar = getSupportActionBar();
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mLeftDrawerView = findViewById(R.id.left_drawer);
         mDrawerToggle = new ActionBarDrawerToggle(
                 this,                  /* host Activity */
                 mDrawerLayout,         /* DrawerLayout object */
@@ -88,14 +90,26 @@ public class MapsMarkerActivity extends AppCompatActivity
 
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
-                super.onDrawerClosed(view);
-                mActionBar.setTitle(mTitle);
+                if(view.equals(mLeftDrawerView)) {
+                    super.onDrawerClosed(view);
+                    mActionBar.setTitle(mTitle);
+                }
             }
 
             /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                mActionBar.setTitle(mDrawerTitle);
+                if(drawerView.equals(mLeftDrawerView)) {
+                    super.onDrawerOpened(drawerView);
+                    mActionBar.setTitle(mDrawerTitle);
+                }
+            }
+
+            // Only move the toggle icon when the left_drawer is moved.
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                if(drawerView.equals(mLeftDrawerView)) {
+                    super.onDrawerSlide(drawerView, slideOffset);
+                }
             }
         };
 
