@@ -12,7 +12,7 @@ public abstract class AbstractParkingLot {
     int id; //whatever the server uses as the key
     int capacity;
     int occupancy;
-    String name;
+    String name = "";
     String address;
     double lat;
     double lng;
