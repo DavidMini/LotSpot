@@ -270,6 +270,7 @@ public class MapsMarkerActivity extends AppCompatActivity
         addMarkers();
         // Set a listener for Marker click.
         mGoogleMap.setOnMarkerClickListener(this);
+
         enableMyLocation();
         //TODO: Cluster Markers
     }

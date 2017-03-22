@@ -9,25 +9,34 @@
         android:id="@+id/nameLotTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="lot name" />
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
+        android:text="lot name"
+        android:textColor="@color/drawerText"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/priceTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/nameLotTextView"
-        android:layout_toRightOf="@+id/nameLotTextView"
+        android:layout_below="@+id/nameLotTextView"
+        android:layout_alignParentRight="true"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
         android:text="TextView"
+        android:textColor="@color/drawerText"
         tools:text="unknown" />
 
     <TextView
         android:id="@+id/spaceCountTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/nameLotTextView"
-        android:layout_toLeftOf="@+id/priceTextView"
-        android:layout_toStartOf="@+id/priceTextView"
+        android:layout_below="@+id/priceTextView"
+        android:layout_alignParentRight="true"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
         android:text="TextView"
+        android:textColor="@color/drawerText"
         tools:text="..." />
 </RelativeLayout>
