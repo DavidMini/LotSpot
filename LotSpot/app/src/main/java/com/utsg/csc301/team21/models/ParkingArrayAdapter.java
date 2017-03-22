@@ -1,4 +1,4 @@
-package com.utsg.csc301.team21;
+package com.utsg.csc301.team21.models;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
