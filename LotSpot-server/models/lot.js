@@ -69,20 +69,41 @@ module.exports.addLot = (lot, callback) => {
 // Update Lot
 module.exports.updateLot = (id, lot, options, callback) => {
     var query = {_id: id};
-    var update = {
-        name: lot.name,
-        address: lot.address,
-        lat: lot.lat,
-        lng: lot.long,
-        phoneNumber: lot.phoneNumber,
-        capacity: lot.capacity,
-        occupancy: lot.occupancy,
-        price: lot.price,
-        paymentType: lot.paymentType,
-        hours: lot.hours,
-        handicapParking: lot.handicapParking
+    var update = {}
+    if (lot.name) {
+        update.name = lot.name;
     }
-    Lot.findOneAndUpdate(query, update, options, callback);
+    if (lot.address) {
+        update.address = lot.address;
+    }
+    if (lot.lat) {
+        update.lat = lot.lat;
+    }
+    if (lot.lng) {
+        update.lng = lot.lng;
+    }
+    if (lot.phoneNumber) {
+        update.phoneNumber = lot.phoneNumber;
+    }
+    if (lot.capacity) {
+        update.capacity = lot.capacity;
+    }
+    if (lot.occupancy) {
+        update.occupancy = lot.occupancy;
+    }
+    if (lot.price) {
+        update.price = lot.price;
+    }
+    if (lot.paymentType) {
+        update.paymentType = lot.paymentType;
+    }
+    if (lot.hours) {
+        update.hours = lot.hours;
+    }
+    if (lot.handicapParking) {
+        update.handicapParking = lot.handicapParking;
+    }
+    Lot.findOneAndUpdate(query, {$set: update}, options, callback);
 }
 
 // Delete Lot

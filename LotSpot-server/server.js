@@ -58,7 +58,7 @@ app.post('/api/lots', (req, res) => {
 app.put('/api/lots/:_id', (req, res) => {
     var id = req.params._id;
     var lot = req.body;
-    Lot.updateLot(id, lot, {}, (err, lot) => {
+    Lot.updateLot(id, lot, {new: true}, (err, lot) => {
         if(err){
             console.log('status 404');
             res.status(404);
