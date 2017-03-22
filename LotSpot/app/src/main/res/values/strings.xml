@@ -1,4 +1,14 @@
 <resources>
-    <string name="app_name">Map With Marker</string>
-    <string name="title_activity_maps">Map with Marker</string>
+    <string name="app_name">LotSpot</string>
+    <string name="title_activity_maps">LotSpot</string>
+    <string name="title_activity_option">OptionActivity</string>
+
+    <!--Drawer strings-->
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+
+    <!--Info Box Strings-->
+    <string name="infobox_spaces">Spaces Available:</string>
+    <string name="infobox_cost">Cost per hour:</string>
 </resources>

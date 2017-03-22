@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lotItemLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/nameLotTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="lot name" />
+
+    <TextView
+        android:id="@+id/priceTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/nameLotTextView"
+        android:layout_toRightOf="@+id/nameLotTextView"
+        android:text="TextView"
+        tools:text="unknown" />
+
+    <TextView
+        android:id="@+id/spaceCountTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nameLotTextView"
+        android:layout_toLeftOf="@+id/priceTextView"
+        android:layout_toStartOf="@+id/priceTextView"
+        android:text="TextView"
+        tools:text="..." />
+</RelativeLayout>

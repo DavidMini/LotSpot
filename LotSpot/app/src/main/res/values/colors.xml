@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#FFEE50</color>
+    <color name="colorPrimary">#ff5555</color>
+    <color name="colorPrimaryDark">#af3737</color>
+    <color name="colorTpWhite">#CCFFFFFF</color>
+    <color name="colorWhite">#FFFFFF</color>
+
+    <!--Drawer colors, slight variation for buttons-->
+    <color name="themeLight">#ffff66</color>
+    <color name="themeDark">#ff6666</color>
+    <color name="unclicked">#ffffcc</color>
+    <color name="drawerText">#ffffff</color>
+    <color name="drawerBackground">#333333</color>
 </resources>

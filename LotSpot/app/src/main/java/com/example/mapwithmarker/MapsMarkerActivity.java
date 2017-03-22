@@ -1,8 +1,27 @@
 package com.example.mapwithmarker;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.res.Configuration;
+import android.location.Address;
+import android.location.Geocoder;
+import android.net.Uri;
 import android.os.Bundle;
+import android.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.SeekBar;
+import android.widget.Switch;
+import android.widget.TextView;
+
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -13,31 +32,200 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
+import com.utsg.csc301.team21.models.LotInfoBoxFragment;
 
+import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
+
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * An activity that displays a Google map with a marker (pin) to indicate a particular location.
  */
 public class MapsMarkerActivity extends AppCompatActivity
-        implements OnMapReadyCallback, OnMarkerClickListener {
+        implements OnMapReadyCallback, OnMarkerClickListener,
+        LotInfoBoxFragment.OnFragmentInteractionListener {
 
     // Global Variables
     private GoogleMap mGoogleMap;
     private Map<Marker, View> markers = new HashMap<>();
+
+    // Drawer Variables
+    private DrawerLayout mDrawerLayout;
+    private View mLeftDrawerView;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private CharSequence mDrawerTitle;
+    private CharSequence mTitle;
+    private Marker searched = null;
+
+    // Used in displaying the lot info box
+    private boolean infoBoxExists = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Retrieve the content view that renders the map.
         setContentView(R.layout.activity_maps);
+
         // Get the SupportMapFragment and request notification
         // when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        // Adding button for opening drawer
+        mTitle = mDrawerTitle = getTitle();
+        final android.support.v7.app.ActionBar mActionBar = getSupportActionBar();
+
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mLeftDrawerView = findViewById(R.id.left_drawer);
+        mDrawerToggle = new ActionBarDrawerToggle(
+                this,                  /* host Activity */
+                mDrawerLayout,         /* DrawerLayout object */
+                R.string.drawer_open,  /* "open drawer" description */
+                R.string.drawer_close  /* "close drawer" description */
+        ) {
+
+            /** Called when a drawer has settled in a completely closed state. */
+            public void onDrawerClosed(View view) {
+                if(view.equals(mLeftDrawerView)) {
+                    super.onDrawerClosed(view);
+                    mActionBar.setTitle(mTitle);
+                }
+            }
+
+            /** Called when a drawer has settled in a completely open state. */
+            public void onDrawerOpened(View drawerView) {
+                if(drawerView.equals(mLeftDrawerView)) {
+                    super.onDrawerOpened(drawerView);
+                    mActionBar.setTitle(mDrawerTitle);
+                }
+            }
+
+            // Only move the toggle icon when the left_drawer is moved.
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                if(drawerView.equals(mLeftDrawerView)) {
+                    super.onDrawerSlide(drawerView, slideOffset);
+                }
+            }
+        };
+
+        // Set the drawer toggle as the DrawerListener
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+        mActionBar.setDisplayHomeAsUpEnabled(true);
+        mActionBar.setHomeButtonEnabled(true);
+
+        // Disable drawer movement when touching seekbar and button
+        View seekbar = findViewById(R.id.seekBarPrice);
+        dynamicSeekBar(seekbar, 1);
+        seekbar = findViewById(R.id.seekBarDistance);
+        dynamicSeekBar(seekbar, 2);
+        seekbar = findViewById(R.id.seekBarHeight);
+        dynamicSeekBar(seekbar, 3);
+        View button = findViewById(R.id.switchDisabled);
+        disableParentMovement(button);
+
     }
+
+    public void dynamicSeekBar(final View seekbar, int flag) {
+
+        if (flag == 1) {
+            seekbar.setOnTouchListener(new RelativeLayout.OnTouchListener()
+            {
+                @Override
+                public boolean onTouch(View v, MotionEvent event)
+                {
+                    DiscreteSeekBar ds = (DiscreteSeekBar) seekbar;
+                    int progress = ds.getProgress();
+
+                    TextView textview = (TextView) findViewById(R.id.price_slider);
+                    textview.setText("Price ($" + progress +"/h)");
+
+                    // Handle seekbar touch events.
+                    v.onTouchEvent(event);
+                    return true;
+                }
+            });
+        } else if (flag == 2) {
+            seekbar.setOnTouchListener(new RelativeLayout.OnTouchListener()
+            {
+                @Override
+                public boolean onTouch(View v, MotionEvent event)
+                {
+                    DiscreteSeekBar ds = (DiscreteSeekBar) seekbar;
+                    int progress = ds.getProgress();
+
+                    TextView textview = (TextView) findViewById(R.id.distance_slider);
+                    textview.setText("Distance (" + progress +"km)");
+
+                    // Handle seekbar touch events.
+                    v.onTouchEvent(event);
+                    return true;
+                }
+            });
+        } else if (flag == 3) {
+            seekbar.setOnTouchListener(new RelativeLayout.OnTouchListener()
+            {
+                @Override
+                public boolean onTouch(View v, MotionEvent event)
+                {
+                    DiscreteSeekBar ds = (DiscreteSeekBar) seekbar;
+                    int progress = ds.getProgress();
+
+                    TextView textview = (TextView) findViewById(R.id.height_slider);
+                    textview.setText("Height Restriction (" + progress +"m)");
+
+                    // Handle seekbar touch events.
+                    v.onTouchEvent(event);
+                    return true;
+                }
+            });
+        }
+
+        //            if (flag == 1) {
+//            TextView textview = (TextView) findViewById(R.id.price_slider);
+//            textview.setText("Drag Price ($" + progress +"/h)");
+//        } else if (flag == 2) {
+//            TextView textview = (TextView) findViewById(R.id.distance_slider);
+//            textview.setText("Drag Distance (" + progress +"km)");
+//        } else if (flag == 3) {
+//            TextView textview = (TextView) findViewById(R.id.height_slider);
+//            textview.setText("Height Restriction (" + progress +"m)");
+//        }
+
+    }
+
+    public void disableParentMovement(View seekbar) {
+        seekbar.setOnTouchListener(new RelativeLayout.OnTouchListener()
+        {
+            @Override
+            public boolean onTouch(View v, MotionEvent event)
+            {
+                int action = event.getAction();
+                switch (action)
+                {
+                    case MotionEvent.ACTION_MOVE:
+                        // Disallow Drawer to intercept touch events.
+                        v.getParent().requestDisallowInterceptTouchEvent(true);
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        // Allow Drawer to intercept touch events.
+                        v.getParent().requestDisallowInterceptTouchEvent(false);
+                        break;
+                }
+
+                // Handle seekbar touch events.
+                v.onTouchEvent(event);
+                return true;
+            }
+        });
+    }
+
 
     /**
      * Manipulates the map when it's available.
@@ -59,6 +247,59 @@ public class MapsMarkerActivity extends AppCompatActivity
         //TODO: Cluster Markers
     }
 
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Pass the event to ActionBarDrawerToggle, if it returns
+        // true, then it has handled the app icon touch event
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        // Handle your other action bar items...
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void onSearch(View view)
+    {
+        EditText location_tf = (EditText)findViewById(R.id.TFaddress);
+        String location = location_tf.getText().toString();
+        List<Address> addressList = null;
+        if( !location.equals(""))
+        {
+            Geocoder geocoder = new Geocoder(this);
+            try {
+                addressList = geocoder.getFromLocationName(location , 1);
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            // Checks if Google actually found a location
+            if (addressList.size() > 0) {
+                Address address = addressList.get(0);
+                LatLng latLng = new LatLng(address.getLatitude() , address.getLongitude());
+                if(searched!= null){
+                    searched.remove();
+                }
+                searched = mGoogleMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
+                mGoogleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+            }
+        }
+    }
     public void addMarkers(){
         // Initial focus on UofT TODO:Set to current location
         LatLng uoft = new LatLng(43.662892, -79.395656);
@@ -190,12 +431,45 @@ public class MapsMarkerActivity extends AppCompatActivity
     /** Called when the user clicks a marker. */
     @Override
     public boolean onMarkerClick(final Marker marker) {
-        // Check if a click count was set, then resolve.TODO
 
-        // Return false to indicate that we have not consumed the event and that we wish
-        // for the default behavior to occur (which is for the camera to move such that the
-        // marker is centered and for the marker's info window to open, if it has one).
-        return false;
+        // Animates the map and displays the marker's banner
+        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
+        marker.showInfoWindow();
+
+        // Prepares fragment managers
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        // Build new fragment
+        // TODO: Add lot info into the fragment
+        Fragment fragment = new LotInfoBoxFragment();
+
+        // Either creates the fragment or replaces the existing one
+        if(!infoBoxExists){
+            fragmentTransaction.add(R.id.mainLayout, fragment);
+            fragmentTransaction.commit();
+
+            infoBoxExists = true;
+        } else {
+            fragmentTransaction.replace(R.id.infobox, fragment);
+        }
+
+        // Tell API to ignore default marker functionality
+        return true;
     }
 
+    // Helper function that handles the removal of the info box fragment
+    private void destroyInfoBox(){
+        if(infoBoxExists){
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.remove(fragmentManager.findFragmentById(R.id.infobox));
+            infoBoxExists = false;
+        }
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        // Leave this empty
+    }
 }
