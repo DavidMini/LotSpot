@@ -7,6 +7,7 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.mapwithmarker.R;
 
@@ -75,7 +76,14 @@ public class LotInfoBoxFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_lot_details_box, container, false);
+        View lotView = inflater.inflate(R.layout.fragment_lot_details_box, container, false);
+
+        // Update text to match lot data
+        ((TextView)(lotView.findViewById(R.id.infoboxName))).setText(this.name);
+        ((TextView)(lotView.findViewById(R.id.infoboxSpaces))).append(" " + this.occupancy + "/" + this.capacity);
+        ((TextView)(lotView.findViewById(R.id.infoboxCost))).append(" $" + this.pricePerHour);
+
+        return lotView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

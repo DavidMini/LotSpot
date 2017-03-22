@@ -15,11 +15,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.SeekBar;
-import android.widget.Switch;
 import android.widget.TextView;
 
 
@@ -54,6 +50,7 @@ public class MapsMarkerActivity extends AppCompatActivity
 
     // Drawer Variables
     private DrawerLayout mDrawerLayout;
+    private View mLeftDrawerView;
     private ActionBarDrawerToggle mDrawerToggle;
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
@@ -79,6 +76,7 @@ public class MapsMarkerActivity extends AppCompatActivity
         final android.support.v7.app.ActionBar mActionBar = getSupportActionBar();
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mLeftDrawerView = findViewById(R.id.left_drawer);
         mDrawerToggle = new ActionBarDrawerToggle(
                 this,                  /* host Activity */
                 mDrawerLayout,         /* DrawerLayout object */
@@ -88,14 +86,26 @@ public class MapsMarkerActivity extends AppCompatActivity
 
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
-                super.onDrawerClosed(view);
-                mActionBar.setTitle(mTitle);
+                if(view.equals(mLeftDrawerView)) {
+                    super.onDrawerClosed(view);
+                    mActionBar.setTitle(mTitle);
+                }
             }
 
             /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                mActionBar.setTitle(mDrawerTitle);
+                if(drawerView.equals(mLeftDrawerView)) {
+                    super.onDrawerOpened(drawerView);
+                    mActionBar.setTitle(mDrawerTitle);
+                }
+            }
+
+            // Only move the toggle icon when the left_drawer is moved.
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                if(drawerView.equals(mLeftDrawerView)) {
+                    super.onDrawerSlide(drawerView, slideOffset);
+                }
             }
         };
 
@@ -129,7 +139,7 @@ public class MapsMarkerActivity extends AppCompatActivity
                     int progress = ds.getProgress();
 
                     TextView textview = (TextView) findViewById(R.id.price_slider);
-                    textview.setText("Drag Price ($" + progress +"/h)");
+                    textview.setText("Price ($" + progress +"/h)");
 
                     // Handle seekbar touch events.
                     v.onTouchEvent(event);
@@ -146,7 +156,7 @@ public class MapsMarkerActivity extends AppCompatActivity
                     int progress = ds.getProgress();
 
                     TextView textview = (TextView) findViewById(R.id.distance_slider);
-                    textview.setText("Drag Price ($" + progress +"/h)");
+                    textview.setText("Distance (" + progress +"km)");
 
                     // Handle seekbar touch events.
                     v.onTouchEvent(event);
@@ -427,8 +437,17 @@ public class MapsMarkerActivity extends AppCompatActivity
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         // Build new fragment
-        // TODO: Add lot info into the fragment
-        Fragment fragment = new LotInfoBoxFragment();
+        Fragment fragment;
+
+        // Attempts to retrieve marker information
+        try{
+            // TODO: Replace this with marker info
+            fragment = LotInfoBoxFragment.newInstance("Lot 1", 10, 5, 20);
+        }
+        // Failed to create lot info due to marker error
+        catch (Exception e){
+            fragment = LotInfoBoxFragment.newInstance("fail", 0, 0, 0);
+        }
 
         // Either creates the fragment or replaces the existing one
         if(!infoBoxExists){
@@ -456,6 +475,6 @@ public class MapsMarkerActivity extends AppCompatActivity
 
     @Override
     public void onFragmentInteraction(Uri uri) {
-        // Leave this empty
+        // Leave this empty - needed for fragments used by this activity
     }
 }

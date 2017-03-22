@@ -11,4 +11,7 @@
     <!--Info Box Strings-->
     <string name="infobox_spaces">Spaces Available:</string>
     <string name="infobox_cost">Cost per hour:</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
