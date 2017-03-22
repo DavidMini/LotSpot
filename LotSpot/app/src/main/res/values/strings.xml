@@ -9,6 +9,6 @@
     <string name="action_settings">Settings</string>
 
     <!--Info Box Strings-->
-    <string name="infobox_spaces">Spaces Available:</string>
-    <string name="infobox_cost">Cost per hour:</string>
+    <string name="infobox_spaces">Spaces Available: </string>
+    <string name="infobox_cost">Cost per hour: </string>
 </resources>

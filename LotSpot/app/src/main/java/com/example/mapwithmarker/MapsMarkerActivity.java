@@ -15,11 +15,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.SeekBar;
-import android.widget.Switch;
 import android.widget.TextView;
 
 
@@ -441,8 +437,17 @@ public class MapsMarkerActivity extends AppCompatActivity
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         // Build new fragment
-        // TODO: Add lot info into the fragment
-        Fragment fragment = new LotInfoBoxFragment();
+        Fragment fragment;
+
+        // Attempts to retrieve marker information
+        try{
+            // TODO: Replace this with marker info
+            fragment = LotInfoBoxFragment.newInstance("Lot 1", 10, 5, 20);
+        }
+        // Failed to create lot info due to marker error
+        catch (Exception e){
+            fragment = LotInfoBoxFragment.newInstance("fail", 0, 0, 0);
+        }
 
         // Either creates the fragment or replaces the existing one
         if(!infoBoxExists){
@@ -470,6 +475,6 @@ public class MapsMarkerActivity extends AppCompatActivity
 
     @Override
     public void onFragmentInteraction(Uri uri) {
-        // Leave this empty
+        // Leave this empty - needed for fragments used by this activity
     }
 }
