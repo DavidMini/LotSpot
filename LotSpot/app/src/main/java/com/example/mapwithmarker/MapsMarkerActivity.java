@@ -2,12 +2,15 @@ package com.example.mapwithmarker;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,7 +20,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
+import android.Manifest;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -42,7 +45,8 @@ import java.util.Map;
  */
 public class MapsMarkerActivity extends AppCompatActivity
         implements OnMapReadyCallback, OnMarkerClickListener,
-        LotInfoBoxFragment.OnFragmentInteractionListener {
+        LotInfoBoxFragment.OnFragmentInteractionListener,
+        ActivityCompat.OnRequestPermissionsResultCallback{
 
     // Global Variables
     private GoogleMap mGoogleMap;
@@ -125,6 +129,32 @@ public class MapsMarkerActivity extends AppCompatActivity
         View button = findViewById(R.id.switchDisabled);
         disableParentMovement(button);
 
+        //Get the My Location button in order to change it's position
+//        View locationButton = ((View) mapFragment.getView().findViewById(
+//                Integer.parseInt("1")).getParent()).findViewById(Integer.parseInt("2"));
+//        //reposition the My Location Button
+//        repositionMyLocationButton(locationButton);
+    }
+
+//    public void repositionMyLocationButton(View locationButton){
+//
+//        RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) locationButton.getLayoutParams();
+//        rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
+//        rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+//        rlp.setMargins(0, 0, 30, 30);
+//    }
+
+
+    private void enableMyLocation() {
+        //check that permission is granted to access user location
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+
+            mGoogleMap.setMyLocationEnabled(true);
+            //if permission is not granted request for permission
+        } else {
+            // Show rationale and request permission.
+        }
     }
 
     public void dynamicSeekBar(final View seekbar, int flag) {
@@ -240,6 +270,7 @@ public class MapsMarkerActivity extends AppCompatActivity
         addMarkers();
         // Set a listener for Marker click.
         mGoogleMap.setOnMarkerClickListener(this);
+        enableMyLocation();
         //TODO: Cluster Markers
     }
 
