@@ -33,6 +33,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.utsg.csc301.team21.models.LotInfoBoxFragment;
+import com.utsg.csc301.team21.models.SearchResultFragment;
 
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 

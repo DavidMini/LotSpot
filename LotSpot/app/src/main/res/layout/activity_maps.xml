@@ -151,7 +151,7 @@
     </RelativeLayout>
 
 
-    <RelativeLayout android:id="@+id/right_drawer"
+    <LinearLayout android:id="@+id/right_drawer"
         android:layout_width="320dp"
         android:layout_height="match_parent"
         android:layout_gravity="end"
@@ -160,6 +160,15 @@
         android:dividerHeight="2dp"
         android:background="@color/drawerBackground"
         android:paddingTop="20dp"
-        android:paddingLeft="16dp"/>
+        android:paddingLeft="16dp">
+
+        <fragment
+            android:name="com.utsg.csc301.team21.models.SearchResultFragment"
+            android:id="@+id/result_fragment"
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
 
 </android.support.v4.widget.DrawerLayout>
