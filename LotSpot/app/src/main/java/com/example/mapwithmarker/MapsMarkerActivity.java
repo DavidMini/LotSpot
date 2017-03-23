@@ -2,6 +2,7 @@ package com.example.mapwithmarker;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.location.Address;
@@ -13,7 +14,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,6 +24,7 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.Manifest;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -90,7 +94,7 @@ public class MapsMarkerActivity extends AppCompatActivity
 
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
-                if(view.equals(mLeftDrawerView)) {
+                if (view.equals(mLeftDrawerView)) {
                     super.onDrawerClosed(view);
                     mActionBar.setTitle(mTitle);
                 }
@@ -98,7 +102,7 @@ public class MapsMarkerActivity extends AppCompatActivity
 
             /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
-                if(drawerView.equals(mLeftDrawerView)) {
+                if (drawerView.equals(mLeftDrawerView)) {
                     super.onDrawerOpened(drawerView);
                     mActionBar.setTitle(mDrawerTitle);
                 }
@@ -107,7 +111,7 @@ public class MapsMarkerActivity extends AppCompatActivity
             // Only move the toggle icon when the left_drawer is moved.
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
-                if(drawerView.equals(mLeftDrawerView)) {
+                if (drawerView.equals(mLeftDrawerView)) {
                     super.onDrawerSlide(drawerView, slideOffset);
                 }
             }
@@ -131,45 +135,30 @@ public class MapsMarkerActivity extends AppCompatActivity
 
         //Get the My Location button in order to change it's position
         View locationButton = ((View) mapFragment.getView().findViewById(
-                Integer.parseInt("1")).getParent()).findViewById(Integer.parseInt("2"));
-//        //reposition the My Location Button
-        repositionMyLocationButton(locationButton);
+          Integer.parseInt("1")).getParent()).findViewById(Integer.parseInt("2"));
+        //reposition the My Location Button
+         repositionMyLocationButton(locationButton);
     }
 
-    public void repositionMyLocationButton(View locationButton){
+    public void repositionMyLocationButton(View locationButton) {
 
         RelativeLayout.LayoutParams locbuttonlayout = (RelativeLayout.LayoutParams) locationButton.getLayoutParams();
         locbuttonlayout.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
         locbuttonlayout.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
-        locbuttonlayout.setMargins(0, 0, 50, 50);
-    }
-
-
-    private void enableMyLocation() {
-        //check that permission is granted to access user location
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-
-            mGoogleMap.setMyLocationEnabled(true);
-            //if permission is not granted request for permission
-        } else {
-            // Show rationale and request permission.
-        }
+        locbuttonlayout.setMargins(0, 0, 100, 250);
     }
 
     public void dynamicSeekBar(final View seekbar, int flag) {
 
         if (flag == 1) {
-            seekbar.setOnTouchListener(new RelativeLayout.OnTouchListener()
-            {
+            seekbar.setOnTouchListener(new RelativeLayout.OnTouchListener() {
                 @Override
-                public boolean onTouch(View v, MotionEvent event)
-                {
+                public boolean onTouch(View v, MotionEvent event) {
                     DiscreteSeekBar ds = (DiscreteSeekBar) seekbar;
                     int progress = ds.getProgress();
 
                     TextView textview = (TextView) findViewById(R.id.price_slider);
-                    textview.setText("Price ($" + progress +"/h)");
+                    textview.setText("Price ($" + progress + "/h)");
 
                     // Handle seekbar touch events.
                     v.onTouchEvent(event);
@@ -177,16 +166,14 @@ public class MapsMarkerActivity extends AppCompatActivity
                 }
             });
         } else if (flag == 2) {
-            seekbar.setOnTouchListener(new RelativeLayout.OnTouchListener()
-            {
+            seekbar.setOnTouchListener(new RelativeLayout.OnTouchListener() {
                 @Override
-                public boolean onTouch(View v, MotionEvent event)
-                {
+                public boolean onTouch(View v, MotionEvent event) {
                     DiscreteSeekBar ds = (DiscreteSeekBar) seekbar;
                     int progress = ds.getProgress();
 
                     TextView textview = (TextView) findViewById(R.id.distance_slider);
-                    textview.setText("Distance (" + progress +"km)");
+                    textview.setText("Distance (" + progress + "km)");
 
                     // Handle seekbar touch events.
                     v.onTouchEvent(event);
@@ -194,16 +181,14 @@ public class MapsMarkerActivity extends AppCompatActivity
                 }
             });
         } else if (flag == 3) {
-            seekbar.setOnTouchListener(new RelativeLayout.OnTouchListener()
-            {
+            seekbar.setOnTouchListener(new RelativeLayout.OnTouchListener() {
                 @Override
-                public boolean onTouch(View v, MotionEvent event)
-                {
+                public boolean onTouch(View v, MotionEvent event) {
                     DiscreteSeekBar ds = (DiscreteSeekBar) seekbar;
                     int progress = ds.getProgress();
 
                     TextView textview = (TextView) findViewById(R.id.height_slider);
-                    textview.setText("Height Restriction (" + progress +"m)");
+                    textview.setText("Height Restriction (" + progress + "m)");
 
                     // Handle seekbar touch events.
                     v.onTouchEvent(event);
@@ -226,14 +211,11 @@ public class MapsMarkerActivity extends AppCompatActivity
     }
 
     public void disableParentMovement(View seekbar) {
-        seekbar.setOnTouchListener(new RelativeLayout.OnTouchListener()
-        {
+        seekbar.setOnTouchListener(new RelativeLayout.OnTouchListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event)
-            {
+            public boolean onTouch(View v, MotionEvent event) {
                 int action = event.getAction();
-                switch (action)
-                {
+                switch (action) {
                     case MotionEvent.ACTION_MOVE:
                         // Disallow Drawer to intercept touch events.
                         v.getParent().requestDisallowInterceptTouchEvent(true);
@@ -276,7 +258,17 @@ public class MapsMarkerActivity extends AppCompatActivity
         // Set a listener for Marker click.
         mGoogleMap.setOnMarkerClickListener(this);
 
-        enableMyLocation();
+        if (ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED) {
+                //Location Permission already granted
+
+                mGoogleMap.setMyLocationEnabled(true);
+            } else {
+                //Request Location Permission
+                checkLocationPermission();
+
+            }
         //TODO: Cluster Markers
     }
 
@@ -331,6 +323,51 @@ public class MapsMarkerActivity extends AppCompatActivity
                 searched = mGoogleMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
                 mGoogleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
             }
+        }
+    }
+
+
+    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+    private void checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+                // No explanation needed, we can request the permission.
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_LOCATION );
+            }
+        }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // location-related task you need to do.
+                    if (ContextCompat.checkSelfPermission(this,
+                            Manifest.permission.ACCESS_FINE_LOCATION)
+                            == PackageManager.PERMISSION_GRANTED) {
+
+                        mGoogleMap.setMyLocationEnabled(true);
+                    }
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    Toast.makeText(this, "permission denied", Toast.LENGTH_LONG).show();
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
         }
     }
     public void addMarkers(){
