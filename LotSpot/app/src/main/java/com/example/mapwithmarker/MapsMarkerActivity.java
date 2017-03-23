@@ -554,6 +554,16 @@ public class MapsMarkerActivity extends AppCompatActivity
         CameraUpdate camera = CameraUpdateFactory.newLatLngZoom(
                 coordinate, 15);
         mGoogleMap.animateCamera(camera);
+
+        // Simulate a Infobox
+        destroyInfoBox();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        destroyInfoBox();
+        infoBox = LotInfoBoxFragment.newInstance("Lot 1", 10, 5, lat);
+        fragmentTransaction.add(R.id.mainLayout, infoBox);
+        fragmentTransaction.commit();
+
     }
 
     public void closeRightDrawer() {
