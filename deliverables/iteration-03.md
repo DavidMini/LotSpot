@@ -1,66 +1,92 @@
-# YOUR PRODUCT/TEAM NAME
+# LotSpot
 
- > _Note:_ This document is meant to be written during (or shortly after) your review meeting, which should happen fairly close to the due date.      
- >      
- > _Suggestion:_ Have your review meeting a day or two before the due date. This way you will have some time to go over (and edit) this document, and all team members should have a chance to make their contribution.
-
-
-## Iteration XX - Review & Retrospect
-
- * When: FILL IN THE DATE WHEN YOU ACTUALLY HAD YOUR REVIEW MEETING
- * Where: PHYSICAL LOCATION AND/OR ONLINE
-
-## Process - Reflection
-
-(Optional) Short introduction
-
-#### Decisions that turned out well
-
-List process-related (i.e. team organization) decisions that, in retrospect, turned out to be successful.
+ > _Note:_ This document is meant to be written during (or shortly after) your initial planning meeting.     
+ > It does not really make sense for you to edit this document much (if at all) while working on the project - Instead, at the end of the planning phase, you can refer back to this document and decide which parts of your plan you are happy with and which parts you would like to change.
 
 
- * 2 - 4 decisions.
- * Ordered from most to least important.
- * Explain why (i.e. give a supporting argument) you consider a decision to be successful.
- * Feel free to refer/link to process artifact(s).
+## Iteration 3
 
-#### Decisions that did not turn out as well as we hoped
+ * Start date: March 20,2017
+ * End date: March 24,2017
 
-List process-related (i.e. team organization) decisions that, in retrospect, were not as successful as you thought they would be.
+## Process
 
- * 2 - 4 decisions.
- * Ordered from most to least important.
- * Feel free to refer/link to process artifact(s).
+(Optional:) Quick introduction
 
+#### Changes from previous iteration
 
-#### Planned changes
-
-List any process-related changes you are planning to make (if there are any)
-
- * Ordered from most to least important.
- * Explain why you are making a change.
+More collaborative tasks
+ - We found that one of the features that we assigned had a high workload so we assigned two of our memebers into pairs.
+   - for our list implementation we assigned Heugh and Wende to work on it, we hoped this accelerated the completion of the task and would reduce bugs.
+ - The two members assigned with video development, David and Kevin, were assigned less work intensive features this phase.
+   - This is done to create a more even workload between group members
+   
 
 
-## Product - Review
 
-#### Goals and/or tasks that were met/completed:
+ * At most 3 items
+ * Start with the most significant change
+ * For each change, explain why you are making it and what you are hoping to achieve from it
+ * Ideally, for each change, you will define a clear success metric (i.e. something you can measure at the end of the iteration to determine whether the change you made was successful)
 
- * From most to least important.
- * Refer/link to artifact(s) that show that a goal/task was met/completed.
- * If a goal/task was not part of the original iteration plan, please mention it.
+ > *Note:* If you are not making any changes to your process, it means that you are happy with all of the decisions you made in the previous iterations.
+ > In this case, list what you consider to be the most significant process decisions your team made. For each decision, explain why you consider it successful, and what success metric you are using (or could use) to assert that the decision is successful.
 
-#### Goals and/or tasks that were planned but not met/completed:
+#### Roles & responsibilities
 
- * From most to least important.
- * For each goal/task, explain why it was not met/completed.      
-   e.g. Did you change your mind, or did you just not get to it yet?
+Describe the different roles on the team and the responsibilities associated with each role.
 
-## Meeting Highlights
+David - Front end design, Dynamic Data that comes up when selecting a lot Issue #28
+Boghdan -
+Kevin -
+Vangjush -
+Hugh -
+Wende - 
 
-Going into the next iteration, our main insights are:
 
- * 2 - 4 items
- * Short (no more than one short paragraph per item)
- * High-level concepts that should guide your work for the next iteration.
- * These concepts should help you decide on where to focus your efforts.
- * Can be related to product and/or process.
+#### Events
+
+Describe meetings (and other events) you are planning to have:
+
+ * When and where? In-person or online?
+ * What's the **purpose** of each meeting?
+ * Other events could be coding sessions, code reviews, quick weekly sync' meeting online, etc.
+
+#### Artifacts
+
+List/describe the artifacts you will produce in order to organize your team.       
+
+ * Artifacts can be to-do lists, task boards, schedule(s), etc.
+ * We want to understand:
+   * How do you keep track of what needs to get done?
+   * How do you prioritize tasks?
+   * How do tasks get assigned to team members?
+
+#### Git / GitHub workflow
+
+Describe your Git / GitHub workflow.     
+Essentially, we want to understand how your team members share a codebase and avoid conflicts.
+
+ * Be concise, yet precise.      
+For example, "we use pull-requests" is not a precise statement since it leaves too many open questions - Pull-requests from where to where? Who reviews the pull-requests? Who is responsible for merging them? etc.
+ * If applicable, specify any naming conventions or standards you decide to adopt.
+ * Don't forget to **explain why** you chose this workflow.
+
+
+
+## Product
+
+#### Goals and tasks
+
+ * Describe your goals for this iteration and the tasks that you will have to complete in order to achieve these goals.
+ * Order the items from most to least important.
+ * Feel free (but not obligated) to specify some/all tasks as user stories.
+
+#### Artifacts
+
+List/describe the artifacts you will produce in order to present your project idea.
+
+ * Artifacts can be text, code, images, videos, interactive mock-ups and/or any other useful artifact you can think of.
+ * Make sure to explain the purpose of each artifact (i.e. Why is it on your to-do list? Why is it useful for your team?)
+ * Be concise, yet precise.         
+   For example: "Build the website" is not precise at all, but "Build a static home page and upload it somewhere, so that it is publicly accessible" is much clearer.
