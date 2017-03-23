@@ -559,6 +559,7 @@ public class MapsMarkerActivity extends AppCompatActivity
         destroyInfoBox();
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
         destroyInfoBox();
         infoBox = LotInfoBoxFragment.newInstance("Lot 1", 10, 5, lat);
         fragmentTransaction.add(R.id.mainLayout, infoBox);
