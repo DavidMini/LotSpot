@@ -10,11 +10,16 @@ import android.widget.ListView;
 import android.support.v4.app.ListFragment;
 
 import com.example.mapwithmarker.R;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
 import com.utsg.csc301.team21.servercalls.DemoServer;
 import com.utsg.csc301.team21.servercalls.ILotServer;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.example.mapwithmarker.MapsMarkerActivity;
 
 public class SearchResultFragment extends ListFragment {
     ILotServer mServer = new DemoServer();
@@ -40,8 +45,10 @@ public class SearchResultFragment extends ListFragment {
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        // TODO implement some logic
-
+        MapsMarkerActivity a = (MapsMarkerActivity) getActivity();
+        AbstractParkingLot p = (AbstractParkingLot) getListAdapter().getItem(position);
+        a.moveToLocation(p.getLat(), p.getLng());
+        a.closeRightDrawer();
     }
 
 

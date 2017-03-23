@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.Manifest;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -142,6 +143,7 @@ public class MapsMarkerActivity extends AppCompatActivity
           Integer.parseInt("1")).getParent()).findViewById(Integer.parseInt("2"));
         //reposition the My Location Button
          repositionMyLocationButton(locationButton);
+
     }
 
     public void repositionMyLocationButton(View locationButton) {
@@ -544,4 +546,19 @@ public class MapsMarkerActivity extends AppCompatActivity
     public void onFragmentInteraction(Uri uri) {
         // Leave this empty - needed for fragments used by this activity
     }
+
+    public void moveToLocation(double lat, double lng) {
+        LatLng coordinate = new LatLng(lat, lng);
+        // Old that doesn't have camera animation:
+        // mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(camera, 15));
+        CameraUpdate camera = CameraUpdateFactory.newLatLngZoom(
+                coordinate, 15);
+        mGoogleMap.animateCamera(camera);
+    }
+
+    public void closeRightDrawer() {
+        mDrawerLayout.closeDrawer(mRightDrawerView);
+    }
 }
+
+
