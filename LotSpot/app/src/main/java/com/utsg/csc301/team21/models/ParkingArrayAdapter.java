@@ -118,8 +118,8 @@ public class ParkingArrayAdapter extends ArrayAdapter<AbstractParkingLot> {
 
             AbstractParkingLot lot = super.getItem(position);
             name.setText(lot.getName());
-            price.setText(lot.getPricePerHour().toPlainString());
-            spaceCount.setText( String.valueOf(lot.getCapacity()-lot.getOccupancy())
+            price.setText(" Price: "+lot.getPricePerHour().toPlainString()+" $/hr");
+            spaceCount.setText("Vacancy: "+ String.valueOf(lot.getCapacity()-lot.getOccupancy())
                     +"/" + String.valueOf(lot.getCapacity())); //display like 4/10
 
         } catch (ClassCastException e) {

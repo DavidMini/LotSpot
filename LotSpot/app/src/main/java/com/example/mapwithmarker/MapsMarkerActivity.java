@@ -48,7 +48,7 @@ import java.util.Map;
  * An activity that displays a Google map with a marker (pin) to indicate a particular location.
  */
 public class MapsMarkerActivity extends AppCompatActivity
-        implements OnMapReadyCallback, OnMarkerClickListener,
+        implements OnMapReadyCallback, OnMarkerClickListener, GoogleMap.OnMapClickListener,
         LotInfoBoxFragment.OnFragmentInteractionListener,
         ActivityCompat.OnRequestPermissionsResultCallback{
 
@@ -65,7 +65,7 @@ public class MapsMarkerActivity extends AppCompatActivity
     private Marker searched = null;
 
     // Used in displaying the lot info box
-    private boolean infoBoxExists = false;
+    private Fragment infoBox = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -248,8 +248,13 @@ public class MapsMarkerActivity extends AppCompatActivity
     public void onMapReady(GoogleMap googleMap) {
         // Set Map
         mGoogleMap = googleMap;
+
         // Populate map with parking lot markers
         addMarkers();
+
+        // Attaches click listener for deselecting a marker
+        mGoogleMap.setOnMapClickListener(this);
+
         // Set a listener for Marker click.
         mGoogleMap.setOnMarkerClickListener(this);
 
@@ -493,6 +498,11 @@ public class MapsMarkerActivity extends AppCompatActivity
                 .icon(BitmapDescriptorFactory.fromAsset("marker_orange4.png")));
     }
 
+    @Override
+    public void onMapClick(LatLng latLng) {
+        destroyInfoBox();
+    }
+
     /** Called when the user clicks a marker. */
     @Override
     public boolean onMarkerClick(final Marker marker) {
@@ -504,29 +514,12 @@ public class MapsMarkerActivity extends AppCompatActivity
         // Prepares fragment managers
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        destroyInfoBox();
 
         // Build new fragment
-        Fragment fragment;
-
-        // Attempts to retrieve marker information
-        try{
-            // TODO: Replace this with marker info
-            fragment = LotInfoBoxFragment.newInstance("Lot 1", 10, 5, 20);
-        }
-        // Failed to create lot info due to marker error
-        catch (Exception e){
-            fragment = LotInfoBoxFragment.newInstance("fail", 0, 0, 0);
-        }
-
-        // Either creates the fragment or replaces the existing one
-        if(!infoBoxExists){
-            fragmentTransaction.add(R.id.mainLayout, fragment);
-            fragmentTransaction.commit();
-
-            infoBoxExists = true;
-        } else {
-            fragmentTransaction.replace(R.id.infobox, fragment);
-        }
+        infoBox = LotInfoBoxFragment.newInstance("Lot 1", 10, 5, marker.getPosition().latitude);
+        fragmentTransaction.add(R.id.mainLayout, infoBox);
+        fragmentTransaction.commit();
 
         // Tell API to ignore default marker functionality
         return true;
@@ -534,11 +527,12 @@ public class MapsMarkerActivity extends AppCompatActivity
 
     // Helper function that handles the removal of the info box fragment
     private void destroyInfoBox(){
-        if(infoBoxExists){
+        if(infoBox != null){
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.remove(fragmentManager.findFragmentById(R.id.infobox));
-            infoBoxExists = false;
+            fragmentTransaction.remove(infoBox);
+            fragmentTransaction.commit();
+            infoBox = null;
         }
     }
 
