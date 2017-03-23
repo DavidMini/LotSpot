@@ -2,12 +2,15 @@ package com.example.mapwithmarker;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,13 +18,9 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.SeekBar;
-import android.widget.Switch;
 import android.widget.TextView;
-
+import android.Manifest;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -46,7 +45,8 @@ import java.util.Map;
  */
 public class MapsMarkerActivity extends AppCompatActivity
         implements OnMapReadyCallback, OnMarkerClickListener,
-        LotInfoBoxFragment.OnFragmentInteractionListener {
+        LotInfoBoxFragment.OnFragmentInteractionListener,
+        ActivityCompat.OnRequestPermissionsResultCallback{
 
     // Global Variables
     private GoogleMap mGoogleMap;
@@ -129,6 +129,32 @@ public class MapsMarkerActivity extends AppCompatActivity
         View button = findViewById(R.id.switchDisabled);
         disableParentMovement(button);
 
+        //Get the My Location button in order to change it's position
+        View locationButton = ((View) mapFragment.getView().findViewById(
+                Integer.parseInt("1")).getParent()).findViewById(Integer.parseInt("2"));
+//        //reposition the My Location Button
+        repositionMyLocationButton(locationButton);
+    }
+
+    public void repositionMyLocationButton(View locationButton){
+
+        RelativeLayout.LayoutParams locbuttonlayout = (RelativeLayout.LayoutParams) locationButton.getLayoutParams();
+        locbuttonlayout.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
+        locbuttonlayout.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+        locbuttonlayout.setMargins(0, 0, 50, 50);
+    }
+
+
+    private void enableMyLocation() {
+        //check that permission is granted to access user location
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+
+            mGoogleMap.setMyLocationEnabled(true);
+            //if permission is not granted request for permission
+        } else {
+            // Show rationale and request permission.
+        }
     }
 
     public void dynamicSeekBar(final View seekbar, int flag) {
@@ -244,6 +270,8 @@ public class MapsMarkerActivity extends AppCompatActivity
         addMarkers();
         // Set a listener for Marker click.
         mGoogleMap.setOnMarkerClickListener(this);
+
+        enableMyLocation();
         //TODO: Cluster Markers
     }
 
@@ -441,8 +469,17 @@ public class MapsMarkerActivity extends AppCompatActivity
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         // Build new fragment
-        // TODO: Add lot info into the fragment
-        Fragment fragment = new LotInfoBoxFragment();
+        Fragment fragment;
+
+        // Attempts to retrieve marker information
+        try{
+            // TODO: Replace this with marker info
+            fragment = LotInfoBoxFragment.newInstance("Lot 1", 10, 5, 20);
+        }
+        // Failed to create lot info due to marker error
+        catch (Exception e){
+            fragment = LotInfoBoxFragment.newInstance("fail", 0, 0, 0);
+        }
 
         // Either creates the fragment or replaces the existing one
         if(!infoBoxExists){
@@ -470,6 +507,6 @@ public class MapsMarkerActivity extends AppCompatActivity
 
     @Override
     public void onFragmentInteraction(Uri uri) {
-        // Leave this empty
+        // Leave this empty - needed for fragments used by this activity
     }
 }
