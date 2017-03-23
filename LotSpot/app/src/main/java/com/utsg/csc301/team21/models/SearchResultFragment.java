@@ -14,9 +14,11 @@ import com.utsg.csc301.team21.servercalls.DemoServer;
 import com.utsg.csc301.team21.servercalls.ILotServer;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SearchResultFragment extends ListFragment {
     ILotServer mServer = new DemoServer();
+    List<AbstractParkingLot> mLots = mServer.getLotsFromGeo(0,0);
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -33,12 +35,15 @@ public class SearchResultFragment extends ListFragment {
         ParkingArrayAdapter adp = new ParkingArrayAdapter(getActivity(),
                 R.layout.fragment_search_result);
         setListAdapter(adp);
-        adp.addAll(mServer.getLotsFromGeo(0,0));
+        adp.addAll(mLots);
     }
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         // TODO implement some logic
-        
+
     }
+
+
+
 }

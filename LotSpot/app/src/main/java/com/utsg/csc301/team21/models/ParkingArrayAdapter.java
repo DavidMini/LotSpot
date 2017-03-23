@@ -137,4 +137,6 @@ public class ParkingArrayAdapter extends ArrayAdapter<AbstractParkingLot> {
         }
     }
 
+
+
 }

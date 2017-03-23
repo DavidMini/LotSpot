@@ -59,6 +59,7 @@ public class MapsMarkerActivity extends AppCompatActivity
     // Drawer Variables
     private DrawerLayout mDrawerLayout;
     private View mLeftDrawerView;
+    private View mRightDrawerView;
     private ActionBarDrawerToggle mDrawerToggle;
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
@@ -85,6 +86,7 @@ public class MapsMarkerActivity extends AppCompatActivity
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mLeftDrawerView = findViewById(R.id.left_drawer);
+        mRightDrawerView = findViewById(R.id.right_drawer);
         mDrawerToggle = new ActionBarDrawerToggle(
                 this,                  /* host Activity */
                 mDrawerLayout,         /* DrawerLayout object */
@@ -103,6 +105,8 @@ public class MapsMarkerActivity extends AppCompatActivity
             /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
                 if (drawerView.equals(mLeftDrawerView)) {
+                    // Close the right_drawer, and open left_drawer
+                    mDrawerLayout.closeDrawer(mRightDrawerView);
                     super.onDrawerOpened(drawerView);
                     mActionBar.setTitle(mDrawerTitle);
                 }
