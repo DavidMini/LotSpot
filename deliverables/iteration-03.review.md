@@ -7,56 +7,51 @@
 
 ## Decisions that turned out well
 
-List process-related (i.e. team organization) decisions that, in retrospect, turned out to be successful.
-
 More collaborative tasks
   - This helped a great deal with workflow, we were able to complete a task that had a larger workflow.
   - With List task completed sooner we could work on additional features that require or implement it.
   
-
-
- * 2 - 4 decisions.
- * Ordered from most to least important.
- * Explain why (i.e. give a supporting argument) you consider a decision to be successful.
- * Feel free to refer/link to process artifact(s).
+Github Issues
+ - assign one person to delegate and close issues.
+ - this helped organize ourselves and minimized overhead for most members.
 
 ### Decisions that did not turn out as well as we hoped
 
-List process-related (i.e. team organization) decisions that, in retrospect, were not as successful as you thought they would be.
-
- * 2 - 4 decisions.
- * Ordered from most to least important.
- * Feel free to refer/link to process artifact(s).
+Bug Catching
+ - although we thought we were thorough and had peer review of one another's code we still found many bugs that needed fixing when we had hoped to be able to move on to another task.
+ - We would like to change our approach in future iterations.
 
 
 ### Planned changes
 
-List any process-related changes you are planning to make (if there are any)
-
- * Ordered from most to least important.
- * Explain why you are making a change.
+More vigorous bug catching
+ - try and break all the features we implement more vigorously to catch bugs earlier in the development so they are not issues later when we are exploring other tasks.
+ - we are making this change so that we do not run into a similar issue where we are working on a new task and find that we have issues because of a bug with a previous task.
 
 
 ## Product - Review
 
-## Goals and/or tasks that were met/completed:
-
- * From most to least important.
- * Refer/link to artifact(s) that show that a goal/task was met/completed.
- * If a goal/task was not part of the original iteration plan, please mention it.
+ - list of parking lots view slide from the right side
+ - API
+ - server
+ - fixed several bugs such as search bar issues, and additional information pannel at the bottom not being removed.
+ - current location
+ - UI upgrade, new marker images that are easier to see.
 
 ## Goals and/or tasks that were planned but not met/completed:
 
- * From most to least important.
- * For each goal/task, explain why it was not met/completed.      
-   e.g. Did you change your mind, or did you just not get to it yet?
+Complete back and front end integration
+ - although we have a API, server and database established we were not able to completely integrate the server to all the functionality of the front end.
+ 
+Additional UI styling
+ - map theme change.
+ - after some review and advice from our TA color and some minor style changes.
 
 ## Meeting Highlights
 
 Going into the next iteration, our main insights are:
 
- * 2 - 4 items
- * Short (no more than one short paragraph per item)
- * High-level concepts that should guide your work for the next iteration.
- * These concepts should help you decide on where to focus your efforts.
- * Can be related to product and/or process.
+Increase focus on Bug finding
+ - more thorough peer review, perhaps having new issues that include bug handling, example: when an issue is closed we open a new issue called bug test <feature>
+
+
