@@ -9,15 +9,11 @@
  * Start date: March 20,2017
  * End date: March 24,2017
 
-## Process
-
-(Optional:) Quick introduction
-
 ## Changes from previous iteration
 
 More collaborative tasks
  - We found that one of the features that we assigned had a high workload so we assigned two of our members into pairs.
-   - for our list implementation we assigned Heugh and Wen de to work on it, we hoped this accelerated the completion of the task and would reduce bugs.
+   - For our list implementation we assigned Heugh and Wen de to work on it, we hoped this accelerated the completion of the task and would reduce bugs.
  - The two members assigned with video development, David and Kevin, were assigned less work intensive features this phase.
    - This is done to create a more even workload between group members
    
