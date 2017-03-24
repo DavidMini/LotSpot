@@ -384,123 +384,123 @@ public class MapsMarkerActivity extends AppCompatActivity
         LatLng latLngLot01 = new LatLng(43.666705, -79.405147);
         Marker lot01 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot01)
                 .title("Lot 01")
-                .icon(BitmapDescriptorFactory.fromAsset("marker_orange3.png")));
+                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/orange_3_marker.png")));
 
 
         LatLng latLngLot02 = new LatLng(43.665385, -79.403477);
         Marker lot02 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot02)
                 .title("Lot 02")
-                .icon(BitmapDescriptorFactory.fromAsset("marker_green14.png")));
+                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/green_14_marker.png")));
 
         LatLng latLngLot03 = new LatLng(43.657563, -79.403436);
         Marker lot03 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot03)
                 .title("Lot 03")
-                .icon(BitmapDescriptorFactory.fromAsset("marker_green30.png")));
+                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/green_30_marker.png")));
 
         LatLng latLngLot04 = new LatLng(43.655946, -79.408577);
         Marker lot04 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot04)
                 .title("Lot 04")
-                .icon(BitmapDescriptorFactory.fromAsset("marker_orange4.png")));
+                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/orange_4_marker.png")));
 
         LatLng latLngLot05 = new LatLng(43.652175, -79.405963);
         Marker lot05 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot05)
                 .title("Lot 05")
-                .icon(BitmapDescriptorFactory.fromAsset("marker_green26.png")));
+                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/green_26_marker.png")));
 
         LatLng latLngLot06 = new LatLng(43.652586, -79.398445);
         Marker lot06 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot06)
                 .title("Lot 06")
-                .icon(BitmapDescriptorFactory.fromAsset("marker_red1.png")));
+                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/red_1_marker.png")));
 
         LatLng latLngLot07 = new LatLng(43.659353, -79.389422);
         Marker lot07 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot07)
                 .title("Lot 07")
-                .icon(BitmapDescriptorFactory.fromAsset("marker_red2.png")));
+                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/red_2_marker.png")));
 
         LatLng latLngLot08 = new LatLng(43.659891, -79.388625);
         Marker lot08 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot08)
                 .title("Lot 08")
-                .icon(BitmapDescriptorFactory.fromAsset("marker_green11.png")));
+                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/green_11_marker.png")));
 
         LatLng latLngLot09 = new LatLng(43.667672, -79.389450);
         Marker lot09 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot09)
                 .title("Lot 09")
-                .icon(BitmapDescriptorFactory.fromAsset("marker_orange5.png")));
+                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/orange_5_marker.png")));
 
         LatLng latLngLot10 = new LatLng(43.669112, -79.388623);
         Marker lot10 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot10)
                 .title("Lot 10")
-                .icon(BitmapDescriptorFactory.fromAsset("marker_green56.png")));
+                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/green_56_marker.png")));
 
         LatLng latLngLot11 = new LatLng(43.669710, -79.391218);
         Marker lot11 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot11)
                 .title("Lot 11")
-                .icon(BitmapDescriptorFactory.fromAsset("marker_green38.png")));
+                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/green_38_marker.png")));
 
         LatLng latLngLot12 = new LatLng( 43.669447, -79.392248);
         Marker lot12 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot12)
                 .title("Lot 12")
-                .icon(BitmapDescriptorFactory.fromAsset("marker_green19.png")));
+                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/green_19_marker.png")));
 
         LatLng latLngLot13 = new LatLng( 43.671654, -79.394603);
         Marker lot13 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot13)
                 .title("Lot 13")
-                .icon(BitmapDescriptorFactory.fromAsset("marker_red2.png")));
+                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/red_2_marker.png")));
 
         LatLng latLngLot14 = new LatLng( 43.674856, -79.398259);
         Marker lot14 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot14)
                 .title("Lot 14")
-                .icon(BitmapDescriptorFactory.fromAsset("marker_green23.png")));
+                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/green_23_marker.png")));
 
         LatLng latLngLot15 = new LatLng( 43.670676, -79.382509);
         Marker lot15 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot15)
                 .title("Lot 15")
-                .icon(BitmapDescriptorFactory.fromAsset("marker_green15.png")));
+                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/green_15_marker.png")));
 
         LatLng latLngLot16 = new LatLng( 43.669883, -79.382455);
         Marker lot16 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot16)
                 .title("Lot 16")
-                .icon(BitmapDescriptorFactory.fromAsset("marker_orange6.png")));
+                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/orange_6_marker.png")));
 
         LatLng latLngLot17 = new LatLng( 43.659829, -79.380369);
         Marker lot17 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot17)
                 .title("Lot 17")
-                .icon(BitmapDescriptorFactory.fromAsset("marker_red2.png")));
+                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/red_2_marker.png")));
 
         LatLng latLngLot18 = new LatLng( 43.657764, -79.376211);
         Marker lot18 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot18)
                 .title("Lot 18")
-                .icon(BitmapDescriptorFactory.fromAsset("marker_green9.png")));
+                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/green_9_marker.png")));
 
         LatLng latLngLot19 = new LatLng( 43.658145, -79.385359);
         Marker lot19 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot19)
                 .title("Lot 19")
-                .icon(BitmapDescriptorFactory.fromAsset("marker_green39.png")));
+                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/green_39_marker.png")));
 
         LatLng latLngLot20 = new LatLng( 43.656254, -79.388198);
         Marker lot20 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot20)
                 .title("Lot 20")
-                .icon(BitmapDescriptorFactory.fromAsset("marker_green64.png")));
+                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/green_64_marker.png")));
 
         LatLng latLngLot21 = new LatLng( 43.654792, -79.389622);
         Marker lot21 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot21)
                 .title("Lot 21")
-                .icon(BitmapDescriptorFactory.fromAsset("marker_red3.png")));
+                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/red_3_marker.png")));
 
         LatLng latLngLot22 = new LatLng( 43.654358, -79.388712);
         Marker lot22 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot22)
                 .title("Lot 22")
-                .icon(BitmapDescriptorFactory.fromAsset("marker_green31.png")));
+                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/green_31_marker.png")));
 
         LatLng latLngLot23 = new LatLng( 43.654010, -79.387221);
         Marker lot23 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot23)
                 .title("Lot 23")
-                .icon(BitmapDescriptorFactory.fromAsset("marker_orange7.png")));
+                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/orange_7_marker.png")));
 
         LatLng latLngLot24 = new LatLng( 43.654806, -79.386678);
         Marker lot24 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot24)
                 .title("Lot 24")
-                .icon(BitmapDescriptorFactory.fromAsset("marker_orange4.png")));
+                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/orange_4_marker.png")));
     }
 
     @Override
@@ -522,7 +522,7 @@ public class MapsMarkerActivity extends AppCompatActivity
         destroyInfoBox();
 
         // Build new fragment
-        infoBox = LotInfoBoxFragment.newInstance("Lot 1", 10, 5, marker.getPosition().latitude);
+        infoBox = LotInfoBoxFragment.newInstance("Lot 19", 50, 39, marker.getPosition().latitude);
         fragmentTransaction.add(R.id.mainLayout, infoBox);
         fragmentTransaction.commit();
 
