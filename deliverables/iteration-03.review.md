@@ -52,6 +52,6 @@ Additional UI styling
 Going into the next iteration, our main insights are:
 
 Increase focus on Bug finding
- - more thorough peer review, perhaps having new issues that include bug handling, example: when an issue is closed we open a new issue called bug test <feature>
+ - more thorough peer review, perhaps having new issues that include bug handling, example: when an issue is closed we open a new issue called bug test (feature)
 
 
