@@ -107,7 +107,6 @@ public class MapsMarkerActivity extends AppCompatActivity
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mLeftDrawerView = findViewById(R.id.left_drawer);
-        mRightDrawerView = findViewById(R.id.right_drawer);
         mDrawerToggle = new ActionBarDrawerToggle(
                 this,                  /* host Activity */
                 mDrawerLayout,         /* DrawerLayout object */
@@ -126,8 +125,6 @@ public class MapsMarkerActivity extends AppCompatActivity
             /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
                 if (drawerView.equals(mLeftDrawerView)) {
-                    // Close the right_drawer, and open left_drawer
-                    mDrawerLayout.closeDrawer(mRightDrawerView);
                     super.onDrawerOpened(drawerView);
                     mActionBar.setTitle(mDrawerTitle);
                 }
@@ -142,12 +139,12 @@ public class MapsMarkerActivity extends AppCompatActivity
             }
         };
 
-        // Setup the option button
+        // Setup the option button and popup window
         mOptionButton = (Button) findViewById(R.id.option_button);
         mOptionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                initiatePopupWindow(view);
+                initiazePopupWindow(view);
             }
         });
 
@@ -156,16 +153,6 @@ public class MapsMarkerActivity extends AppCompatActivity
 
         mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.setHomeButtonEnabled(true);
-
-        // Set dynamic value indication for each seekbar
-        View seekbar = findViewById(R.id.seekBarPrice);
-        dynamicSeekBar(seekbar, 1);
-        seekbar = findViewById(R.id.seekBarDistance);
-        dynamicSeekBar(seekbar, 2);
-        seekbar = findViewById(R.id.seekBarHeight);
-        dynamicSeekBar(seekbar, 3);
-        View button = findViewById(R.id.switchDisabled);
-        disableParentMovement(button);
 
         //Get the My Location button in order to change it's position
         View locationButton = ((View) mapFragment.getView().findViewById(
@@ -183,67 +170,6 @@ public class MapsMarkerActivity extends AppCompatActivity
         locbuttonlayout.setMargins(0, 0, 100, 250);
     }
 
-    public void dynamicSeekBar(final View seekbar, int flag) {
-
-        if (flag == 1) {
-            seekbar.setOnTouchListener(new RelativeLayout.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    DiscreteSeekBar ds = (DiscreteSeekBar) seekbar;
-                    int progress = ds.getProgress();
-
-                    TextView textview = (TextView) findViewById(R.id.price_slider);
-                    textview.setText("Price ($" + progress + "/h)");
-
-                    // Handle seekbar touch events.
-                    v.onTouchEvent(event);
-                    return true;
-                }
-            });
-        } else if (flag == 2) {
-            seekbar.setOnTouchListener(new RelativeLayout.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    DiscreteSeekBar ds = (DiscreteSeekBar) seekbar;
-                    int progress = ds.getProgress();
-
-                    TextView textview = (TextView) findViewById(R.id.distance_slider);
-                    textview.setText("Distance (" + progress + "km)");
-
-                    // Handle seekbar touch events.
-                    v.onTouchEvent(event);
-                    return true;
-                }
-            });
-        } else if (flag == 3) {
-            seekbar.setOnTouchListener(new RelativeLayout.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    DiscreteSeekBar ds = (DiscreteSeekBar) seekbar;
-                    int progress = ds.getProgress();
-
-                    TextView textview = (TextView) findViewById(R.id.height_slider);
-                    textview.setText("Height Restriction (" + progress + "m)");
-
-                    // Handle seekbar touch events.
-                    v.onTouchEvent(event);
-                    return true;
-                }
-            });
-        }
-
-        //            if (flag == 1) {
-//            TextView textview = (TextView) findViewById(R.id.price_slider);
-//            textview.setText("Drag Price ($" + progress +"/h)");
-//        } else if (flag == 2) {
-//            TextView textview = (TextView) findViewById(R.id.distance_slider);
-//            textview.setText("Drag Distance (" + progress +"km)");
-//        } else if (flag == 3) {
-//            TextView textview = (TextView) findViewById(R.id.height_slider);
-//            textview.setText("Height Restriction (" + progress +"m)");
-//        }
-
-    }
 
     public void disableParentMovement(View seekbar) {
         seekbar.setOnTouchListener(new RelativeLayout.OnTouchListener() {
@@ -596,13 +522,13 @@ public class MapsMarkerActivity extends AppCompatActivity
 
     }
 
-    public void closeRightDrawer() {
-        mDrawerLayout.closeDrawer(mRightDrawerView);
+    public void closeLeftDrawer() {
+        mDrawerLayout.closeDrawer(mLeftDrawerView);
     }
 
 
 
-    public void initiatePopupWindow(View v) {
+    public void initiazePopupWindow(View v) {
         try {
             // We need to get the instance of the LayoutInflater
             LayoutInflater inflater = (LayoutInflater) MapsMarkerActivity.this.
@@ -611,7 +537,6 @@ public class MapsMarkerActivity extends AppCompatActivity
                     (ViewGroup) findViewById(R.id.options));
             PopupWindow pw;
             pw = new PopupWindow(layout, 400, 500, true);
-
             // Restore initial value of each object in popup
             // Restore the text
             // Initialize each listener for all the objects in the popup
@@ -633,7 +558,7 @@ public class MapsMarkerActivity extends AppCompatActivity
             initPopupObj(seekbar, 3, textview);
             textview.setText("Height Restriction (" + ((DiscreteSeekBar)seekbar).getProgress() + "m)");
 
-            View button = findViewById(R.id.switchDisabled);
+            View button = layout.findViewById(R.id.switchDisabled);
             ((Switch)button).setChecked(oAccess);
             initPopupObj(button, 4, textview);
             pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
@@ -685,7 +610,7 @@ public class MapsMarkerActivity extends AppCompatActivity
                     return true;
                 }
             });
-        } else if (flag ==4 ) {
+        } else if (flag == 4) {
             Switch s = (Switch) seekbar;
             s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override

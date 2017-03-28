@@ -9,7 +9,7 @@
     android:dividerHeight="2dp"
     android:background="@color/drawerBackgroundTrans"
     android:paddingTop="8dp"
-    android:paddingLeft="3dp"
+    android:paddingLeft="10dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -95,7 +95,6 @@
 
     <Switch
         android:id="@+id/switchDisabled"
-        android:checked="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/disabled_switch"/>

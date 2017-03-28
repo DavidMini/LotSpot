@@ -48,7 +48,7 @@ public class SearchResultFragment extends ListFragment {
         MapsMarkerActivity a = (MapsMarkerActivity) getActivity();
         AbstractParkingLot p = (AbstractParkingLot) getListAdapter().getItem(position);
         a.moveToLocation(p.getLat(), p.getLng());
-        a.closeRightDrawer();
+        a.closeLeftDrawer();
     }
 
 
