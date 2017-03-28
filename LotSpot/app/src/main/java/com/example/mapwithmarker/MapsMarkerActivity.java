@@ -2,14 +2,18 @@ package com.example.mapwithmarker;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.IBinder;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -17,14 +21,23 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.Manifest;
 import android.widget.Toast;
+import android.view.ViewGroup.LayoutParams;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -64,10 +77,18 @@ public class MapsMarkerActivity extends AppCompatActivity
     private ActionBarDrawerToggle mDrawerToggle;
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
+    private Button mOptionButton;
+    private PopupWindow mPopupWindow;
     private Marker searched = null;
 
     // Used in displaying the lot info box
     private Fragment infoBox = null;
+
+    // Persistence value in popup option
+    private int oCost = 30;
+    private int oDistance = 10;
+    private int oHeight = 2;
+    private boolean oAccess = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,13 +142,22 @@ public class MapsMarkerActivity extends AppCompatActivity
             }
         };
 
+        // Setup the option button
+        mOptionButton = (Button) findViewById(R.id.option_button);
+        mOptionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                initiatePopupWindow(view);
+            }
+        });
+
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         mActionBar.setDisplayHomeAsUpEnabled(true);
         mActionBar.setHomeButtonEnabled(true);
 
-        // Disable drawer movement when touching seekbar and button
+        // Set dynamic value indication for each seekbar
         View seekbar = findViewById(R.id.seekBarPrice);
         dynamicSeekBar(seekbar, 1);
         seekbar = findViewById(R.id.seekBarDistance);
@@ -569,6 +599,109 @@ public class MapsMarkerActivity extends AppCompatActivity
     public void closeRightDrawer() {
         mDrawerLayout.closeDrawer(mRightDrawerView);
     }
+
+
+
+    public void initiatePopupWindow(View v) {
+        try {
+            // We need to get the instance of the LayoutInflater
+            LayoutInflater inflater = (LayoutInflater) MapsMarkerActivity.this.
+                    getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View layout = inflater.inflate(R.layout.popup_option,
+                    (ViewGroup) findViewById(R.id.options));
+            PopupWindow pw;
+            pw = new PopupWindow(layout, 400, 500, true);
+
+            // Restore initial value of each object in popup
+            // Restore the text
+            // Initialize each listener for all the objects in the popup
+            View seekbar = layout.findViewById(R.id.seekBarPrice);
+            ((DiscreteSeekBar)seekbar).setProgress(oCost);
+            TextView textview = (TextView) layout.findViewById(R.id.price_slider);
+            initPopupObj(seekbar, 1, textview);
+            textview.setText("Price ($" + ((DiscreteSeekBar)seekbar).getProgress() + "/h)");
+
+            seekbar = layout.findViewById(R.id.seekBarDistance);
+            ((DiscreteSeekBar)seekbar).setProgress(oDistance);
+            textview = (TextView) layout.findViewById(R.id.distance_slider);
+            initPopupObj(seekbar, 2, textview);
+            textview.setText("Distance (" + ((DiscreteSeekBar)seekbar).getProgress() + "km)");
+
+            seekbar = layout.findViewById(R.id.seekBarHeight);
+            ((DiscreteSeekBar)seekbar).setProgress(oHeight);
+            textview = (TextView) layout.findViewById(R.id.height_slider);
+            initPopupObj(seekbar, 3, textview);
+            textview.setText("Height Restriction (" + ((DiscreteSeekBar)seekbar).getProgress() + "m)");
+
+            View button = findViewById(R.id.switchDisabled);
+            ((Switch)button).setChecked(oAccess);
+            initPopupObj(button, 4, textview);
+            pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void initPopupObj(final View seekbar, int flag, final TextView textview) {
+
+        if (flag == 1) {
+            seekbar.setOnTouchListener(new RelativeLayout.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    DiscreteSeekBar ds = (DiscreteSeekBar) seekbar;
+                    int progress = ds.getProgress();
+                    oCost = progress;
+                    textview.setText("Price ($" + progress + "/h)");
+                    // Handle seekbar touch events.
+                    v.onTouchEvent(event);
+                    return true;
+                }
+            });
+        } else if (flag == 2) {
+            seekbar.setOnTouchListener(new RelativeLayout.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    DiscreteSeekBar ds = (DiscreteSeekBar) seekbar;
+                    int progress = ds.getProgress();
+                    oDistance = progress;
+                    textview.setText("Distance (" + progress + "km)");
+                    // Handle seekbar touch events.
+                    v.onTouchEvent(event);
+                    return true;
+                }
+            });
+        } else if (flag == 3) {
+            seekbar.setOnTouchListener(new RelativeLayout.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    DiscreteSeekBar ds = (DiscreteSeekBar) seekbar;
+                    int progress = ds.getProgress();
+                    oHeight = progress;
+                    textview.setText("Height Restriction (" + progress + "m)");
+                    // Handle seekbar touch events.
+                    v.onTouchEvent(event);
+                    return true;
+                }
+            });
+        } else if (flag ==4 ) {
+            Switch s = (Switch) seekbar;
+            s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(isChecked) {
+                        oAccess = true;
+                    } else {
+                        oAccess = false;
+                    }
+                }
+            });
+        }
+
+    }
+
+
 }
 
 

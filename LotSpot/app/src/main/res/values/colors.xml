@@ -12,4 +12,5 @@
     <color name="unclicked">#ffffcc</color>
     <color name="drawerText">#ffffff</color>
     <color name="drawerBackground">#333333</color>
+    <color name="drawerBackgroundTrans">#E5333333</color>
 </resources>

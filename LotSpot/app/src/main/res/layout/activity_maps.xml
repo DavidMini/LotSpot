@@ -36,9 +36,8 @@
 
             <EditText
                 android:id="@+id/TFaddress"
-                android:layout_width="290dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.21" />
+                android:layout_width="225dp"
+                android:layout_height="wrap_content" />
 
             <Button
                 android:id="@+id/Bsearch"
@@ -48,6 +47,13 @@
                 android:layout_gravity="right"
                 android:onClick="onSearch"
                 android:text="Search" />
+
+            <Button
+                android:id="@+id/option_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Option" />
 
         </LinearLayout>
 
