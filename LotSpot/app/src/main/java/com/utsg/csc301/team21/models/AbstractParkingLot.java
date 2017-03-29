@@ -14,9 +14,12 @@ public abstract class AbstractParkingLot {
     int occupancy;
     String name = "";
     String address;
+    String phoneNumber;
+    String paymentType;
     double lat;
     double lng;
-    BigDecimal pricePerHour; //let's assume all lots provide price per hour for now.
+    BigDecimal pricePerHour; //TODO: Change this to just price payment type tells us the hour/moth/year rate
+    boolean handicapParking;
 
     public double getLatitude() {
         return lat;
@@ -49,6 +52,10 @@ public abstract class AbstractParkingLot {
     public int getRemainingSpaces() {
         return getCapacity()-getOccupancy();
     }
+
+    public String getPhoneNumber(){return this.phoneNumber;}
+
+    public String getPaymentType(){return  this.paymentType;}
 
 
     public String getName() {
@@ -86,6 +93,10 @@ public abstract class AbstractParkingLot {
     public void setPricePerHour(BigDecimal pricePerHour) {
         this.pricePerHour = pricePerHour;
     }
+
+    public void setPhoneNumber (String phoneNumber) {this.phoneNumber = phoneNumber;}
+
+    public void setHandicapParking (boolean hParking){this.handicapParking = hParking;}
 
     public String getAddress() {
         return address;
