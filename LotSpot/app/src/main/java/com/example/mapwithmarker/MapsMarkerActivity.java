@@ -27,6 +27,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -536,7 +537,8 @@ public class MapsMarkerActivity extends AppCompatActivity
             View layout = inflater.inflate(R.layout.popup_option,
                     (ViewGroup) findViewById(R.id.options));
             PopupWindow pw;
-            pw = new PopupWindow(layout, 400, 500, true);
+            pw = new PopupWindow(layout, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT, true);
+
             // Restore initial value of each object in popup
             // Restore the text
             // Initialize each listener for all the objects in the popup
