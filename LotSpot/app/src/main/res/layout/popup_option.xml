@@ -10,6 +10,8 @@
     android:background="@color/drawerBackgroundTrans"
     android:paddingTop="8dp"
     android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="8dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -17,7 +19,7 @@
         android:id="@+id/price_slider"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="20dp"
+        android:paddingTop="15dp"
         android:text="Price ($30/h)"
         android:textColor="@color/drawerText"
         android:textSize="15dp"
@@ -97,6 +99,7 @@
         android:id="@+id/switchDisabled"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/disabled_switch"/>
+        android:layout_below="@+id/disabled_switch"
+        android:paddingBottom="15dp"/>
 
 </RelativeLayout>
