@@ -47,6 +47,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
@@ -220,6 +221,10 @@ public class MapsMarkerActivity extends AppCompatActivity
         // Set a listener for Marker click.
         mGoogleMap.setOnMarkerClickListener(this);
 
+        // Set map style
+        googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.map_style));
+
+        // Set map location
         if (ContextCompat.checkSelfPermission(this,
                     Manifest.permission.ACCESS_FINE_LOCATION)
                     == PackageManager.PERMISSION_GRANTED) {
@@ -479,7 +484,7 @@ public class MapsMarkerActivity extends AppCompatActivity
         destroyInfoBox();
 
         // Build new fragment
-        infoBox = LotInfoBoxFragment.newInstance("Lot 19", 50, 39, marker.getPosition().latitude);
+        infoBox = LotInfoBoxFragment.newInstance(marker.getTitle(), 50, 39, Math.round(marker.getPosition().latitude));
         fragmentTransaction.add(R.id.mainLayout, infoBox);
         fragmentTransaction.commit();
 

@@ -5,6 +5,8 @@
     <color name="colorPrimaryDark">#af3737</color>
     <color name="colorTpWhite">#CCFFFFFF</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorGreen">#22AC57</color>
+    <color name="colorBlue">#2979FF</color>
 
     <!--Drawer colors, slight variation for buttons-->
     <color name="themeLight">#ffff66</color>
