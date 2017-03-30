@@ -51,13 +51,17 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.utsg.csc301.team21.models.LotInfoBoxFragment;
+import com.utsg.csc301.team21.models.ParkingLot;
 
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * An activity that displays a Google map with a marker (pin) to indicate a particular location.
@@ -70,6 +74,7 @@ public class MapsMarkerActivity extends AppCompatActivity
     // Global Variables
     private GoogleMap mGoogleMap;
     private Map<Marker, View> markers = new HashMap<>();
+    private Set<ParkingLot> parkingLotsArray = new HashSet<>();
 
     // Drawer Variables
     private DrawerLayout mDrawerLayout;
@@ -332,6 +337,41 @@ public class MapsMarkerActivity extends AppCompatActivity
             // permissions this app might request
         }
     }
+
+    /**
+     * Updates markers on the map, removes previous markers and updates with list
+     */
+    public void updateMarkers(){
+        // TODO: Controller function call
+        // populateLotArray();
+
+        //For each parking lot create a new marker
+        Iterator<ParkingLot> lots = parkingLotsArray.iterator();
+        String iconColor= "";
+        while (lots.hasNext()){
+            ParkingLot lot = lots.next();
+
+            // Set which color icon to use
+            if (lot.getOccupancy()/4 < lot.getCapacity() && lot.getOccupancy()/2 > lot.getCapacity()){
+                iconColor = "orange";
+            }else if(lot.getOccupancy()/2 < lot.getCapacity()){
+                iconColor = "green";
+            }else{
+                iconColor = "red";
+            }
+
+            // Create marker
+            LatLng tempLatLng = new LatLng(lot.getLat(), lot.getLng());
+            mGoogleMap.addMarker(new MarkerOptions().position(tempLatLng)
+                    .title(lot.getName())
+                    .icon(BitmapDescriptorFactory.fromAsset("newMarkers/"+ iconColor +"_3_marker.png")));
+                    // TODO: Draw on asset number of available lots
+                    // According to capacity choose color
+        }
+    }
+
+
+
     public void addMarkers(){
         // Initial focus on UofT TODO:Set to current location
         LatLng uoft = new LatLng(43.662892, -79.395656);
