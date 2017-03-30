@@ -16,13 +16,16 @@ import android.app.Fragment;
 import android.os.IBinder;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -168,7 +171,28 @@ public class MapsMarkerActivity extends AppCompatActivity
          repositionMyLocationButton(locationButton);
 
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        // Configure the search info and add any event listeners
+         SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
+        public boolean onQueryTextChange(String newText) {
+            // this is your adapter that will be filtered
+            return true;
+        }
 
+        public boolean onQueryTextSubmit(String query) {
+            //Here u can get the value "query" which is entered in the search box.
+            onSearch(query);
+            return true;
+        }
+
+    };
+    searchView.setOnQueryTextListener(queryTextListener);
+        return super.onCreateOptionsMenu(menu);
+    }
     public void repositionMyLocationButton(View locationButton) {
 
         RelativeLayout.LayoutParams locbuttonlayout = (RelativeLayout.LayoutParams) locationButton.getLayoutParams();
@@ -269,10 +293,10 @@ public class MapsMarkerActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    public void onSearch(View view)
+    public void onSearch(String search)
     {
-        EditText location_tf = (EditText)findViewById(R.id.TFaddress);
-        String location = location_tf.getText().toString();
+        //EditText location_tf = (EditText)findViewById(R.id.TFaddress);
+        String location = search;
         List<Address> addressList = null;
         if( !location.equals(""))
         {
