@@ -5,6 +5,8 @@
     <color name="colorPrimaryDark">#af3737</color>
     <color name="colorTpWhite">#CCFFFFFF</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorGreen">#22AC57</color>
+    <color name="colorBlue">#2979FF</color>
 
     <!--Drawer colors, slight variation for buttons-->
     <color name="themeLight">#ffff66</color>
@@ -12,4 +14,5 @@
     <color name="unclicked">#ffffcc</color>
     <color name="drawerText">#ffffff</color>
     <color name="drawerBackground">#333333</color>
+    <color name="drawerBackgroundTrans">#E5333333</color>
 </resources>

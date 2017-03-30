@@ -36,9 +36,8 @@
 
             <EditText
                 android:id="@+id/TFaddress"
-                android:layout_width="290dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.21" />
+                android:layout_width="225dp"
+                android:layout_height="wrap_content" />
 
             <Button
                 android:id="@+id/Bsearch"
@@ -49,13 +48,20 @@
                 android:onClick="onSearch"
                 android:text="Search" />
 
+            <Button
+                android:id="@+id/option_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Option" />
+
         </LinearLayout>
 
     </FrameLayout>
 
-    <!-- The navigation drawer, must be at the 2nd from top child-->
-    <RelativeLayout android:id="@+id/left_drawer"
-        android:layout_width="280dp"
+    <!-- The Search result drawer, on the right -->
+    <LinearLayout android:id="@+id/left_drawer"
+        android:layout_width="320dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:choiceMode="singleChoice"
@@ -63,104 +69,8 @@
         android:dividerHeight="2dp"
         android:background="@color/drawerBackground"
         android:paddingTop="20dp"
-        android:paddingLeft="16dp">
-
-        <TextView
-            android:id="@+id/price_slider"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="20dp"
-            android:text="Price ($30/h)"
-            android:textColor="@color/drawerText"
-            android:textSize="15dp"
-            android:textStyle="bold"/>
-
-        <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
-            android:id="@+id/seekBarPrice"
-            android:layout_width="200dp"
-            android:layout_height="30dp"
-            android:layout_below="@+id/price_slider"
-            app:dsb_min="10"
-            app:dsb_max="100"
-            app:dsb_value='30'
-            app:dsb_trackColor='@color/unclicked'
-            app:dsb_progressColor='@color/themeLight'
-            app:dsb_indicatorColor='@color/themeDark'/>
-
-        <TextView
-            android:id="@+id/distance_slider"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Distance (10km)"
-            android:textColor="@color/drawerText"
-            android:textSize="15dp"
-            android:textStyle="bold"
-            android:layout_below="@+id/seekBarPrice"/>
-
-        <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
-            android:id="@+id/seekBarDistance"
-            android:layout_width="200dp"
-            android:layout_height="30dp"
-            android:layout_below="@+id/distance_slider"
-            app:dsb_min="1"
-            app:dsb_max="100"
-            app:dsb_value='10'
-            app:dsb_trackColor='@color/unclicked'
-            app:dsb_progressColor='@color/themeLight'
-            app:dsb_indicatorColor='@color/themeDark'/>
-
-        <TextView
-            android:id="@+id/height_slider"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Height Restriction (2m)"
-            android:textColor="@color/drawerText"
-            android:textSize="15dp"
-            android:textStyle="bold"
-            android:layout_below="@+id/seekBarDistance"/>
-
-        <org.adw.library.widgets.discreteseekbar.DiscreteSeekBar
-            android:id="@+id/seekBarHeight"
-            android:layout_width="200dp"
-            android:layout_height="30dp"
-            android:layout_below="@+id/height_slider"
-            app:dsb_min="1"
-            app:dsb_max="5"
-            app:dsb_value='2'
-            app:dsb_trackColor='@color/unclicked'
-            app:dsb_progressColor='@color/themeLight'
-            app:dsb_indicatorColor='@color/themeDark'/>
-
-        <TextView
-            android:id="@+id/disabled_switch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Accessibility Parking"
-            android:textColor="@color/drawerText"
-            android:textSize="15dp"
-            android:textStyle="bold"
-            android:layout_below="@+id/seekBarHeight"/>
-
-        <Switch
-            android:id="@+id/switchDisabled"
-            android:checked="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/disabled_switch"/>
-
-    </RelativeLayout>
-
-
-    <LinearLayout android:id="@+id/right_drawer"
-        android:layout_width="320dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="end"
-        android:choiceMode="singleChoice"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="2dp"
-        android:background="@color/drawerBackground"
-        android:paddingTop="20dp"
-        android:paddingLeft="16dp">
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
 
         <fragment
             android:name="com.utsg.csc301.team21.models.SearchResultFragment"
@@ -170,5 +80,10 @@
             android:layout_height="match_parent" />
 
     </LinearLayout>
+
+
+
+
+
 
 </android.support.v4.widget.DrawerLayout>

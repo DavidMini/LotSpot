@@ -1,42 +1,82 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/infobox"
-    android:layout_width="290dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorWhite"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_gravity="bottom|center_horizontal"
-    android:layout_marginBottom="5dp"
-    tools:context="com.utsg.csc301.team21.models.LotInfoBoxFragment">
+    tools:context="com.utsg.csc301.team21.models.LotInfoBoxFragment" >
 
-    <LinearLayout
-        android:layout_width="240dp"
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="5dp"
+        android:background="@drawable/shadow" >
+    </View>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:orientation="vertical">
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:background="@color/colorWhite" >
 
         <TextView
             android:id="@+id/infoboxName"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Lot X" />
-
-        <TextView
-            android:id="@+id/infoboxSpaces"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/infobox_spaces" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Lot X"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
         <TextView
             android:id="@+id/infoboxCost"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/infobox_cost" />
-    </LinearLayout>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@color/colorGreen"
+            android:layout_below="@id/infoboxName"
+            android:layout_marginLeft="10dp"
+            android:layout_alignParentLeft="true"
+            android:text="@string/dollar_sign"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Widget.ActionBar.Subtitle" />
 
-    <ImageButton
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/google_directions"
-        android:layout_gravity="center" />
+        <TextView
+            android:id="@+id/perHour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/per_hour"
+            android:layout_below="@id/infoboxName"
+            android:layout_toRightOf="@+id/infoboxCost"
+            android:textAppearance="@style/TextAppearance.StatusBar.EventContent.Line2"
+            android:textColor="@color/drawerBackground" />
+
+        <TextView
+            android:id="@+id/infoboxSpaces"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorBlue"
+            android:layout_below="@id/infoboxName"
+            android:layout_toLeftOf="@+id/infoboxOccupancy"
+            android:textAppearance="@style/TextAppearance.StatusBar.EventContent.Info" />
+
+        <TextView
+            android:id="@+id/infoboxOccupancy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/infoboxName"
+            android:layout_toLeftOf="@+id/imageButton"
+            android:paddingRight="17dp"
+            android:textAppearance="@style/TextAppearance.StatusBar.EventContent.Info" />
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/google_directions" />
+    </RelativeLayout >
 </LinearLayout>

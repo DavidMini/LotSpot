@@ -78,10 +78,15 @@ public class LotInfoBoxFragment extends Fragment {
         // Inflate the layout for this fragment
         View lotView = inflater.inflate(R.layout.fragment_lot_details_box, container, false);
 
+        // Sets spaces available text
+        int spots = this.capacity - this.occupancy;
+        String spaces = (spots == 1) ? spots + " spot" : spots + " spots";
+
         // Update text to match lot data
         ((TextView)(lotView.findViewById(R.id.infoboxName))).setText(this.name);
-        ((TextView)(lotView.findViewById(R.id.infoboxSpaces))).append(" " + this.occupancy + "/" + this.capacity);
-        ((TextView)(lotView.findViewById(R.id.infoboxCost))).append(" $" + this.pricePerHour);
+        ((TextView)(lotView.findViewById(R.id.infoboxSpaces))).setText(spaces);
+        ((TextView)(lotView.findViewById(R.id.infoboxOccupancy))).setText(" (" + this.capacity + ")");
+        ((TextView)(lotView.findViewById(R.id.infoboxCost))).append(this.pricePerHour + "");
 
         return lotView;
     }
