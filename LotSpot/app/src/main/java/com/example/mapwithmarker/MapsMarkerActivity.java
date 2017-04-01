@@ -3,26 +3,20 @@ package com.example.mapwithmarker;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.graphics.drawable.ColorDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.os.IBinder;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -33,15 +27,12 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.Manifest;
 import android.widget.Toast;
-import android.view.ViewGroup.LayoutParams;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -54,6 +45,7 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
+import com.google.maps.android.clustering.ClusterManager;
 import com.utsg.csc301.team21.models.LotInfoBoxFragment;
 import com.utsg.csc301.team21.models.ParkingLot;
 
@@ -90,6 +82,7 @@ public class MapsMarkerActivity extends AppCompatActivity
     private Button mOptionButton;
     private PopupWindow mPopupWindow;
     private Marker searched = null;
+    private ClusterManager<ParkingLot> mClusterManager;
 
     // Used in displaying the lot info box
     private Fragment infoBox = null;
@@ -266,6 +259,7 @@ public class MapsMarkerActivity extends AppCompatActivity
 
             }
         //TODO: Cluster Markers
+        setUpCluster();
     }
 
     @Override
@@ -397,6 +391,49 @@ public class MapsMarkerActivity extends AppCompatActivity
                     // TODO: Draw on asset number of available lots
                     // According to capacity choose color
         }
+    }
+
+    private void setUpCluster() {
+        mClusterManager = new ClusterManager<ParkingLot>(this, mGoogleMap);
+
+        // Point the map's listeners at the listeners implemented by the cluster
+        // manager.
+        mGoogleMap.setOnCameraIdleListener(mClusterManager);
+        // We dont need this yet ⬇️
+        // mGoogleMap.setOnMarkerClickListener(mClusterManager);
+
+        // Hardcoded testing ParkingLot instances
+        ParkingLot pl1 = new ParkingLot(1, 100, 50, "Parking Lot 01",
+                null, 43.662892, -79.395656, 5.0);
+        ParkingLot pl2 = new ParkingLot(2, 100, 50, "Parking Lot 02",
+                null, 43.665385, -79.403477, 5.0);
+        ParkingLot pl3 = new ParkingLot(2, 100, 50, "Parking Lot 02",
+                null, 43.657563, -79.403436, 5.0);
+        ParkingLot pl4 = new ParkingLot(2, 100, 50, "Parking Lot 02",
+                null, 43.655946, -79.408577, 5.0);
+        ParkingLot pl5 = new ParkingLot(2, 100, 50, "Parking Lot 02",
+                null, 43.652175, -79.405963, 5.0);
+        ParkingLot pl6 = new ParkingLot(2, 100, 50, "Parking Lot 02",
+                null, 43.652586, -79.398445, 5.0);
+        ParkingLot pl7 = new ParkingLot(2, 100, 50, "Parking Lot 02",
+                null, 43.659353, -79.389422, 5.0);
+        ParkingLot pl8 = new ParkingLot(2, 100, 50, "Parking Lot 02",
+                null, 43.659891, -79.388625, 5.0);
+        ParkingLot pl9 = new ParkingLot(2, 100, 50, "Parking Lot 02",
+                null, 43.667672, -79.389450, 5.0);
+        ParkingLot pl10 = new ParkingLot(2, 100, 50, "Parking Lot 02",
+                null, 43.669112, -79.388623, 5.0);
+
+        mClusterManager.addItem(pl1);
+        mClusterManager.addItem(pl2);
+        mClusterManager.addItem(pl3);
+        mClusterManager.addItem(pl4);
+        mClusterManager.addItem(pl5);
+        mClusterManager.addItem(pl6);
+        mClusterManager.addItem(pl7);
+        mClusterManager.addItem(pl8);
+        mClusterManager.addItem(pl9);
+        mClusterManager.addItem(pl10);
     }
 
 
