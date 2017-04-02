@@ -1,5 +1,8 @@
 package com.utsg.csc301.team21.models;
 
+import com.google.android.gms.maps.model.LatLng;
+import com.google.maps.android.clustering.ClusterItem;
+
 import java.math.BigDecimal;
 
 /**
@@ -7,7 +10,7 @@ import java.math.BigDecimal;
  *  - Basic implementation of Abstract Parking Lot.
  */
 
-public class ParkingLot extends AbstractParkingLot{
+public class ParkingLot extends AbstractParkingLot implements ClusterItem{
 
 
     public ParkingLot(int id, int capacity, int occupancy, String name, String address, double lat, double lng, Double pricePerHour) {
@@ -21,4 +24,18 @@ public class ParkingLot extends AbstractParkingLot{
         this.pricePerHour = BigDecimal.valueOf( pricePerHour);
     }
 
+    @Override
+    public LatLng getPosition() {
+        return new LatLng(lat, lng);
+    }
+
+    @Override
+    public String getTitle() {
+        return name;
+    }
+
+    @Override
+    public String getSnippet() {
+        return "Vacancy: " + (capacity - occupancy) + " / " + capacity;
+    }
 }
