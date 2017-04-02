@@ -5,7 +5,7 @@
   "main": "server.js",
   "repository": {
     "type" : "git",
-    "url" : "https://github.com/csc301-winter-2017/project-team-21.git"
+    "url" : "https://github.com/heroku/lotspot-team21.git"
   },
   "scripts": {
     "start": "node server.js"
@@ -15,6 +15,11 @@
     "body-parser":"*",
     "mongoose":"*"
   },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
   "license": "UNLICENSED",
   "author": "Bogdan Vochin"
 }

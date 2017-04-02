@@ -3,24 +3,33 @@ var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
-app.use(express.static(__dirname+'/client'));
+app.set('port', (process.env.PORT || 5000));
+
+app.use(express.static(__dirname + '/client'));
 app.use(bodyParser.json());
 
 // Lot Model
 Lot = require('./models/lot');
 
-// Connect to Mongoose
-mongoose.connect('mongodb://localhost/LotSpot');
-var db = mongoose.connection;
+var uristring = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/';
 
+// Connect to Mongoose
+
+mongoose.connect(uristring, function (err, res) {
+    if (err) {
+        console.log ('ERROR connecting to: ' + uristring + '. ' + err);
+    } else {
+        console.log ('Succeeded connected to: ' + uristring);
+    }
+});
 
 /*
-* LOT ENDPOINTS
-*/
+ * LOT ENDPOINTS
+ */
 
 // Default
 app.get('/', (req, res) => {
-	res.send('Please use /api/lots');
+    res.send('Please use /api/lots');
 });
 
 // Get all lots
@@ -78,6 +87,6 @@ app.delete('/api/lots/:_id', (req, res) => {
     });
 });
 
-// Where to connect
-app.listen(3000);
-console.log('Running on port 3000...');
+app.listen(app.get('port'), function() {
+    console.log('Node app is running on port', app.get('port'));
+});
