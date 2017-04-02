@@ -18,7 +18,7 @@ public abstract class AbstractParkingLot {
     String paymentType;
     double lat;
     double lng;
-    BigDecimal pricePerHour; //TODO: Change this to just price payment type tells us the hour/moth/year rate
+    double pricePerHour; //TODO: Change this to just price payment type tells us the hour/moth/year rate
     boolean handicapParking;
 
     public double getLatitude() {
@@ -90,7 +90,7 @@ public abstract class AbstractParkingLot {
         this.lng = lng;
     }
 
-    public void setPricePerHour(BigDecimal pricePerHour) {
+    public void setPricePerHour(double pricePerHour) {
         this.pricePerHour = pricePerHour;
     }
 
@@ -110,7 +110,7 @@ public abstract class AbstractParkingLot {
         return lng;
     }
 
-    public BigDecimal getPricePerHour() {
+    public double getPricePerHour() {
         return pricePerHour;
     }
 }

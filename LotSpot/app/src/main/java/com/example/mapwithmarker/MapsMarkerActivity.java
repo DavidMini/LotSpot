@@ -8,6 +8,7 @@ import android.content.res.Configuration;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v4.app.ActivityCompat;
@@ -46,6 +47,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.maps.android.clustering.ClusterManager;
+import com.utsg.csc301.team21.models.AbstractParkingLot;
 import com.utsg.csc301.team21.models.LotInfoBoxFragment;
 import com.utsg.csc301.team21.models.ParkingLot;
 import com.utsg.csc301.team21.models.Renderer;
@@ -142,15 +144,6 @@ public class MapsMarkerActivity extends AppCompatActivity
                 }
             }
         };
-
-        // Setup the option button and popup window
-        mOptionButton = (Button) findViewById(R.id.option_button);
-        mOptionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                initiazePopupWindow(view);
-            }
-        });
 
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);
@@ -285,7 +278,17 @@ public class MapsMarkerActivity extends AppCompatActivity
         }
         // Handle your other action bar items...
 
-        return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+
+            case R.id.action_option:
+                initiazePopupWindow();
+
+
+            default:
+                //invoke superclass to handle not recognized actions
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 
     public void onSearch(String search)
@@ -429,7 +432,6 @@ public class MapsMarkerActivity extends AppCompatActivity
 
         mClusterManager.addItem(pl1);
         mClusterManager.addItem(pl2);
-        mClusterManager.addItem(pl3);
         mClusterManager.addItem(pl4);
         mClusterManager.addItem(pl5);
         mClusterManager.addItem(pl6);
@@ -588,7 +590,11 @@ public class MapsMarkerActivity extends AppCompatActivity
         destroyInfoBox();
 
         // Build new fragment
-        infoBox = LotInfoBoxFragment.newInstance(marker.getTitle(), 50, 39, Math.round(marker.getPosition().latitude));
+        infoBox = LotInfoBoxFragment.newInstance(marker.getTitle(), 50, 39, 40,
+                                                 marker.getPosition().latitude,
+                                                 marker.getPosition().longitude);
+
+        fragmentTransaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
         fragmentTransaction.add(R.id.mainLayout, infoBox);
         fragmentTransaction.commit();
 
@@ -601,6 +607,7 @@ public class MapsMarkerActivity extends AppCompatActivity
         if(infoBox != null){
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
             fragmentTransaction.remove(infoBox);
             fragmentTransaction.commit();
             infoBox = null;
@@ -612,10 +619,12 @@ public class MapsMarkerActivity extends AppCompatActivity
         // Leave this empty - needed for fragments used by this activity
     }
 
-    public void moveToLocation(double lat, double lng) {
+    public void moveToLocation(AbstractParkingLot p) {
+
+        // Move to that location with transition animation
+        double lat = p.getLat();
+        double lng = p.getLng();
         LatLng coordinate = new LatLng(lat, lng);
-        // Old that doesn't have camera animation:
-        // mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(camera, 15));
         CameraUpdate camera = CameraUpdateFactory.newLatLngZoom(
                 coordinate, 15);
         mGoogleMap.animateCamera(camera);
@@ -625,8 +634,9 @@ public class MapsMarkerActivity extends AppCompatActivity
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
+
         destroyInfoBox();
-        infoBox = LotInfoBoxFragment.newInstance("Lot 1", 10, 5, lat);
+        infoBox = LotInfoBoxFragment.newInstance(p.getName(), p.getCapacity(), p.getOccupancy(), p.getPricePerHour(), lat, lng);
         fragmentTransaction.add(R.id.mainLayout, infoBox);
         fragmentTransaction.commit();
 
@@ -638,7 +648,7 @@ public class MapsMarkerActivity extends AppCompatActivity
 
 
 
-    public void initiazePopupWindow(View v) {
+    public void initiazePopupWindow() {
         try {
             // We need to get the instance of the LayoutInflater
             LayoutInflater inflater = (LayoutInflater) MapsMarkerActivity.this.
@@ -672,8 +682,14 @@ public class MapsMarkerActivity extends AppCompatActivity
             View button = layout.findViewById(R.id.switchDisabled);
             ((Switch)button).setChecked(oAccess);
             initPopupObj(button, 4, textview);
+
+            // Setup popup window open and closing animation
+            pw.setAnimationStyle(R.style.popupAnimation);
+
             pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
 
+            // Dim background, must be after showing the pw
+            dimBehind(pw);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -735,6 +751,31 @@ public class MapsMarkerActivity extends AppCompatActivity
             });
         }
 
+
+
+    }
+
+    public static void dimBehind(PopupWindow popupWindow) {
+        View container;
+        if (popupWindow.getBackground() == null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                container = (View) popupWindow.getContentView().getParent();
+            } else {
+                container = popupWindow.getContentView();
+            }
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                container = (View) popupWindow.getContentView().getParent().getParent();
+            } else {
+                container = (View) popupWindow.getContentView().getParent();
+            }
+        }
+        Context context = popupWindow.getContentView().getContext();
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        WindowManager.LayoutParams p = (WindowManager.LayoutParams) container.getLayoutParams();
+        p.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+        p.dimAmount = 0.5f;
+        wm.updateViewLayout(container, p);
     }
 
 
