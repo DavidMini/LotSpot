@@ -659,9 +659,6 @@ public class MapsMarkerActivity extends AppCompatActivity
             PopupWindow pw;
             pw = new PopupWindow(layout, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT, true);
 
-
-            pw.setAnimationStyle(R.style.popupAnimation);
-
             // Restore initial value of each object in popup
             // Restore the text
             // Initialize each listener for all the objects in the popup
@@ -687,10 +684,12 @@ public class MapsMarkerActivity extends AppCompatActivity
             ((Switch)button).setChecked(oAccess);
             initPopupObj(button, 4, textview);
 
+            // Setup popup window open and closing animation
+            pw.setAnimationStyle(R.style.popupAnimation);
 
             pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
 
-            // Dim background
+            // Dim background, must be after showing the pw
             dimBehind(pw);
 
         } catch (Exception e) {
