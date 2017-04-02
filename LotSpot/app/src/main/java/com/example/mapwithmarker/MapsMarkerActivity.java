@@ -8,6 +8,7 @@ import android.content.res.Configuration;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v4.app.ActivityCompat;
@@ -658,6 +659,9 @@ public class MapsMarkerActivity extends AppCompatActivity
             PopupWindow pw;
             pw = new PopupWindow(layout, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT, true);
 
+
+            pw.setAnimationStyle(R.style.popupAnimation);
+
             // Restore initial value of each object in popup
             // Restore the text
             // Initialize each listener for all the objects in the popup
@@ -682,8 +686,12 @@ public class MapsMarkerActivity extends AppCompatActivity
             View button = layout.findViewById(R.id.switchDisabled);
             ((Switch)button).setChecked(oAccess);
             initPopupObj(button, 4, textview);
+
+
             pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
 
+            // Dim background
+            dimBehind(pw);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -745,6 +753,31 @@ public class MapsMarkerActivity extends AppCompatActivity
             });
         }
 
+
+
+    }
+
+    public static void dimBehind(PopupWindow popupWindow) {
+        View container;
+        if (popupWindow.getBackground() == null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                container = (View) popupWindow.getContentView().getParent();
+            } else {
+                container = popupWindow.getContentView();
+            }
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                container = (View) popupWindow.getContentView().getParent().getParent();
+            } else {
+                container = (View) popupWindow.getContentView().getParent();
+            }
+        }
+        Context context = popupWindow.getContentView().getContext();
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        WindowManager.LayoutParams p = (WindowManager.LayoutParams) container.getLayoutParams();
+        p.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+        p.dimAmount = 0.5f;
+        wm.updateViewLayout(container, p);
     }
 
 
