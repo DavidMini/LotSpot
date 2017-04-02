@@ -142,15 +142,6 @@ public class MapsMarkerActivity extends AppCompatActivity
             }
         };
 
-        // Setup the option button and popup window
-        mOptionButton = (Button) findViewById(R.id.option_button);
-        mOptionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                initiazePopupWindow();
-            }
-        });
-
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
@@ -594,7 +585,9 @@ public class MapsMarkerActivity extends AppCompatActivity
         destroyInfoBox();
 
         // Build new fragment
-        infoBox = LotInfoBoxFragment.newInstance(marker.getTitle(), 50, 39, Math.round(marker.getPosition().latitude));
+        infoBox = LotInfoBoxFragment.newInstance(marker.getTitle(), 50, 39, 40,
+                                                 marker.getPosition().latitude,
+                                                 marker.getPosition().longitude);
         fragmentTransaction.add(R.id.mainLayout, infoBox);
         fragmentTransaction.commit();
 
@@ -632,7 +625,7 @@ public class MapsMarkerActivity extends AppCompatActivity
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
         destroyInfoBox();
-        infoBox = LotInfoBoxFragment.newInstance("Lot 1", 10, 5, lat);
+        infoBox = LotInfoBoxFragment.newInstance("Lot 1", 10, 5, lat, lat, lng);
         fragmentTransaction.add(R.id.mainLayout, infoBox);
         fragmentTransaction.commit();
 

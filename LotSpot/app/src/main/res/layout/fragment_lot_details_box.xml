@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
-        android:paddingLeft="15dp"
+        android:paddingLeft="10dp"
         android:paddingRight="15dp"
         android:background="@color/colorWhite" >
 
@@ -67,16 +67,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/infoboxName"
-            android:layout_toLeftOf="@+id/imageButton"
-            android:paddingRight="17dp"
+            android:layout_toLeftOf="@+id/getDir"
+            android:paddingRight="15dp"
             android:textAppearance="@style/TextAppearance.StatusBar.EventContent.Info" />
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/getDir"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:background="@drawable/google_directions" />
+            android:clickable="true"
+            android:background="@drawable/direction" />
     </RelativeLayout >
 </LinearLayout>
