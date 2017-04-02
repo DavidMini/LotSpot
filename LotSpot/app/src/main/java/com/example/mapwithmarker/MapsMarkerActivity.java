@@ -147,7 +147,7 @@ public class MapsMarkerActivity extends AppCompatActivity
         mOptionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                initiazePopupWindow(view);
+                initiazePopupWindow();
             }
         });
 
@@ -284,7 +284,17 @@ public class MapsMarkerActivity extends AppCompatActivity
         }
         // Handle your other action bar items...
 
-        return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+
+            case R.id.action_option:
+                initiazePopupWindow();
+
+
+            default:
+                //invoke superclass to handle not recognized actions
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 
     public void onSearch(String search)
@@ -426,7 +436,6 @@ public class MapsMarkerActivity extends AppCompatActivity
 
         mClusterManager.addItem(pl1);
         mClusterManager.addItem(pl2);
-        mClusterManager.addItem(pl3);
         mClusterManager.addItem(pl4);
         mClusterManager.addItem(pl5);
         mClusterManager.addItem(pl6);
@@ -635,7 +644,7 @@ public class MapsMarkerActivity extends AppCompatActivity
 
 
 
-    public void initiazePopupWindow(View v) {
+    public void initiazePopupWindow() {
         try {
             // We need to get the instance of the LayoutInflater
             LayoutInflater inflater = (LayoutInflater) MapsMarkerActivity.this.
