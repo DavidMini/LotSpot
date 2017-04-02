@@ -1,12 +1,14 @@
 package com.utsg.csc301.team21.models;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.mapwithmarker.R;
@@ -20,18 +22,21 @@ import com.example.mapwithmarker.R;
  * create an instance of this fragment.
  */
 public class LotInfoBoxFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    // the fragment initialization parameters
     private static final String ARG_PARAM1 = "name";
     private static final String ARG_PARAM2 = "capacity";
     private static final String ARG_PARAM3 = "occupancy";
     private static final String ARG_PARAM4 = "pricePerHour";
+    private static final String ARG_PARAM5 = "latitude";
+    private static final String ARG_PARAM6 = "longitude";
 
     // Lot Detail parameters
     private String name;
     private int capacity;
     private int occupancy;
     private double pricePerHour;
+    private double latitude;
+    private double longitude;
 
     private OnFragmentInteractionListener mListener;
 
@@ -50,13 +55,15 @@ public class LotInfoBoxFragment extends Fragment {
      * @return A new instance of fragment LotInfoBoxFragment.
      */
     public static LotInfoBoxFragment newInstance(String name, int capacity, int occupancy,
-                                                 double pricePerHour) {
+                                                 double pricePerHour, double latitude, double longitude) {
         LotInfoBoxFragment fragment = new LotInfoBoxFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, name);
         args.putInt(ARG_PARAM2, capacity);
         args.putInt(ARG_PARAM3, occupancy);
         args.putDouble(ARG_PARAM4, pricePerHour);
+        args.putDouble(ARG_PARAM5, latitude);
+        args.putDouble(ARG_PARAM6, longitude);
         fragment.setArguments(args);
         return fragment;
     }
@@ -69,6 +76,8 @@ public class LotInfoBoxFragment extends Fragment {
             this.capacity = getArguments().getInt(ARG_PARAM2);
             this.occupancy = getArguments().getInt(ARG_PARAM3);
             this.pricePerHour = getArguments().getDouble(ARG_PARAM4);
+            this.latitude = getArguments().getDouble(ARG_PARAM5);
+            this.longitude = getArguments().getDouble(ARG_PARAM6);
         }
     }
 
@@ -77,6 +86,9 @@ public class LotInfoBoxFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View lotView = inflater.inflate(R.layout.fragment_lot_details_box, container, false);
+
+        final double lat = this.latitude;
+        final double lng = this.longitude;
 
         // Sets spaces available text
         int spots = this.capacity - this.occupancy;
@@ -87,6 +99,20 @@ public class LotInfoBoxFragment extends Fragment {
         ((TextView)(lotView.findViewById(R.id.infoboxSpaces))).setText(spaces);
         ((TextView)(lotView.findViewById(R.id.infoboxOccupancy))).setText(" (" + this.capacity + ")");
         ((TextView)(lotView.findViewById(R.id.infoboxCost))).append(this.pricePerHour + "");
+
+        // Set onclick listener to directions button
+        ImageButton dir =(ImageButton)(lotView.findViewById(R.id.getDir));
+        dir.setOnClickListener(new View.OnClickListener()   {
+            public void onClick(View v)  {
+                try {
+                    Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                            Uri.parse("http://maps.google.com/maps?&daddr=" + lat + "," + lng));
+                    startActivity(intent);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         return lotView;
     }

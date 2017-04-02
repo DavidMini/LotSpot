@@ -27,36 +27,6 @@
             android:layout_height="match_parent"
             tools:context="com.example.mapwithmarker.MapsMarkerActivity" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorTpWhite"
-            android:weightSum="1">
-
-
-            <EditText
-                android:id="@+id/TFaddress"
-                android:layout_width="225dp"
-                android:layout_height="wrap_content" />
-
-            <Button
-                android:id="@+id/Bsearch"
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:onClick="onSearch"
-                android:text="Search" />
-
-            <Button
-                android:id="@+id/option_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Option" />
-
-        </LinearLayout>
-
     </FrameLayout>
 
     <!-- The Search result drawer, on the right -->
