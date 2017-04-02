@@ -48,6 +48,7 @@ import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.maps.android.clustering.ClusterManager;
 import com.utsg.csc301.team21.models.LotInfoBoxFragment;
 import com.utsg.csc301.team21.models.ParkingLot;
+import com.utsg.csc301.team21.models.Renderer;
 
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 
@@ -402,26 +403,28 @@ public class MapsMarkerActivity extends AppCompatActivity
         // We dont need this yet ⬇️
         // mGoogleMap.setOnMarkerClickListener(mClusterManager);
 
+        mClusterManager.setRenderer(new Renderer(this, mGoogleMap, mClusterManager));
+
         // Hardcoded testing ParkingLot instances
         ParkingLot pl1 = new ParkingLot(1, 100, 50, "Parking Lot 01",
                 null, 43.662892, -79.395656, 5.0);
         ParkingLot pl2 = new ParkingLot(2, 100, 50, "Parking Lot 02",
                 null, 43.665385, -79.403477, 5.0);
-        ParkingLot pl3 = new ParkingLot(2, 100, 50, "Parking Lot 02",
+        ParkingLot pl3 = new ParkingLot(2, 100, 50, "Parking Lot 03",
                 null, 43.657563, -79.403436, 5.0);
-        ParkingLot pl4 = new ParkingLot(2, 100, 50, "Parking Lot 02",
+        ParkingLot pl4 = new ParkingLot(2, 100, 50, "Parking Lot 04",
                 null, 43.655946, -79.408577, 5.0);
-        ParkingLot pl5 = new ParkingLot(2, 100, 50, "Parking Lot 02",
+        ParkingLot pl5 = new ParkingLot(2, 100, 50, "Parking Lot 05",
                 null, 43.652175, -79.405963, 5.0);
-        ParkingLot pl6 = new ParkingLot(2, 100, 50, "Parking Lot 02",
+        ParkingLot pl6 = new ParkingLot(2, 100, 50, "Parking Lot 06",
                 null, 43.652586, -79.398445, 5.0);
-        ParkingLot pl7 = new ParkingLot(2, 100, 50, "Parking Lot 02",
+        ParkingLot pl7 = new ParkingLot(2, 100, 50, "Parking Lot 07",
                 null, 43.659353, -79.389422, 5.0);
-        ParkingLot pl8 = new ParkingLot(2, 100, 50, "Parking Lot 02",
+        ParkingLot pl8 = new ParkingLot(2, 100, 50, "Parking Lot 08",
                 null, 43.659891, -79.388625, 5.0);
-        ParkingLot pl9 = new ParkingLot(2, 100, 50, "Parking Lot 02",
+        ParkingLot pl9 = new ParkingLot(2, 100, 50, "Parking Lot 09",
                 null, 43.667672, -79.389450, 5.0);
-        ParkingLot pl10 = new ParkingLot(2, 100, 50, "Parking Lot 02",
+        ParkingLot pl10 = new ParkingLot(2, 100, 50, "Parking Lot 10",
                 null, 43.669112, -79.388623, 5.0);
 
         mClusterManager.addItem(pl1);
