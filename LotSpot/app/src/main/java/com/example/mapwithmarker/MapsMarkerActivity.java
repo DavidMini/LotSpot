@@ -46,6 +46,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.maps.android.clustering.ClusterManager;
+import com.utsg.csc301.team21.models.AbstractParkingLot;
 import com.utsg.csc301.team21.models.LotInfoBoxFragment;
 import com.utsg.csc301.team21.models.ParkingLot;
 
@@ -595,6 +596,7 @@ public class MapsMarkerActivity extends AppCompatActivity
 
         // Build new fragment
         infoBox = LotInfoBoxFragment.newInstance(marker.getTitle(), 50, 39, Math.round(marker.getPosition().latitude));
+        fragmentTransaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
         fragmentTransaction.add(R.id.mainLayout, infoBox);
         fragmentTransaction.commit();
 
@@ -607,6 +609,7 @@ public class MapsMarkerActivity extends AppCompatActivity
         if(infoBox != null){
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
             fragmentTransaction.remove(infoBox);
             fragmentTransaction.commit();
             infoBox = null;
@@ -618,10 +621,12 @@ public class MapsMarkerActivity extends AppCompatActivity
         // Leave this empty - needed for fragments used by this activity
     }
 
-    public void moveToLocation(double lat, double lng) {
+    public void moveToLocation(AbstractParkingLot p) {
+
+        // Move to that location with transition animation
+        double lat = p.getLat();
+        double lng = p.getLng();
         LatLng coordinate = new LatLng(lat, lng);
-        // Old that doesn't have camera animation:
-        // mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(camera, 15));
         CameraUpdate camera = CameraUpdateFactory.newLatLngZoom(
                 coordinate, 15);
         mGoogleMap.animateCamera(camera);
@@ -631,8 +636,7 @@ public class MapsMarkerActivity extends AppCompatActivity
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
-        destroyInfoBox();
-        infoBox = LotInfoBoxFragment.newInstance("Lot 1", 10, 5, lat);
+        infoBox = LotInfoBoxFragment.newInstance(p.getName(), p.getCapacity(), p.getOccupancy(), p.getPricePerHour());
         fragmentTransaction.add(R.id.mainLayout, infoBox);
         fragmentTransaction.commit();
 

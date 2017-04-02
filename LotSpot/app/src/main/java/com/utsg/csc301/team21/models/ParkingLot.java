@@ -21,7 +21,7 @@ public class ParkingLot extends AbstractParkingLot implements ClusterItem{
         this.address = address;
         this.lat = lat;
         this.lng = lng;
-        this.pricePerHour = BigDecimal.valueOf( pricePerHour);
+        this.pricePerHour = pricePerHour;
     }
 
     @Override
