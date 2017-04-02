@@ -143,15 +143,6 @@ public class MapsMarkerActivity extends AppCompatActivity
             }
         };
 
-        // Setup the option button and popup window
-        mOptionButton = (Button) findViewById(R.id.option_button);
-        mOptionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                initiazePopupWindow();
-            }
-        });
-
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
@@ -595,7 +586,10 @@ public class MapsMarkerActivity extends AppCompatActivity
         destroyInfoBox();
 
         // Build new fragment
-        infoBox = LotInfoBoxFragment.newInstance(marker.getTitle(), 50, 39, Math.round(marker.getPosition().latitude));
+        infoBox = LotInfoBoxFragment.newInstance(marker.getTitle(), 50, 39, 40,
+                                                 marker.getPosition().latitude,
+                                                 marker.getPosition().longitude);
+
         fragmentTransaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
         fragmentTransaction.add(R.id.mainLayout, infoBox);
         fragmentTransaction.commit();
@@ -636,7 +630,9 @@ public class MapsMarkerActivity extends AppCompatActivity
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
-        infoBox = LotInfoBoxFragment.newInstance(p.getName(), p.getCapacity(), p.getOccupancy(), p.getPricePerHour());
+
+        destroyInfoBox();
+        infoBox = LotInfoBoxFragment.newInstance(p.getName(), p.getCapacity(), p.getOccupancy(), p.getPricePerHour(), lat, lng);
         fragmentTransaction.add(R.id.mainLayout, infoBox);
         fragmentTransaction.commit();
 
