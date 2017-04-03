@@ -3,24 +3,33 @@ var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
-app.use(express.static(__dirname+'/client'));
+app.set('port', (process.env.PORT || 3000));
+
+app.use(express.static(__dirname + '/client'));
 app.use(bodyParser.json());
 
 // Lot Model
 Lot = require('./models/lot');
 
-// Connect to Mongoose
-mongoose.connect('mongodb://localhost/LotSpot');
-var db = mongoose.connection;
+var uristring = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/';
 
+// Connect to Mongoose
+
+mongoose.connect(uristring, function (err, res) {
+    if (err) {
+        console.log ('ERROR connecting to: ' + uristring + '. ' + err);
+    } else {
+        console.log ('Succeeded connected to: ' + uristring);
+    }
+});
 
 /*
-* LOT ENDPOINTS
-*/
+ * LOT ENDPOINTS
+ */
 
 // Default
-app.get('/', (req, res) => {
-	res.send('Please use /api/lots');
+app.get('/', function (req, res) {
+    res.sendfile("app.html");
 });
 
 // Get all lots
@@ -34,6 +43,7 @@ app.get('/api/lots', (req, res) => {
     });
 });
 
+// Get lot by id
 app.get('/api/lots/:_id', (req, res) => {
     Lot.getLotById(req.params._id, (err, lot) => {
         if(err){
@@ -44,6 +54,7 @@ app.get('/api/lots/:_id', (req, res) => {
     });
 });
 
+// Add lot
 app.post('/api/lots', (req, res) => {
     var lot = req.body;
     Lot.addLot(lot, (err, lot) => {
@@ -55,6 +66,7 @@ app.post('/api/lots', (req, res) => {
     });
 });
 
+// Update lot by id
 app.put('/api/lots/:_id', (req, res) => {
     var id = req.params._id;
     var lot = req.body;
@@ -67,6 +79,7 @@ app.put('/api/lots/:_id', (req, res) => {
     });
 });
 
+// Delete lot by id
 app.delete('/api/lots/:_id', (req, res) => {
     var id = req.params._id;
     Lot.removeLot(id, (err, lot) => {
@@ -78,6 +91,6 @@ app.delete('/api/lots/:_id', (req, res) => {
     });
 });
 
-// Where to connect
-app.listen(3000);
-console.log('Running on port 3000...');
+app.listen(app.get('port'), function() {
+    console.log('Node app is running on port', app.get('port'));
+});

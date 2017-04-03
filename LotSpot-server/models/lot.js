@@ -1,5 +1,11 @@
 const mongoose = require('mongoose');
 
+var uri = 'mongodb://heroku_z8btmxk1:t96o4q2kq7qudvpes9sc5kh2ol@ds147900.mlab.com:47900/heroku_z8btmxk1';
+
+mongoose.promise = global.promise;
+
+mongoose.connect(uri);
+
 // Lot Schema
 const lotSchema = mongoose.Schema({
     name:{
