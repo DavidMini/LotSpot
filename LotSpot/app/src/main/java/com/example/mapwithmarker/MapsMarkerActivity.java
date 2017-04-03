@@ -87,6 +87,7 @@ public class MapsMarkerActivity extends AppCompatActivity
     private PopupWindow mPopupWindow;
     private Marker searched = null;
     private ClusterManager<ParkingLot> mClusterManager;
+    private SearchView searchView;
 
     // Used in displaying the lot info box
     private Fragment infoBox = null;
@@ -163,9 +164,9 @@ public class MapsMarkerActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         // Configure the search info and add any event listeners
-         SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
+        SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
         public boolean onQueryTextChange(String newText) {
             // this is your adapter that will be filtered
             return true;
@@ -484,6 +485,7 @@ public class MapsMarkerActivity extends AppCompatActivity
     @Override
     public void onMapClick(LatLng latLng) {
         destroyInfoBox();
+        getSupportActionBar().collapseActionView();
     }
 
     /** Called when the user clicks a marker. */
