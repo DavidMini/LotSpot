@@ -60,6 +60,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 /**
@@ -228,9 +229,6 @@ public class MapsMarkerActivity extends AppCompatActivity
         // Set Map
         mGoogleMap = googleMap;
 
-        // Populate map with parking lot markers
-        addMarkers();
-
         // Attaches click listener for deselecting a marker
         mGoogleMap.setOnMapClickListener(this);
 
@@ -252,7 +250,7 @@ public class MapsMarkerActivity extends AppCompatActivity
             requestPermissions ();
 
             }
-        //TODO: Cluster Markers
+        // Cluster Markers
         setUpCluster();
     }
 
@@ -408,167 +406,79 @@ public class MapsMarkerActivity extends AppCompatActivity
 
         mClusterManager.setRenderer(new Renderer(this, mGoogleMap, mClusterManager));
 
-        // Hardcoded testing ParkingLot instances
-        ParkingLot pl1 = new ParkingLot(1, 100, 50, "Parking Lot 01",
-                null, 43.662892, -79.395656, 5.0);
-        ParkingLot pl2 = new ParkingLot(2, 100, 50, "Parking Lot 02",
-                null, 43.665385, -79.403477, 5.0);
-        ParkingLot pl3 = new ParkingLot(2, 100, 50, "Parking Lot 03",
-                null, 43.657563, -79.403436, 5.0);
-        ParkingLot pl4 = new ParkingLot(2, 100, 50, "Parking Lot 04",
-                null, 43.655946, -79.408577, 5.0);
-        ParkingLot pl5 = new ParkingLot(2, 100, 50, "Parking Lot 05",
-                null, 43.652175, -79.405963, 5.0);
-        ParkingLot pl6 = new ParkingLot(2, 100, 50, "Parking Lot 06",
-                null, 43.652586, -79.398445, 5.0);
-        ParkingLot pl7 = new ParkingLot(2, 100, 50, "Parking Lot 07",
-                null, 43.659353, -79.389422, 5.0);
-        ParkingLot pl8 = new ParkingLot(2, 100, 50, "Parking Lot 08",
-                null, 43.659891, -79.388625, 5.0);
-        ParkingLot pl9 = new ParkingLot(2, 100, 50, "Parking Lot 09",
-                null, 43.667672, -79.389450, 5.0);
-        ParkingLot pl10 = new ParkingLot(2, 100, 50, "Parking Lot 10",
-                null, 43.669112, -79.388623, 5.0);
-
-        mClusterManager.addItem(pl1);
-        mClusterManager.addItem(pl2);
-        mClusterManager.addItem(pl4);
-        mClusterManager.addItem(pl5);
-        mClusterManager.addItem(pl6);
-        mClusterManager.addItem(pl7);
-        mClusterManager.addItem(pl8);
-        mClusterManager.addItem(pl9);
-        mClusterManager.addItem(pl10);
+        addItems();
     }
 
 
 
-    public void addMarkers(){
+    public void addItems(){
         // Initial focus on UofT TODO:Set to current location
         LatLng uoft = new LatLng(43.662892, -79.395656);
         mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(uoft, 14));
 
+        Random r = new Random();
+
+        // ParkingLot(int id, int capacity, int occupancy, String name,
+        // String address, double lat, double lng, Double pricePerHour)
+
         // List of Parking Lots
-        LatLng latLngLot01 = new LatLng(43.666705, -79.405147);
-        Marker lot01 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot01)
-                .title("Parking Lot 01")
-                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/orange_3_marker.png")));
+        ParkingLot pl01 = new ParkingLot(1, 100, r.nextInt(100), "Parking Lot 1", "", 43.666705, -79.405147, r.nextDouble()*10);
+        ParkingLot pl02 = new ParkingLot(2, 100, r.nextInt(100), "Parking Lot 2", "", 43.665385, -79.403477, r.nextDouble()*10);
+        ParkingLot pl03 = new ParkingLot(3, 100, r.nextInt(100), "Parking Lot 3", "", 43.657563, -79.403436, r.nextDouble()*10);
+        ParkingLot pl04 = new ParkingLot(4, 100, r.nextInt(100), "Parking Lot 4", "", 43.655946, -79.408577, r.nextDouble()*10);
+        ParkingLot pl05 = new ParkingLot(5, 100, r.nextInt(100), "Parking Lot 5", "", 43.652175, -79.405963, r.nextDouble()*10);
 
+        ParkingLot pl06 = new ParkingLot(6, 100, r.nextInt(100), "Parking Lot 6", "", 43.652586, -79.398445, r.nextDouble()*10);
+        ParkingLot pl07 = new ParkingLot(7, 100, r.nextInt(100), "Parking Lot 7", "", 43.659353, -79.389422, r.nextDouble()*10);
+        ParkingLot pl08 = new ParkingLot(8, 100, r.nextInt(100), "Parking Lot 8", "", 43.659891, -79.388625, r.nextDouble()*10);
+        ParkingLot pl09 = new ParkingLot(9, 100, r.nextInt(100), "Parking Lot 9", "", 43.667672, -79.389450, r.nextDouble()*10);
+        ParkingLot pl10 = new ParkingLot(10, 100, r.nextInt(100), "Parking Lot 10", "", 43.669112, -79.388623, r.nextDouble()*10);
 
-        LatLng latLngLot02 = new LatLng(43.665385, -79.403477);
-        Marker lot02 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot02)
-                .title("Parking Lot 02")
-                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/green_14_marker.png")));
+        ParkingLot pl11 = new ParkingLot(11, 100, r.nextInt(100), "Parking Lot 11", "", 43.669710, -79.391218, r.nextDouble()*10);
+        ParkingLot pl12 = new ParkingLot(12, 100, r.nextInt(100), "Parking Lot 12", "", 43.669447, -79.392248, r.nextDouble()*10);
+        ParkingLot pl13 = new ParkingLot(13, 100, r.nextInt(100), "Parking Lot 13", "", 43.671654, -79.394603, r.nextDouble()*10);
+        ParkingLot pl14 = new ParkingLot(14, 100, r.nextInt(100), "Parking Lot 14", "", 43.674856, -79.398259, r.nextDouble()*10);
+        ParkingLot pl15 = new ParkingLot(15, 100, r.nextInt(100), "Parking Lot 15", "", 43.670676, -79.382509, r.nextDouble()*10);
 
-        LatLng latLngLot03 = new LatLng(43.657563, -79.403436);
-        Marker lot03 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot03)
-                .title("Parking Lot 03")
-                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/green_30_marker.png")));
+        ParkingLot pl16 = new ParkingLot(16, 100, r.nextInt(100), "Parking Lot 16", "", 43.669883, -79.382455, r.nextDouble()*10);
+        ParkingLot pl17 = new ParkingLot(17, 100, r.nextInt(100), "Parking Lot 17", "", 43.659829, -79.380369, r.nextDouble()*10);
+        ParkingLot pl18 = new ParkingLot(18, 100, r.nextInt(100), "Parking Lot 18", "", 43.657764, -79.376211, r.nextDouble()*10);
+        ParkingLot pl19 = new ParkingLot(19, 100, r.nextInt(100), "Parking Lot 19", "", 43.658145, -79.385359, r.nextDouble()*10);
+        ParkingLot pl20 = new ParkingLot(20, 100, r.nextInt(100), "Parking Lot 20", "", 43.656254, -79.388198, r.nextDouble()*10);
 
-        LatLng latLngLot04 = new LatLng(43.655946, -79.408577);
-        Marker lot04 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot04)
-                .title("Parking Lot 04")
-                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/orange_4_marker.png")));
+        ParkingLot pl21 = new ParkingLot(21, 100, r.nextInt(100), "Parking Lot 21", "", 43.654792, -79.389622, r.nextDouble()*10);
+        ParkingLot pl22 = new ParkingLot(22, 100, r.nextInt(100), "Parking Lot 22", "", 43.654358, -79.388712, r.nextDouble()*10);
+        ParkingLot pl23 = new ParkingLot(23, 100, r.nextInt(100), "Parking Lot 23", "", 43.654010, -79.387221, r.nextDouble()*10);
+        ParkingLot pl24 = new ParkingLot(24, 100, r.nextInt(100), "Parking Lot 24", "", 43.654806, -79.386678, r.nextDouble()*10);
 
-        LatLng latLngLot05 = new LatLng(43.652175, -79.405963);
-        Marker lot05 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot05)
-                .title("Parking Lot 05")
-                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/green_26_marker.png")));
+        mClusterManager.addItem(pl01);
+        mClusterManager.addItem(pl02);
+        mClusterManager.addItem(pl03);
+        mClusterManager.addItem(pl04);
+        mClusterManager.addItem(pl05);
 
-        LatLng latLngLot06 = new LatLng(43.652586, -79.398445);
-        Marker lot06 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot06)
-                .title("Parking Lot 06")
-                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/red_1_marker.png")));
+        mClusterManager.addItem(pl06);
+        mClusterManager.addItem(pl07);
+        mClusterManager.addItem(pl08);
+        mClusterManager.addItem(pl09);
+        mClusterManager.addItem(pl10);
 
-        LatLng latLngLot07 = new LatLng(43.659353, -79.389422);
-        Marker lot07 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot07)
-                .title("Parking Lot 07")
-                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/red_2_marker.png")));
+        mClusterManager.addItem(pl11);
+        mClusterManager.addItem(pl12);
+        mClusterManager.addItem(pl13);
+        mClusterManager.addItem(pl14);
+        mClusterManager.addItem(pl15);
 
-        LatLng latLngLot08 = new LatLng(43.659891, -79.388625);
-        Marker lot08 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot08)
-                .title("Parking Lot 08")
-                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/green_11_marker.png")));
+        mClusterManager.addItem(pl16);
+        mClusterManager.addItem(pl17);
+        mClusterManager.addItem(pl18);
+        mClusterManager.addItem(pl19);
+        mClusterManager.addItem(pl20);
 
-        LatLng latLngLot09 = new LatLng(43.667672, -79.389450);
-        Marker lot09 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot09)
-                .title("Parking Lot 09")
-                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/orange_5_marker.png")));
-
-        LatLng latLngLot10 = new LatLng(43.669112, -79.388623);
-        Marker lot10 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot10)
-                .title("Parking Lot 10")
-                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/green_56_marker.png")));
-
-        LatLng latLngLot11 = new LatLng(43.669710, -79.391218);
-        Marker lot11 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot11)
-                .title("Parking Lot 11")
-                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/green_38_marker.png")));
-
-        LatLng latLngLot12 = new LatLng( 43.669447, -79.392248);
-        Marker lot12 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot12)
-                .title("Parking Lot 12")
-                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/green_19_marker.png")));
-
-        LatLng latLngLot13 = new LatLng( 43.671654, -79.394603);
-        Marker lot13 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot13)
-                .title("Parking Lot 13")
-                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/red_2_marker.png")));
-
-        LatLng latLngLot14 = new LatLng( 43.674856, -79.398259);
-        Marker lot14 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot14)
-                .title("Parking Lot 14")
-                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/green_23_marker.png")));
-
-        LatLng latLngLot15 = new LatLng( 43.670676, -79.382509);
-        Marker lot15 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot15)
-                .title("Parking Lot 15")
-                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/green_15_marker.png")));
-
-        LatLng latLngLot16 = new LatLng( 43.669883, -79.382455);
-        Marker lot16 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot16)
-                .title("Parking Lot 16")
-                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/orange_6_marker.png")));
-
-        LatLng latLngLot17 = new LatLng( 43.659829, -79.380369);
-        Marker lot17 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot17)
-                .title("Parking Lot 17")
-                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/red_2_marker.png")));
-
-        LatLng latLngLot18 = new LatLng( 43.657764, -79.376211);
-        Marker lot18 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot18)
-                .title("Parking Lot 18")
-                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/green_9_marker.png")));
-
-        LatLng latLngLot19 = new LatLng( 43.658145, -79.385359);
-        Marker lot19 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot19)
-                .title("Parking Lot 19")
-                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/green_39_marker.png")));
-
-        LatLng latLngLot20 = new LatLng( 43.656254, -79.388198);
-        Marker lot20 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot20)
-                .title("Parking Lot 20")
-                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/green_64_marker.png")));
-
-        LatLng latLngLot21 = new LatLng( 43.654792, -79.389622);
-        Marker lot21 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot21)
-                .title("Lot 21")
-                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/red_3_marker.png")));
-
-        LatLng latLngLot22 = new LatLng( 43.654358, -79.388712);
-        Marker lot22 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot22)
-                .title("Parking Lot 22")
-                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/green_31_marker.png")));
-
-        LatLng latLngLot23 = new LatLng( 43.654010, -79.387221);
-        Marker lot23 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot23)
-                .title("Parking Lot 23")
-                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/orange_7_marker.png")));
-
-        LatLng latLngLot24 = new LatLng( 43.654806, -79.386678);
-        Marker lot24 = mGoogleMap.addMarker(new MarkerOptions().position(latLngLot24)
-                .title("Parking Lot 24")
-                .icon(BitmapDescriptorFactory.fromAsset("newMarkers/orange_4_marker.png")));
+        mClusterManager.addItem(pl21);
+        mClusterManager.addItem(pl22);
+        mClusterManager.addItem(pl23);
+        mClusterManager.addItem(pl24);
     }
 
     @Override
