@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RatingApp</title>
+    <link rel="stylesheet" href="app.css">
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.5/angular.min.js"></script>
+    <script src="frontapp.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body ng-app="myApp" ng-controller="myController">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <hr/>
+            <h3 class="text-center">Lots</h3>
+            <hr/>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+
+            <button class="btn btn-info pull-right" data-toggle="modal" data-target="#addModal">Add New</button>
+            <div class="alert alert-warning fade in myAlert" ng-if="alertMassege"><a class="close" href="#" data-dismiss="alert" ng-click="clickedAlert()">×</a>
+                <h4>{{alertMassege}}</h4>
+            </div>
+            <table class="table table-bordered myTable">
+                <tr class="text-center">
+                    <th>Index</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Lat</th>
+                    <th>Lng</th>
+                    <th>Phone Number</th>
+                    <th>Capacity</th>
+                    <th>Occupancy</th>
+                    <th>Price</th>
+                    <th>PaymentType</th>
+                    <th>Hours</th>
+                    <th>HandicapParking</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+                <tbody>
+                <tr ng-repeat="lot in lots" track by $index>
+                    <td>{{$index+1}}</td>
+                    <th>{{lot.name}}</th>
+                    <th>{{lot.address}}</th>
+                    <th>{{lot.lat}}</th>
+                    <th>{{lot.lng}}</th>
+                    <th>{{lot.phoneNumber}}</th>
+                    <th>{{lot.capacity}}</th>
+                    <th>{{lot.occupancy}}</th>
+                    <th>{{lot.price}}</th>
+                    <th>{{lot.paymentType}}</th>
+                    <th>{{lot.hours}}</th>
+                    <th>{{lot.handicapParking}}</th>
+                    <td>
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#editModal" ng-click="selectLot(lot)">Edit</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" ng-click="selectLot(lot)">Delete</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Add Modal-->
+<div class="modal fade" id="addModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Add New</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="name">Lot Name</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="text" placeholder="Enter Lot Name" ng-model="newLot.name"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="address">Address</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="text" placeholder="Enter Address" ng-model="newLot.address"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="lat">Lat</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="text" placeholder="Enter Lat" ng-model="newLot.lat"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="lng">Lng</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="text" placeholder="Enter Lng" ng-model="newLot.lng"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="phoneNumber">Phone Number</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="text" placeholder="Enter Phone Number" ng-model="newLot.phoneNumber"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="capacity">Capacity</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="number" placeholder="Enter capacity" ng-model="newLot.capacity"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="occupancy">Occupancy</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="number" placeholder="Enter Occupancy" ng-model="newLot.occupancy"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="price">Price</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="text" placeholder="Enter Price" ng-model="newLot.price"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="paymentType">Payment Type</label>
+                            <div class="col-sm-3">
+                                <select ng-model="newLot.paymentType">
+                                    <option value="Hourly">Hourly</option>
+                                    <option value="Daily">Daily</option>
+                                    <option value="Monthly">Monthly</option>
+                                    <option value="Yearly">Yearly</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="hours">Hours</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="text" placeholder="Enter Hours" ng-model="newLot.hours"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="handicapParking">Handicap Parking</label>
+                            <div class="col-sm-3">
+                                <select ng-model="newLot.handicapParking">
+                                    <option value=true>Available</option>
+                                    <option value=false>Unavailable</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" type="button" ng-click="saveLot()" data-dismiss="modal">Save</button>
+                <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Modal-->
+<div class="modal fade" id="editModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Edit</h4>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="name">Lot Name</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="text" placeholder="Enter Lot Name" ng-model="clickedLot.name"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="address">Address</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="text" placeholder="Enter Address" ng-model="clickedLot.address"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="lat">Lat</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="text" placeholder="Enter Lat" ng-model="clickedLot.lat"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="lng">Lng</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="text" placeholder="Enter Lng" ng-model="clickedLot.lng"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="phoneNumber">Phone Number</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="text" placeholder="Enter Phone Number" ng-model="clickedLot.phoneNumber"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="capacity">Capacity</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="number" placeholder="Enter capacity" ng-model="clickedLot.capacity"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="occupancy">Occupancy</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="number" placeholder="Enter Occupancy" ng-model="clickedLot.occupancy"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="price">Price</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="text" placeholder="Enter Price" ng-model="clickedLot.price"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="paymentType">Payment Type</label>
+                            <div class="col-sm-3">
+                                <select ng-model="clickedLot.paymentType">
+                                    <option value="Hourly">Hourly</option>
+                                    <option value="Daily">Daily</option>
+                                    <option value="Monthly">Monthly</option>
+                                    <option value="Yearly">Yearly</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="hours">Hours</label>
+                            <div class="col-sm-3">
+                                <input class="form-control" type="text" placeholder="Enter Hours" ng-model="clickedLot.hours"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="handicapParking">Handicap Parking</label>
+                            <div class="col-sm-3">
+                                <div class="col-sm-3">
+                                    <select ng-model="clickedLot.handicapParking">
+                                        <option value=true>Available</option>
+                                        <option value=false>Unavailable</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" type="button" ng-click="updateLot()" data-dismiss="modal">Save</button>
+                <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Modal-->
+<div class="modal fade" id="deleteModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Delete</h4>
+            </div>
+            <div class="modal-body">
+                <h3>Are you sure to delete <span>{{clickedLot.lotname}}</span>????</h3>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" type="button" ng-click="deleteLot()" data-dismiss="modal">Yes</button>
+                <button class="btn btn-primary" type="button" data-dismiss="modal">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -3,7 +3,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
-app.set('port', (process.env.PORT || 5000));
+app.set('port', (process.env.PORT || 3000));
 
 app.use(express.static(__dirname + '/client'));
 app.use(bodyParser.json());
@@ -28,8 +28,8 @@ mongoose.connect(uristring, function (err, res) {
  */
 
 // Default
-app.get('/', (req, res) => {
-    res.send('Please use /api/lots');
+app.get('/', function (req, res) {
+    res.sendfile("app.html");
 });
 
 // Get all lots
@@ -43,6 +43,7 @@ app.get('/api/lots', (req, res) => {
     });
 });
 
+// Get lot by id
 app.get('/api/lots/:_id', (req, res) => {
     Lot.getLotById(req.params._id, (err, lot) => {
         if(err){
@@ -53,6 +54,7 @@ app.get('/api/lots/:_id', (req, res) => {
     });
 });
 
+// Add lot
 app.post('/api/lots', (req, res) => {
     var lot = req.body;
     Lot.addLot(lot, (err, lot) => {
@@ -64,6 +66,7 @@ app.post('/api/lots', (req, res) => {
     });
 });
 
+// Update lot by id
 app.put('/api/lots/:_id', (req, res) => {
     var id = req.params._id;
     var lot = req.body;
@@ -76,6 +79,7 @@ app.put('/api/lots/:_id', (req, res) => {
     });
 });
 
+// Delete lot by id
 app.delete('/api/lots/:_id', (req, res) => {
     var id = req.params._id;
     Lot.removeLot(id, (err, lot) => {
