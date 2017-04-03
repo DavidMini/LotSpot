@@ -48,7 +48,7 @@ public class Renderer extends DefaultClusterRenderer<ParkingLot> {
         Bitmap bitmap = null;
 
         try {
-            bitmap = BitmapFactory.decodeStream(context.getAssets().open(assetPath));
+            bitmap = BitmapFactory.decodeFile(assetPath);
         } catch (Exception e) {
             e.printStackTrace();
         }
