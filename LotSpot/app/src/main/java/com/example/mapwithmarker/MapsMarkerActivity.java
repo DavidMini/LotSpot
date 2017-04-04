@@ -19,6 +19,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -36,6 +37,12 @@ import android.widget.TextView;
 import android.Manifest;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -55,8 +62,11 @@ import com.utsg.csc301.team21.models.ParkingLot;
 import com.utsg.csc301.team21.models.Renderer;
 
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -102,6 +112,9 @@ public class MapsMarkerActivity extends AppCompatActivity
 
     // Holds the interval (seconds) in which the map refreshes
     int interval = 15;
+
+    // Result parkinglot from HTTPS call
+    ArrayList<AbstractParkingLot> lots = new ArrayList<AbstractParkingLot>();
 
     // Timer used to refresh the map with new data
     Handler timerHandler = new Handler();
@@ -185,7 +198,7 @@ public class MapsMarkerActivity extends AppCompatActivity
         startTime = System.currentTimeMillis();
         timerHandler.postDelayed(timerRunnable, 0);
 
-        HttpURLCon.httpLotRequest();
+
 
     }
     @Override
@@ -632,7 +645,7 @@ public class MapsMarkerActivity extends AppCompatActivity
 
             // Dim background, must be after showing the pw
             dimBehind(pw);
-
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -721,6 +734,54 @@ public class MapsMarkerActivity extends AppCompatActivity
     }
 
 
+
+    private void getLotsFromServer() {
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "https://lotspot-team21.herokuapp.com/api/lots";
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+
+                        try {
+                            // Make ParkingLot ArrayList
+                            JSONObject jObj = new JSONObject("{'lots':" + response +"}");
+                            JSONArray arr = jObj.getJSONArray("lots");
+
+                            //Log.d("MyActivity", "test: " + jObj.toString());
+
+                            // Clear list
+                            lots.clear();
+
+                            for (int i = 0; i < arr.length(); i++){
+                                JSONObject objj = arr.getJSONObject(i);
+                                //(int id, int capacity, int occupancy, String name, String address, double lat, double lng, Double pricePerHour)
+                                AbstractParkingLot p = new ParkingLot(i, objj.getInt("capacity"),
+                                        objj.getInt("occupancy"), objj.getString("name"), objj.getString("address"),
+                                        objj.getDouble("lat"), objj.getDouble("lng"), objj.getDouble("price"));
+                                lots.add(p);
+
+                            }
+
+
+                        } catch (Exception e) {
+                            Log.d("MyActivity", "test2: " + e.toString());
+                        }
+                    }
+
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.v("MyActivity", "That didn't work!");
+            }
+        });
+    // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+    }
 }
 
 

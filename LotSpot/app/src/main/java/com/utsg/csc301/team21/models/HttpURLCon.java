@@ -7,6 +7,9 @@ package com.utsg.csc301.team21.models;
 
 import android.util.Log;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -36,6 +39,10 @@ public class HttpURLCon {
 
     // HTTP GET request
     private void sendingGetRequest() throws Exception {
+
+
+
+
 
         Log.v("MyActivity", "crap1.25");
         String urlString = "https://lotspot-team21.herokuapp.com/api/lots";
