@@ -184,6 +184,8 @@ public class MapsMarkerActivity extends AppCompatActivity
         startTime = System.currentTimeMillis();
         timerHandler.postDelayed(timerRunnable, 0);
 
+
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
