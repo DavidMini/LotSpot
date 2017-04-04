@@ -9,11 +9,12 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import org.json.*;
 
 
 public class HttpURLCon {
 
-    public static void main(String[] args) throws Exception {
+    public static void httpLotRequest() throws Exception {
 
         HttpURLCon http = new HttpURLCon();
 
@@ -51,11 +52,17 @@ public class HttpURLCon {
         }
         in.close();
 
-
         //TODO: use response.toString() and make AbstractParkingLot objects
         //printing result from response
         //System.out.println(response.toString());
 
+        JSONObject obj = new JSONObject(response.toString());
+
+        JSONArray arr = obj.getJSONArray("");
+        for (int i = 0; i < arr.length(); i++){
+            String name = arr.getJSONObject(i).getString("name");
+            System.out.println(name);
+        }
     }
 }
 
