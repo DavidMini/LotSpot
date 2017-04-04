@@ -79,7 +79,7 @@ public class SearchResultFragment extends ListFragment {
             if (p_height < height) {
                 continue;
             }
-            // Checks accessibility 
+            // Checks accessibility
             boolean p_access = p.handicapParking;
             if (!p_access && access) {
                 continue;

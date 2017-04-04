@@ -49,6 +49,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.maps.android.clustering.ClusterManager;
 import com.utsg.csc301.team21.models.AbstractParkingLot;
+import com.utsg.csc301.team21.models.HttpURLCon;
 import com.utsg.csc301.team21.models.LotInfoBoxFragment;
 import com.utsg.csc301.team21.models.ParkingLot;
 import com.utsg.csc301.team21.models.Renderer;
@@ -184,7 +185,7 @@ public class MapsMarkerActivity extends AppCompatActivity
         startTime = System.currentTimeMillis();
         timerHandler.postDelayed(timerRunnable, 0);
 
-
+        HttpURLCon.httpLotRequest();
 
     }
     @Override
