@@ -79,8 +79,8 @@ public class SearchResultFragment extends ListFragment {
             if (p_height < height) {
                 continue;
             }
-            // Checks accessibility //TODO: we don't have accessibility in ParkingLot
-            boolean p_access = true;
+            // Checks accessibility 
+            boolean p_access = p.handicapParking;
             if (!p_access && access) {
                 continue;
             }
