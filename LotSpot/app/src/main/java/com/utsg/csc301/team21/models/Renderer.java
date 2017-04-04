@@ -18,6 +18,7 @@ import com.google.maps.android.clustering.ClusterManager;
 import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 
 public class Renderer extends DefaultClusterRenderer<ParkingLot> {
@@ -42,23 +43,21 @@ public class Renderer extends DefaultClusterRenderer<ParkingLot> {
         else { color = "green"; }
 
         assetPath = "solidAndFullMarkers/" + color + "_solid_marker.png";
-
         //
-        AssetManager manager = context.getAssets();
         Bitmap bitmap = null;
 
-        try {
-            bitmap = BitmapFactory.decodeFile(assetPath);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = false;
+
+        String filename = new File(assetPath).getAbsolutePath();
+        bitmap = BitmapFactory.decodeFile(filename, options);
 
         if (bitmap == null) {
             Bitmap.Config conf = Bitmap.Config.ARGB_8888;
             bitmap = Bitmap.createBitmap(200, 50, conf);
         }
 
-        Typeface tf = Typeface.create("Helvetica", Typeface.BOLD);
+        Typeface tf = Typeface.create("Helvetica", Typeface.NORMAL);
 
         Paint paint = new Paint();
 
@@ -66,38 +65,13 @@ public class Renderer extends DefaultClusterRenderer<ParkingLot> {
         paint.setColor(Color.BLACK);
         paint.setTypeface(tf);
         paint.setTextAlign(Paint.Align.CENTER);
-        paint.setTextSize(70);
+        paint.setTextSize(50);
 
         Canvas canvas = new Canvas(bitmap);
 
         canvas.drawText(vacancyString, 100, 50, paint);
 
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(bitmap));
-        //
-
-        //markerOptions.icon(BitmapDescriptorFactory.
-        //       fromBitmap(writeTextOnDrawable(assetPath, vacancyString)));
-        //markerOptions.icon(BitmapDescriptorFactory.fromAsset(assetPath));
-    }
-
-    private Bitmap writeTextOnDrawable(String path, String text) {
-        File f = new File(path);
-        Bitmap bm = BitmapFactory.decodeFile(f.getAbsolutePath());
-
-        Paint paint = new Paint();
-        //paint.setStyle(Paint.Style.FILL);
-        paint.setColor(Color.BLACK);
-        //paint.setTextAlign(Paint.Align.CENTER);
-        //paint.setTextSize(10);
-
-        Canvas canvas = new Canvas(bm);
-
-        // Calculate the positions
-        int xPos = (canvas.getWidth() / 2) - 2;
-        int yPos = (int) ((canvas.getHeight() / 2) - ((paint.descent() + paint.ascent()) / 2)) ;
-
-        canvas.drawText(text, xPos, yPos, paint);
-
-        return bm;
+        markerOptions.icon(BitmapDescriptorFactory.fromAsset(assetPath));
     }
 }
