@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
@@ -79,12 +80,9 @@ public class MapsMarkerActivity extends AppCompatActivity
     // Drawer Variables
     private DrawerLayout mDrawerLayout;
     private View mLeftDrawerView;
-    private View mRightDrawerView;
     private ActionBarDrawerToggle mDrawerToggle;
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
-    private Button mOptionButton;
-    private PopupWindow mPopupWindow;
     private Marker searched = null;
     private ClusterManager<ParkingLot> mClusterManager;
     private SearchView searchView;
@@ -97,6 +95,29 @@ public class MapsMarkerActivity extends AppCompatActivity
     private int oDistance = 10;
     private int oHeight = 2;
     private boolean oAccess = true;
+
+    // Holds the system start time
+    long startTime = 0;
+
+    // Holds the interval (seconds) in which the map refreshes
+    int interval = 15;
+
+    // Timer used to refresh the map with new data
+    Handler timerHandler = new Handler();
+    Runnable timerRunnable = new Runnable() {
+        @Override
+        public void run() {
+            long millis = System.currentTimeMillis() - startTime;
+            int seconds = (int) (millis / 1000);
+
+            if(seconds >= interval){
+                startTime = System.currentTimeMillis();
+
+                // Call controller code
+            }
+
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,6 +179,10 @@ public class MapsMarkerActivity extends AppCompatActivity
           Integer.parseInt("1")).getParent()).findViewById(Integer.parseInt("2"));
         //reposition the My Location Button
          repositionMyLocationButton(locationButton);
+
+        // Start the timer
+        startTime = System.currentTimeMillis();
+        timerHandler.postDelayed(timerRunnable, 0);
 
     }
     @Override
@@ -496,19 +521,21 @@ public class MapsMarkerActivity extends AppCompatActivity
         mGoogleMap.animateCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
         marker.showInfoWindow();
 
-        // Prepares fragment managers
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        destroyInfoBox();
+        // Prepares fragment managers only on non cluster marker clicks
+        if(marker.getTitle() != null){
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            destroyInfoBox();
 
-        // Build new fragment
-        infoBox = LotInfoBoxFragment.newInstance(marker.getTitle(), 50, 39, 40,
-                                                 marker.getPosition().latitude,
-                                                 marker.getPosition().longitude);
+            // Build new fragment
+            infoBox = LotInfoBoxFragment.newInstance(marker.getTitle(), 50, 39, 40,
+                    marker.getPosition().latitude,
+                    marker.getPosition().longitude);
 
-        fragmentTransaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
-        fragmentTransaction.add(R.id.mainLayout, infoBox);
-        fragmentTransaction.commit();
+            fragmentTransaction.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
+            fragmentTransaction.add(R.id.mainLayout, infoBox);
+            fragmentTransaction.commit();
+        }
 
         // Tell API to ignore default marker functionality
         return true;
