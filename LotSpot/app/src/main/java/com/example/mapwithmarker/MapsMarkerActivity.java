@@ -794,8 +794,9 @@ public class MapsMarkerActivity extends AppCompatActivity
         //ilterResult(List<AbstractParkingLot> parkingLots, int cost, int dist, int height,
         //boolean access, double curr_lat, double curr_lng)
 
-        return SearchResultFragment.filterResult(lots, oCost, oDistance, oHeight, oAccess, lat, lng);
 
+        //(SearchResultFragment)(findViewById(R.id.)))
+        return ((SearchResultFragment) getSupportFragmentManager().findFragmentById(R.id.list)).filterResult(lots, oCost, oDistance, oHeight, oAccess, lat, lng);
     }
 }
 

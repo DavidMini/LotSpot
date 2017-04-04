@@ -61,7 +61,7 @@ public class SearchResultFragment extends ListFragment {
     // Use this by
     // getSupportFragmentManager().findFragmentById(R.id.result_fragment).updateResult(......)
 
-    public static List<AbstractParkingLot> filterResult(List<AbstractParkingLot> parkingLots, int cost, int dist, int height,
+    public List<AbstractParkingLot> filterResult(List<AbstractParkingLot> parkingLots, int cost, int dist, int height,
                              boolean access, double curr_lat, double curr_lng) {
         List<AbstractParkingLot> lots = new ArrayList<AbstractParkingLot>();
 
