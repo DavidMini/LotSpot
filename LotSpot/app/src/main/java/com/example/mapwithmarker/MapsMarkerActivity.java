@@ -47,6 +47,7 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
+import com.google.maps.android.MarkerManager;
 import com.google.maps.android.clustering.ClusterManager;
 import com.utsg.csc301.team21.models.AbstractParkingLot;
 import com.utsg.csc301.team21.models.LotInfoBoxFragment;
@@ -426,14 +427,14 @@ public class MapsMarkerActivity extends AppCompatActivity
     private void setUpCluster() {
         mClusterManager = new ClusterManager<ParkingLot>(this, mGoogleMap);
 
-        // Point the map's listeners at the listeners implemented by the cluster
-        // manager.
+        // Point the map's listener at the listeners implemented by the cluster manager.
         mGoogleMap.setOnCameraIdleListener(mClusterManager);
-        // We dont need this yet ⬇️
-        // mGoogleMap.setOnMarkerClickListener(mClusterManager);
 
-        mClusterManager.setRenderer(new Renderer(this, mGoogleMap, mClusterManager));
+        Renderer r = new Renderer(this, mGoogleMap, mClusterManager);
+        r.setMinClusterSize(5);
+        mClusterManager.setRenderer(r);
 
+        // Hard coded ParkingLot objects
         addItems();
     }
 
@@ -450,10 +451,10 @@ public class MapsMarkerActivity extends AppCompatActivity
         // String address, double lat, double lng, Double pricePerHour)
 
         // List of Parking Lots
-        ParkingLot pl01 = new ParkingLot(1, 100, r.nextInt(100), "Parking Lot 1", "", 43.666705, -79.405147, r.nextDouble()*10);
-        ParkingLot pl02 = new ParkingLot(2, 100, r.nextInt(100), "Parking Lot 2", "", 43.665385, -79.403477, r.nextDouble()*10);
-        ParkingLot pl03 = new ParkingLot(3, 100, r.nextInt(100), "Parking Lot 3", "", 43.657563, -79.403436, r.nextDouble()*10);
-        ParkingLot pl04 = new ParkingLot(4, 100, r.nextInt(100), "Parking Lot 4", "", 43.655946, -79.408577, r.nextDouble()*10);
+        ParkingLot pl01 = new ParkingLot(1, 100, r.nextInt(100), "Parking Lot 1", "", 43.666705, -79.405147, 5.0);
+        ParkingLot pl02 = new ParkingLot(2, 100, r.nextInt(100), "Parking Lot 2", "", 43.665385, -79.403477, 6.0);
+        ParkingLot pl03 = new ParkingLot(3, 100, r.nextInt(100), "Parking Lot 3", "", 43.657563, -79.403436, 7.0);
+        ParkingLot pl04 = new ParkingLot(4, 100, r.nextInt(100), "Parking Lot 4", "", 43.655946, -79.408577, 8.0);
         ParkingLot pl05 = new ParkingLot(5, 100, r.nextInt(100), "Parking Lot 5", "", 43.652175, -79.405963, r.nextDouble()*10);
 
         ParkingLot pl06 = new ParkingLot(6, 100, r.nextInt(100), "Parking Lot 6", "", 43.652586, -79.398445, r.nextDouble()*10);
@@ -523,6 +524,22 @@ public class MapsMarkerActivity extends AppCompatActivity
         mGoogleMap.animateCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
         marker.showInfoWindow();
 
+        // Gets parking lot
+        java.util.Collection<ParkingLot> lots = mClusterManager.getAlgorithm().getItems();
+        Iterator<ParkingLot> iterator = lots.iterator();
+        ParkingLot temp = null;
+        boolean found = false;
+
+        // Loops over parking lots until the one clicked is found
+        while (!found && iterator.hasNext()) {
+            temp = iterator.next();
+
+            if(temp.getName() == marker.getTitle()){
+                System.out.println("Found: " + temp.getName());
+                found = true;
+            }
+        }
+
         // Prepares fragment managers only on non cluster marker clicks
         if(marker.getTitle() != null){
             FragmentManager fragmentManager = getFragmentManager();
@@ -530,7 +547,8 @@ public class MapsMarkerActivity extends AppCompatActivity
             destroyInfoBox();
 
             // Build new fragment
-            infoBox = LotInfoBoxFragment.newInstance(marker.getTitle(), 50, 39, 40,
+            infoBox = LotInfoBoxFragment.newInstance(marker.getTitle(), temp.getCapacity(),
+                    temp.getOccupancy(), temp.getPricePerHour(),
                     marker.getPosition().latitude,
                     marker.getPosition().longitude);
 
