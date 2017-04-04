@@ -60,6 +60,7 @@ import com.utsg.csc301.team21.models.HttpURLCon;
 import com.utsg.csc301.team21.models.LotInfoBoxFragment;
 import com.utsg.csc301.team21.models.ParkingLot;
 import com.utsg.csc301.team21.models.Renderer;
+import com.utsg.csc301.team21.models.SearchResultFragment;
 
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 import org.json.JSONArray;
@@ -645,7 +646,7 @@ public class MapsMarkerActivity extends AppCompatActivity
 
             // Dim background, must be after showing the pw
             dimBehind(pw);
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -735,7 +736,14 @@ public class MapsMarkerActivity extends AppCompatActivity
 
 
 
-    private void getLotsFromServer() {
+    // DESCRIPTION!!!!!! READDDDD
+
+    // lat, lng is either the current loaction or the current search location,
+    // this function gets all the parklots from server, filters it with the current filters
+    // then update on itself the drawer search view, AND it returns a list of filters
+    // List of filtered parklots.
+    // USE THE parklots returned to populate map markers, and other stuff that needs to be updated!!!!
+    private List<AbstractParkingLot> getLotsFromServer(double lat, double lng) {
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = "https://lotspot-team21.herokuapp.com/api/lots";
@@ -779,8 +787,15 @@ public class MapsMarkerActivity extends AppCompatActivity
                 Log.v("MyActivity", "That didn't work!");
             }
         });
-    // Add the request to the RequestQueue.
+        // Add the request to the RequestQueue.
         queue.add(stringRequest);
+
+
+        //ilterResult(List<AbstractParkingLot> parkingLots, int cost, int dist, int height,
+        //boolean access, double curr_lat, double curr_lng)
+
+        return SearchResultFragment.filterResult(lots, oCost, oDistance, oHeight, oAccess, lat, lng);
+
     }
 }
 

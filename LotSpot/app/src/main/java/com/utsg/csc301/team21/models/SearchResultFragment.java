@@ -61,7 +61,7 @@ public class SearchResultFragment extends ListFragment {
     // Use this by
     // getSupportFragmentManager().findFragmentById(R.id.result_fragment).updateResult(......)
 
-    public void updateResult(List<AbstractParkingLot> parkingLots, int cost, int dist, int height,
+    public static List<AbstractParkingLot> filterResult(List<AbstractParkingLot> parkingLots, int cost, int dist, int height,
                              boolean access, double curr_lat, double curr_lng) {
         List<AbstractParkingLot> lots = new ArrayList<AbstractParkingLot>();
 
@@ -98,6 +98,8 @@ public class SearchResultFragment extends ListFragment {
         // Update this fragment with the latest ParkingLots
         adp.clear();
         adp.addAll(lots);
+
+        return lots;
     }
 
     public double CalculationByDistance(LatLng StartP, LatLng EndP) {
