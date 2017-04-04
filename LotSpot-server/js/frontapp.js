@@ -49,8 +49,7 @@ myApp.controller("myCont" +
     $scope.updateLot = function (){
         $http({
             method:'PUT',
-            url:'/api/lots/:id',
-            params: {id: $scope.clickedLot._id},
+            url:'/api/lots/' + $scope.clickedLot._id,
             data: {
                 name: $scope.newLot.name,
                 address: $scope.newLot.address,
