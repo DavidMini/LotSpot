@@ -7,9 +7,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.Typeface;
-import android.widget.ImageView;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -17,9 +15,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.maps.android.clustering.ClusterManager;
 import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 
 public class Renderer extends DefaultClusterRenderer<ParkingLot> {
     private Context context;
@@ -42,15 +37,15 @@ public class Renderer extends DefaultClusterRenderer<ParkingLot> {
         else if (r >= 0.5 && r < 0.75) { color = "orange"; }
         else { color = "green"; }
 
-        assetPath = "solidAndFullMarkers/" + color + "_solid_marker.png";
-        //
+        assetPath = "assets/solidAndFullMarkers/" + color + "_solid_marker.png";
+
         Bitmap bitmap = null;
 
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = false;
+        options.inMutable = true;
 
-        String filename = new File(assetPath).getAbsolutePath();
-        bitmap = BitmapFactory.decodeFile(filename, options);
+        bitmap = BitmapFactory.decodeFile(assetPath, options);
 
         if (bitmap == null) {
             Bitmap.Config conf = Bitmap.Config.ARGB_8888;
@@ -72,6 +67,6 @@ public class Renderer extends DefaultClusterRenderer<ParkingLot> {
         canvas.drawText(vacancyString, 100, 50, paint);
 
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(bitmap));
-        markerOptions.icon(BitmapDescriptorFactory.fromAsset(assetPath));
+        //markerOptions.icon(BitmapDescriptorFactory.fromAsset(assetPath));
     }
 }
