@@ -123,36 +123,46 @@ public class MapsMarkerActivity extends AppCompatActivity
     // Holds the interval (seconds) in which the map refreshes
     int interval = 15;
 
+    // Holds if the timer should run or not
+    boolean timerPaused = false;
+
     // Result parkinglot from HTTPS call
     ArrayList<AbstractParkingLot> lots = new ArrayList<AbstractParkingLot>();
 
-    // Timer used to refresh the map with new data
-    Handler timerHandler = new Handler();
-    Runnable timerRunnable = new Runnable() {
-        @Override
-        public void run() {
-            long millis = System.currentTimeMillis() - startTime;
-            int seconds = (int) (millis / 1000);
+    // Timer thread
+    Thread timer = new Thread(new Runnable() {
+        public void run(){
+            long millis;
+            int seconds;
 
-            if(seconds >= interval){
-                startTime = System.currentTimeMillis();
-                Log.v("MyActivity", "Timer activated");
-                // Call controller code
-                getLotsFromServer(latitude, longitude);
+            while (true) {
+                if(!timerPaused){
+                    millis = System.currentTimeMillis() - startTime;
+                    seconds = (int) (millis / 1000);
+                    //Log.w("MyActivity", "Millis: " + millis + ", sec: " + seconds);
+
+
+                    if (seconds >= interval) {
+                        startTime = System.currentTimeMillis();
+                        //Log.w("MyActivity", "Timer activated");
+
+                        // Call controller code
+                        getLotsFromServer(43.675255, -79.456852);
+                    }
+                }
             }
-
         }
-    };
+    });
 
     // Pause the timer
     private void stopTimer(){
-        timerHandler.removeCallbacks(timerRunnable);
+        timerPaused = true;
     }
 
     // Reset and start the timer
     private void startTimer(){
         startTime = System.currentTimeMillis();
-        timerHandler.postDelayed(timerRunnable, 0);
+        timerPaused = false;
     }
 
     @Override
@@ -217,7 +227,7 @@ public class MapsMarkerActivity extends AppCompatActivity
          repositionMyLocationButton(locationButton);
 
         // Start the timer
-        startTimer();
+        timer.start();
     }
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
@@ -839,7 +849,7 @@ public class MapsMarkerActivity extends AppCompatActivity
 
                     @Override
                     public void onResponse(String response) {
-                        Log.v("MyActivity", "Succesful response");
+                        //Log.v("MyActivity", "Succesful response");
                         try {
                             // Make ParkingLot ArrayList
                             JSONObject jObj = new JSONObject("{'lots':" + response +"}");
@@ -857,7 +867,7 @@ public class MapsMarkerActivity extends AppCompatActivity
                                         objj.getInt("occupancy"), objj.getString("name"), objj.getString("address"),
                                         objj.getDouble("lat"), objj.getDouble("lng"), objj.getDouble("price"), objj.getBoolean("handicapParking"));
                                 lots.add(p);
-                                Log.d("MyActivity", "test_parkinglot: " + p.toString());
+                                //Log.d("MyActivity", "test_parkinglot: " + p.toString());
 
                             }
                             ((SearchResultFragment) getSupportFragmentManager().findFragmentById(R.id.result_fragment)).filterResult(lots, oCost, oDistance, oHeight, oAccess, 43.675255, -79.456852);
