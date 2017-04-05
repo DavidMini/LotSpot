@@ -135,6 +135,17 @@ public class MapsMarkerActivity extends AppCompatActivity
         }
     };
 
+    // Pause the timer
+    private void stopTimer(){
+        timerHandler.removeCallbacks(timerRunnable);
+    }
+
+    // Reset and start the timer
+    private void startTimer(){
+        startTime = System.currentTimeMillis();
+        timerHandler.postDelayed(timerRunnable, 0);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -197,11 +208,7 @@ public class MapsMarkerActivity extends AppCompatActivity
          repositionMyLocationButton(locationButton);
 
         // Start the timer
-        startTime = System.currentTimeMillis();
-        timerHandler.postDelayed(timerRunnable, 0);
-
-
-
+        startTimer();
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -549,7 +556,7 @@ public class MapsMarkerActivity extends AppCompatActivity
         while (!found && iterator.hasNext()) {
             temp = iterator.next();
 
-            if(temp.getName() == marker.getTitle()){
+            if(temp.getName().equals(marker.getTitle())){
                 System.out.println("Found: " + temp.getName());
                 found = true;
             }
@@ -659,11 +666,12 @@ public class MapsMarkerActivity extends AppCompatActivity
 
             // Setup popup window open and closing animation
             pw.setAnimationStyle(R.style.popupAnimation);
-
+            
             pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
 
             // Dim background, must be after showing the pw
             dimBehind(pw);
+            stopTimer();
 
         } catch (Exception e) {
             e.printStackTrace();
