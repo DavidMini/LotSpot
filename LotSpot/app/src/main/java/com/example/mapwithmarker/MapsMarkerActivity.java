@@ -136,7 +136,7 @@ public class MapsMarkerActivity extends AppCompatActivity
 
             if(seconds >= interval){
                 startTime = System.currentTimeMillis();
-
+                Log.v("MyActivity", "Timer activated");
                 // Call controller code
                 getLotsFromServer(43.675255, -79.456852);
             }
@@ -827,6 +827,7 @@ public class MapsMarkerActivity extends AppCompatActivity
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = "https://lotspot-team21.herokuapp.com/api/lots";
 
+        Log.v("MyActivity", "Attempting search at " + lat + ", " + lng);
         block = true;
 
         // Request a string response from the provided URL.
@@ -835,7 +836,7 @@ public class MapsMarkerActivity extends AppCompatActivity
 
                     @Override
                     public void onResponse(String response) {
-
+                        Log.v("MyActivity", "Succesful response");
                         try {
                             // Make ParkingLot ArrayList
                             JSONObject jObj = new JSONObject("{'lots':" + response +"}");
