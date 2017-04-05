@@ -12,11 +12,11 @@ import java.util.List;
 
 public class DemoServer implements ILotServer {
     private AbstractParkingLot a = new ParkingLot(1, 30, 3, "DynaPark", "Bedford Rd Toronto, ON M5S 1V4",
-            43.666705, -79.405147, 8d);
+            43.666705, -79.405147, 8d, true);
     private AbstractParkingLot b = new ParkingLot(1, 30, 7, "O.I.S.I.E Parking Garage", "71 Prince Arthur Ave, Toronto, ON M5R 1B3",
-            43.657563, -79.403436, 6.5d);
+            43.657563, -79.403436, 6.5d, true);
     private AbstractParkingLot c = new ParkingLot(1, 30, 29, "Graduate House Garage", "17 Glen Morris St, Toronto, ON M5S 1H9",
-            43.669710, -79.391218, 4.57d);
+            43.669710, -79.391218, 4.57d, true);
 
     @Override
     public List<AbstractParkingLot> getLotsFromGeo(double lat, double lng) {
