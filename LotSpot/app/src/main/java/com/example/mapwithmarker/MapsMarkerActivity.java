@@ -41,6 +41,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.CameraUpdate;
@@ -76,6 +77,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 /**
  * An activity that displays a Google map with a marker (pin) to indicate a particular location.
@@ -665,6 +667,14 @@ public class MapsMarkerActivity extends AppCompatActivity
             // Dim background, must be after showing the pw
             dimBehind(pw);
 
+            // Set a listener when popup is closed
+            pw.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                @Override
+                public void onDismiss() {
+                    getLotsFromServer(43.675255, -79.456852);
+                }
+            });
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -753,7 +763,7 @@ public class MapsMarkerActivity extends AppCompatActivity
     }
 
 
-
+    boolean block = false;
     // DESCRIPTION!!!!!! READDDDD
 
     // lat, lng is either the current loaction or the current search location,
@@ -765,6 +775,8 @@ public class MapsMarkerActivity extends AppCompatActivity
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = "https://lotspot-team21.herokuapp.com/api/lots";
+
+        block = true;
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -790,8 +802,11 @@ public class MapsMarkerActivity extends AppCompatActivity
                                         objj.getInt("occupancy"), objj.getString("name"), objj.getString("address"),
                                         objj.getDouble("lat"), objj.getDouble("lng"), objj.getDouble("price"));
                                 lots.add(p);
+                                Log.d("MyActivity", "test_parkinglot: " + p.toString());
 
                             }
+                            ((SearchResultFragment) getSupportFragmentManager().findFragmentById(R.id.result_fragment)).filterResult(lots, oCost, oDistance, oHeight, oAccess, 43.675255, -79.456852);
+
 
 
                         } catch (Exception e) {
@@ -805,17 +820,18 @@ public class MapsMarkerActivity extends AppCompatActivity
                 Log.v("MyActivity", "That didn't work!");
             }
         });
+
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
 
 
-        //ilterResult(List<AbstractParkingLot> parkingLots, int cost, int dist, int height,
-        //boolean access, double curr_lat, double curr_lng)
-
-
         //(SearchResultFragment)(findViewById(R.id.)))
-        return ((SearchResultFragment) getSupportFragmentManager().findFragmentById(R.id.list)).filterResult(lots, oCost, oDistance, oHeight, oAccess, lat, lng);
+        Log.d("MyActivity", "final lots!"+ lots.toString());
+        return lots;
     }
+
+
+
 }
 
 

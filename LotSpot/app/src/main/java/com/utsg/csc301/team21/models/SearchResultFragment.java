@@ -64,30 +64,36 @@ public class SearchResultFragment extends ListFragment {
     public List<AbstractParkingLot> filterResult(List<AbstractParkingLot> parkingLots, int cost, int dist, int height,
                              boolean access, double curr_lat, double curr_lng) {
         List<AbstractParkingLot> lots = new ArrayList<AbstractParkingLot>();
+        Log.d("MyActivity", "Starting lot " + parkingLots.toString());
 
         for (AbstractParkingLot p : parkingLots) {
             // Checks if the ParkingLot has free space
             if ((p.getCapacity() - p.getOccupancy()) < 1) {
+                Log.d("MyActivity", "capcity over " + p.toString());
                 continue;
             }
             // Check price filter
             if (p.pricePerHour > cost) {
+                Log.d("MyActivity", "cost over " + p.toString());
                 continue;
             }
             // Check height filter //TODO: we don't have height in ParkingLot
             double p_height = 10;
             if (p_height < height) {
+                Log.d("MyActivity", "height over " + p.toString());
                 continue;
             }
             // Checks accessibility
             boolean p_access = p.handicapParking;
             if (!p_access && access) {
+                Log.d("MyActivity", "access over " + p.toString());
                 continue;
             }
             // Check distance filter
             LatLng curr_location = new LatLng(curr_lat, curr_lng);
             LatLng tar_location = new LatLng(p.getLat(), p.getLng());
             if (CalculationByDistance(curr_location, tar_location) > dist) {
+                Log.d("MyActivity", "distance over " + CalculationByDistance(curr_location, tar_location));
                 continue;
             }
 
@@ -99,6 +105,7 @@ public class SearchResultFragment extends ListFragment {
         adp.clear();
         adp.addAll(lots);
 
+        Log.d("MyActivity", "test_parkinglotArray: " + lots.toString());
         return lots;
     }
 

@@ -113,4 +113,8 @@ public abstract class AbstractParkingLot {
     public double getPricePerHour() {
         return pricePerHour;
     }
+
+    public String toString() {
+        return "{"+capacity + "," + occupancy + "," +lat + "," +lng +","+pricePerHour+"}";
+    }
 }
