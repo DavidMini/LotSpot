@@ -329,7 +329,6 @@ public class MapsMarkerActivity extends AppCompatActivity
 
         }
 
-
         // Cluster Markers
         setUpCluster();
     }
@@ -452,34 +451,18 @@ public class MapsMarkerActivity extends AppCompatActivity
     }
 
     /**
-     * Updates markers on the map, removes previous markers and updates with list
+     * Updates markers on the map by updating the ParkingLot objects in ClusterManager.
+     * Removes previous markers and updates with list
      */
-    public void updateMarkers(){
-        // TODO: Controller function call
-        // populateLotArray();
+    public void updateParkingLots(){
 
-        //For each parking lot create a new marker
-        Iterator<ParkingLot> lots = parkingLotsArray.iterator();
-        String iconColor= "";
-        while (lots.hasNext()){
-            ParkingLot lot = lots.next();
+        // Remove the items in the ClusterManager
+        mClusterManager.clearItems();
 
-            // Set which color icon to use
-            if (lot.getOccupancy()/4 < lot.getCapacity() && lot.getOccupancy()/2 > lot.getCapacity()){
-                iconColor = "orange";
-            }else if(lot.getOccupancy()/2 < lot.getCapacity()){
-                iconColor = "green";
-            }else{
-                iconColor = "red";
-            }
+        List<AbstractParkingLot> lotList = getLotsFromServer(this.latitude, this.longitude);
 
-            // Create marker
-            LatLng tempLatLng = new LatLng(lot.getLat(), lot.getLng());
-            mGoogleMap.addMarker(new MarkerOptions().position(tempLatLng)
-                    .title(lot.getName())
-                    .icon(BitmapDescriptorFactory.fromAsset("newMarkers/"+ iconColor +"_3_marker.png")));
-                    // TODO: Draw on asset number of available lots
-                    // According to capacity choose color
+        for (AbstractParkingLot pl: lotList) {
+            mClusterManager.addItem((ParkingLot) pl);
         }
     }
 
