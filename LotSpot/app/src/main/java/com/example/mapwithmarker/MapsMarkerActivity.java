@@ -116,6 +116,7 @@ public class MapsMarkerActivity extends AppCompatActivity
     //latitude and longitude of user or of searched location if it exists
     private double longitude;
     private double latitude;
+
     // Holds the system start time
     long startTime = 0;
 
@@ -137,6 +138,7 @@ public class MapsMarkerActivity extends AppCompatActivity
                 startTime = System.currentTimeMillis();
 
                 // Call controller code
+                getLotsFromServer(43.675255, -79.456852);
             }
 
         }
@@ -719,6 +721,7 @@ public class MapsMarkerActivity extends AppCompatActivity
             pw.setOnDismissListener(new PopupWindow.OnDismissListener() {
                 @Override
                 public void onDismiss() {
+                    startTimer();
                     getLotsFromServer(43.675255, -79.456852);
                 }
             });
