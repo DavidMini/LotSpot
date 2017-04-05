@@ -408,12 +408,16 @@ public class MapsMarkerActivity extends AppCompatActivity
     }
 
     /**
-     * Updates markers on the map, removes previous markers and updates with list
+     * Updates markers on the map by updating the ParkingLot objects in ClusterManager.
+     * Removes previous markers and updates with list
      */
     public void updateMarkers(){
-        // TODO: Controller function call
-        // populateLotArray();
 
+        // Remove the items in the ClusterManager
+        mClusterManager.clearItems();
+
+        List<AbstractParkingLot> lotList = getLotsFromServer(0.0, 0.0);
+        
         //For each parking lot create a new marker
         Iterator<ParkingLot> lots = parkingLotsArray.iterator();
         String iconColor= "";
