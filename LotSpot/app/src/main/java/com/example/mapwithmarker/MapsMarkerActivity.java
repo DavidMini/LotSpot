@@ -19,6 +19,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -36,6 +37,12 @@ import android.widget.TextView;
 import android.Manifest;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -47,15 +54,21 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
+import com.google.maps.android.MarkerManager;
 import com.google.maps.android.clustering.ClusterManager;
 import com.utsg.csc301.team21.models.AbstractParkingLot;
+import com.utsg.csc301.team21.models.HttpURLCon;
 import com.utsg.csc301.team21.models.LotInfoBoxFragment;
 import com.utsg.csc301.team21.models.ParkingLot;
 import com.utsg.csc301.team21.models.Renderer;
+import com.utsg.csc301.team21.models.SearchResultFragment;
 
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -101,6 +114,9 @@ public class MapsMarkerActivity extends AppCompatActivity
 
     // Holds the interval (seconds) in which the map refreshes
     int interval = 15;
+
+    // Result parkinglot from HTTPS call
+    ArrayList<AbstractParkingLot> lots = new ArrayList<AbstractParkingLot>();
 
     // Timer used to refresh the map with new data
     Handler timerHandler = new Handler();
@@ -183,6 +199,8 @@ public class MapsMarkerActivity extends AppCompatActivity
         // Start the timer
         startTime = System.currentTimeMillis();
         timerHandler.postDelayed(timerRunnable, 0);
+
+
 
     }
     @Override
@@ -424,14 +442,14 @@ public class MapsMarkerActivity extends AppCompatActivity
     private void setUpCluster() {
         mClusterManager = new ClusterManager<ParkingLot>(this, mGoogleMap);
 
-        // Point the map's listeners at the listeners implemented by the cluster
-        // manager.
+        // Point the map's listener at the listeners implemented by the cluster manager.
         mGoogleMap.setOnCameraIdleListener(mClusterManager);
-        // We dont need this yet ⬇️
-        // mGoogleMap.setOnMarkerClickListener(mClusterManager);
 
-        mClusterManager.setRenderer(new Renderer(this, mGoogleMap, mClusterManager));
+        Renderer r = new Renderer(this, mGoogleMap, mClusterManager);
+        r.setMinClusterSize(5);
+        mClusterManager.setRenderer(r);
 
+        // Hard coded ParkingLot objects
         addItems();
     }
 
@@ -448,10 +466,10 @@ public class MapsMarkerActivity extends AppCompatActivity
         // String address, double lat, double lng, Double pricePerHour)
 
         // List of Parking Lots
-        ParkingLot pl01 = new ParkingLot(1, 100, r.nextInt(100), "Parking Lot 1", "", 43.666705, -79.405147, r.nextDouble()*10);
-        ParkingLot pl02 = new ParkingLot(2, 100, r.nextInt(100), "Parking Lot 2", "", 43.665385, -79.403477, r.nextDouble()*10);
-        ParkingLot pl03 = new ParkingLot(3, 100, r.nextInt(100), "Parking Lot 3", "", 43.657563, -79.403436, r.nextDouble()*10);
-        ParkingLot pl04 = new ParkingLot(4, 100, r.nextInt(100), "Parking Lot 4", "", 43.655946, -79.408577, r.nextDouble()*10);
+        ParkingLot pl01 = new ParkingLot(1, 100, r.nextInt(100), "Parking Lot 1", "", 43.666705, -79.405147, 5.0);
+        ParkingLot pl02 = new ParkingLot(2, 100, r.nextInt(100), "Parking Lot 2", "", 43.665385, -79.403477, 6.0);
+        ParkingLot pl03 = new ParkingLot(3, 100, r.nextInt(100), "Parking Lot 3", "", 43.657563, -79.403436, 7.0);
+        ParkingLot pl04 = new ParkingLot(4, 100, r.nextInt(100), "Parking Lot 4", "", 43.655946, -79.408577, 8.0);
         ParkingLot pl05 = new ParkingLot(5, 100, r.nextInt(100), "Parking Lot 5", "", 43.652175, -79.405963, r.nextDouble()*10);
 
         ParkingLot pl06 = new ParkingLot(6, 100, r.nextInt(100), "Parking Lot 6", "", 43.652586, -79.398445, r.nextDouble()*10);
@@ -521,6 +539,22 @@ public class MapsMarkerActivity extends AppCompatActivity
         mGoogleMap.animateCamera(CameraUpdateFactory.newLatLng(marker.getPosition()));
         marker.showInfoWindow();
 
+        // Gets parking lot
+        java.util.Collection<ParkingLot> lots = mClusterManager.getAlgorithm().getItems();
+        Iterator<ParkingLot> iterator = lots.iterator();
+        ParkingLot temp = null;
+        boolean found = false;
+
+        // Loops over parking lots until the one clicked is found
+        while (!found && iterator.hasNext()) {
+            temp = iterator.next();
+
+            if(temp.getName() == marker.getTitle()){
+                System.out.println("Found: " + temp.getName());
+                found = true;
+            }
+        }
+
         // Prepares fragment managers only on non cluster marker clicks
         if(marker.getTitle() != null){
             FragmentManager fragmentManager = getFragmentManager();
@@ -528,7 +562,8 @@ public class MapsMarkerActivity extends AppCompatActivity
             destroyInfoBox();
 
             // Build new fragment
-            infoBox = LotInfoBoxFragment.newInstance(marker.getTitle(), 50, 39, 40,
+            infoBox = LotInfoBoxFragment.newInstance(marker.getTitle(), temp.getCapacity(),
+                    temp.getOccupancy(), temp.getPricePerHour(),
                     marker.getPosition().latitude,
                     marker.getPosition().longitude);
 
@@ -718,6 +753,69 @@ public class MapsMarkerActivity extends AppCompatActivity
     }
 
 
+
+    // DESCRIPTION!!!!!! READDDDD
+
+    // lat, lng is either the current loaction or the current search location,
+    // this function gets all the parklots from server, filters it with the current filters
+    // then update on itself the drawer search view, AND it returns a list of filters
+    // List of filtered parklots.
+    // USE THE parklots returned to populate map markers, and other stuff that needs to be updated!!!!
+    private List<AbstractParkingLot> getLotsFromServer(double lat, double lng) {
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "https://lotspot-team21.herokuapp.com/api/lots";
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+
+                    @Override
+                    public void onResponse(String response) {
+
+                        try {
+                            // Make ParkingLot ArrayList
+                            JSONObject jObj = new JSONObject("{'lots':" + response +"}");
+                            JSONArray arr = jObj.getJSONArray("lots");
+
+                            //Log.d("MyActivity", "test: " + jObj.toString());
+
+                            // Clear list
+                            lots.clear();
+
+                            for (int i = 0; i < arr.length(); i++){
+                                JSONObject objj = arr.getJSONObject(i);
+                                //(int id, int capacity, int occupancy, String name, String address, double lat, double lng, Double pricePerHour)
+                                AbstractParkingLot p = new ParkingLot(i, objj.getInt("capacity"),
+                                        objj.getInt("occupancy"), objj.getString("name"), objj.getString("address"),
+                                        objj.getDouble("lat"), objj.getDouble("lng"), objj.getDouble("price"));
+                                lots.add(p);
+
+                            }
+
+
+                        } catch (Exception e) {
+                            Log.d("MyActivity", "test2: " + e.toString());
+                        }
+                    }
+
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.v("MyActivity", "That didn't work!");
+            }
+        });
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+
+
+        //ilterResult(List<AbstractParkingLot> parkingLots, int cost, int dist, int height,
+        //boolean access, double curr_lat, double curr_lng)
+
+
+        //(SearchResultFragment)(findViewById(R.id.)))
+        return ((SearchResultFragment) getSupportFragmentManager().findFragmentById(R.id.list)).filterResult(lots, oCost, oDistance, oHeight, oAccess, lat, lng);
+    }
 }
 
 

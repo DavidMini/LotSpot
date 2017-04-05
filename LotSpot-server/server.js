@@ -3,7 +3,7 @@ var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
-app.set('port', (process.env.PORT || 3000));
+app.set('port', (process.env.PORT || 5000));
 
 app.use(express.static(__dirname + '/client'));
 app.use(bodyParser.json());
@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 // Lot Model
 Lot = require('./models/lot');
 
-var uristring = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost/';
+var uristring = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || 'mongodb://localhost:3000/';
 
 // Connect to Mongoose
 
@@ -29,7 +29,7 @@ mongoose.connect(uristring, function (err, res) {
 
 // Default
 app.get('/', function (req, res) {
-    res.sendfile("app.html");
+    res.sendfile("html/app.html");
 });
 
 // Get all lots
