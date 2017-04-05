@@ -378,6 +378,10 @@ public class MapsMarkerActivity extends AppCompatActivity
                 searched = mGoogleMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
                 mGoogleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
             }
+
+            // Update the map and the drawer list
+            getLotsFromServer(43.675255, -79.456852);
+
         }
     }
 
@@ -459,13 +463,24 @@ public class MapsMarkerActivity extends AppCompatActivity
         }
     }
 
+    public Renderer r;
+
     private void setUpCluster() {
-        mClusterManager = new ClusterManager<ParkingLot>(this, mGoogleMap);
+
+        if (mClusterManager == null){
+            mClusterManager = new ClusterManager<ParkingLot>(this, mGoogleMap);
+        }
+
+        mClusterManager.clearItems();
+        mGoogleMap.clear();
 
         // Point the map's listener at the listeners implemented by the cluster manager.
         mGoogleMap.setOnCameraIdleListener(mClusterManager);
 
-        Renderer r = new Renderer(this, mGoogleMap, mClusterManager);
+        if (r == null){
+            r = new Renderer(this, mGoogleMap, mClusterManager);
+
+        }
         r.setMinClusterSize(5);
         mClusterManager.setRenderer(r);
 
@@ -831,6 +846,7 @@ public class MapsMarkerActivity extends AppCompatActivity
 
                             }
                             ((SearchResultFragment) getSupportFragmentManager().findFragmentById(R.id.result_fragment)).filterResult(lots, oCost, oDistance, oHeight, oAccess, 43.675255, -79.456852);
+
 
                             setUpCluster();
 
