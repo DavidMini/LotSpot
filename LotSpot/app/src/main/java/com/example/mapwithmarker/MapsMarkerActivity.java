@@ -486,34 +486,34 @@ public class MapsMarkerActivity extends AppCompatActivity
         // String address, double lat, double lng, Double pricePerHour)
 
         // List of Parking Lots
-        ParkingLot pl01 = new ParkingLot(1, 100, r.nextInt(100), "Parking Lot 1", "", 43.666705, -79.405147, 5.0);
-        ParkingLot pl02 = new ParkingLot(2, 100, r.nextInt(100), "Parking Lot 2", "", 43.665385, -79.403477, 6.0);
-        ParkingLot pl03 = new ParkingLot(3, 100, r.nextInt(100), "Parking Lot 3", "", 43.657563, -79.403436, 7.0);
-        ParkingLot pl04 = new ParkingLot(4, 100, r.nextInt(100), "Parking Lot 4", "", 43.655946, -79.408577, 8.0);
-        ParkingLot pl05 = new ParkingLot(5, 100, r.nextInt(100), "Parking Lot 5", "", 43.652175, -79.405963, r.nextDouble()*10);
+        ParkingLot pl01 = new ParkingLot(1, 100, r.nextInt(100), "Parking Lot 1", "", 43.666705, -79.405147, 5.0, true);
+        ParkingLot pl02 = new ParkingLot(2, 100, r.nextInt(100), "Parking Lot 2", "", 43.665385, -79.403477, 6.0, true);
+        ParkingLot pl03 = new ParkingLot(3, 100, r.nextInt(100), "Parking Lot 3", "", 43.657563, -79.403436, 7.0, true);
+        ParkingLot pl04 = new ParkingLot(4, 100, r.nextInt(100), "Parking Lot 4", "", 43.655946, -79.408577, 8.0, true);
+        ParkingLot pl05 = new ParkingLot(5, 100, r.nextInt(100), "Parking Lot 5", "", 43.652175, -79.405963, r.nextDouble()*10, true);
 
-        ParkingLot pl06 = new ParkingLot(6, 100, r.nextInt(100), "Parking Lot 6", "", 43.652586, -79.398445, r.nextDouble()*10);
-        ParkingLot pl07 = new ParkingLot(7, 100, r.nextInt(100), "Parking Lot 7", "", 43.659353, -79.389422, r.nextDouble()*10);
-        ParkingLot pl08 = new ParkingLot(8, 100, r.nextInt(100), "Parking Lot 8", "", 43.659891, -79.388625, r.nextDouble()*10);
-        ParkingLot pl09 = new ParkingLot(9, 100, r.nextInt(100), "Parking Lot 9", "", 43.667672, -79.389450, r.nextDouble()*10);
-        ParkingLot pl10 = new ParkingLot(10, 100, r.nextInt(100), "Parking Lot 10", "", 43.669112, -79.388623, r.nextDouble()*10);
+        ParkingLot pl06 = new ParkingLot(6, 100, r.nextInt(100), "Parking Lot 6", "", 43.652586, -79.398445, r.nextDouble()*10, true);
+        ParkingLot pl07 = new ParkingLot(7, 100, r.nextInt(100), "Parking Lot 7", "", 43.659353, -79.389422, r.nextDouble()*10, true);
+        ParkingLot pl08 = new ParkingLot(8, 100, r.nextInt(100), "Parking Lot 8", "", 43.659891, -79.388625, r.nextDouble()*10, true);
+        ParkingLot pl09 = new ParkingLot(9, 100, r.nextInt(100), "Parking Lot 9", "", 43.667672, -79.389450, r.nextDouble()*10, true);
+        ParkingLot pl10 = new ParkingLot(10, 100, r.nextInt(100), "Parking Lot 10", "", 43.669112, -79.388623, r.nextDouble()*10, true);
 
-        ParkingLot pl11 = new ParkingLot(11, 100, r.nextInt(100), "Parking Lot 11", "", 43.669710, -79.391218, r.nextDouble()*10);
-        ParkingLot pl12 = new ParkingLot(12, 100, r.nextInt(100), "Parking Lot 12", "", 43.669447, -79.392248, r.nextDouble()*10);
-        ParkingLot pl13 = new ParkingLot(13, 100, r.nextInt(100), "Parking Lot 13", "", 43.671654, -79.394603, r.nextDouble()*10);
-        ParkingLot pl14 = new ParkingLot(14, 100, r.nextInt(100), "Parking Lot 14", "", 43.674856, -79.398259, r.nextDouble()*10);
-        ParkingLot pl15 = new ParkingLot(15, 100, r.nextInt(100), "Parking Lot 15", "", 43.670676, -79.382509, r.nextDouble()*10);
+        ParkingLot pl11 = new ParkingLot(11, 100, r.nextInt(100), "Parking Lot 11", "", 43.669710, -79.391218, r.nextDouble()*10, true);
+        ParkingLot pl12 = new ParkingLot(12, 100, r.nextInt(100), "Parking Lot 12", "", 43.669447, -79.392248, r.nextDouble()*10, true);
+        ParkingLot pl13 = new ParkingLot(13, 100, r.nextInt(100), "Parking Lot 13", "", 43.671654, -79.394603, r.nextDouble()*10, true);
+        ParkingLot pl14 = new ParkingLot(14, 100, r.nextInt(100), "Parking Lot 14", "", 43.674856, -79.398259, r.nextDouble()*10, true);
+        ParkingLot pl15 = new ParkingLot(15, 100, r.nextInt(100), "Parking Lot 15", "", 43.670676, -79.382509, r.nextDouble()*10, true);
 
-        ParkingLot pl16 = new ParkingLot(16, 100, r.nextInt(100), "Parking Lot 16", "", 43.669883, -79.382455, r.nextDouble()*10);
-        ParkingLot pl17 = new ParkingLot(17, 100, r.nextInt(100), "Parking Lot 17", "", 43.659829, -79.380369, r.nextDouble()*10);
-        ParkingLot pl18 = new ParkingLot(18, 100, r.nextInt(100), "Parking Lot 18", "", 43.657764, -79.376211, r.nextDouble()*10);
-        ParkingLot pl19 = new ParkingLot(19, 100, r.nextInt(100), "Parking Lot 19", "", 43.658145, -79.385359, r.nextDouble()*10);
-        ParkingLot pl20 = new ParkingLot(20, 100, r.nextInt(100), "Parking Lot 20", "", 43.656254, -79.388198, r.nextDouble()*10);
+        ParkingLot pl16 = new ParkingLot(16, 100, r.nextInt(100), "Parking Lot 16", "", 43.669883, -79.382455, r.nextDouble()*10, true);
+        ParkingLot pl17 = new ParkingLot(17, 100, r.nextInt(100), "Parking Lot 17", "", 43.659829, -79.380369, r.nextDouble()*10, true);
+        ParkingLot pl18 = new ParkingLot(18, 100, r.nextInt(100), "Parking Lot 18", "", 43.657764, -79.376211, r.nextDouble()*10, true);
+        ParkingLot pl19 = new ParkingLot(19, 100, r.nextInt(100), "Parking Lot 19", "", 43.658145, -79.385359, r.nextDouble()*10, true);
+        ParkingLot pl20 = new ParkingLot(20, 100, r.nextInt(100), "Parking Lot 20", "", 43.656254, -79.388198, r.nextDouble()*10, true);
 
-        ParkingLot pl21 = new ParkingLot(21, 100, r.nextInt(100), "Parking Lot 21", "", 43.654792, -79.389622, r.nextDouble()*10);
-        ParkingLot pl22 = new ParkingLot(22, 100, r.nextInt(100), "Parking Lot 22", "", 43.654358, -79.388712, r.nextDouble()*10);
-        ParkingLot pl23 = new ParkingLot(23, 100, r.nextInt(100), "Parking Lot 23", "", 43.654010, -79.387221, r.nextDouble()*10);
-        ParkingLot pl24 = new ParkingLot(24, 100, r.nextInt(100), "Parking Lot 24", "", 43.654806, -79.386678, r.nextDouble()*10);
+        ParkingLot pl21 = new ParkingLot(21, 100, r.nextInt(100), "Parking Lot 21", "", 43.654792, -79.389622, r.nextDouble()*10, true);
+        ParkingLot pl22 = new ParkingLot(22, 100, r.nextInt(100), "Parking Lot 22", "", 43.654358, -79.388712, r.nextDouble()*10, true);
+        ParkingLot pl23 = new ParkingLot(23, 100, r.nextInt(100), "Parking Lot 23", "", 43.654010, -79.387221, r.nextDouble()*10, true);
+        ParkingLot pl24 = new ParkingLot(24, 100, r.nextInt(100), "Parking Lot 24", "", 43.654806, -79.386678, r.nextDouble()*10, true);
 
         mClusterManager.addItem(pl01);
         mClusterManager.addItem(pl02);
@@ -825,7 +825,7 @@ public class MapsMarkerActivity extends AppCompatActivity
                                 //(int id, int capacity, int occupancy, String name, String address, double lat, double lng, Double pricePerHour)
                                 AbstractParkingLot p = new ParkingLot(i, objj.getInt("capacity"),
                                         objj.getInt("occupancy"), objj.getString("name"), objj.getString("address"),
-                                        objj.getDouble("lat"), objj.getDouble("lng"), objj.getDouble("price"));
+                                        objj.getDouble("lat"), objj.getDouble("lng"), objj.getDouble("price"), objj.getBoolean("handicapParking"));
                                 lots.add(p);
                                 Log.d("MyActivity", "test_parkinglot: " + p.toString());
 

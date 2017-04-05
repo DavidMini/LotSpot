@@ -115,6 +115,6 @@ public abstract class AbstractParkingLot {
     }
 
     public String toString() {
-        return "{"+capacity + "," + occupancy + "," +lat + "," +lng +","+pricePerHour+"}";
+        return "{"+capacity + "," + occupancy + "," +lat + "," +lng +","+pricePerHour+","+handicapParking+"}";
     }
 }

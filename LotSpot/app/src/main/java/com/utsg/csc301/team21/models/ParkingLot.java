@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 public class ParkingLot extends AbstractParkingLot implements ClusterItem{
 
 
-    public ParkingLot(int id, int capacity, int occupancy, String name, String address, double lat, double lng, Double pricePerHour) {
+    public ParkingLot(int id, int capacity, int occupancy, String name, String address, double lat, double lng, Double pricePerHour, boolean access) {
         this.id = id;
         this.capacity = capacity;
         this.occupancy = occupancy;
@@ -22,6 +22,7 @@ public class ParkingLot extends AbstractParkingLot implements ClusterItem{
         this.lat = lat;
         this.lng = lng;
         this.pricePerHour = pricePerHour;
+        this.handicapParking = access;
     }
 
     @Override

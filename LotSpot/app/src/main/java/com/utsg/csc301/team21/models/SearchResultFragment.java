@@ -86,7 +86,7 @@ public class SearchResultFragment extends ListFragment {
             // Checks accessibility
             boolean p_access = p.handicapParking;
             if (!p_access && access) {
-                Log.d("MyActivity", "access over " + p.toString());
+                Log.d("MyActivity", "access over " +p_access+","+p.lat);
                 continue;
             }
             // Check distance filter
