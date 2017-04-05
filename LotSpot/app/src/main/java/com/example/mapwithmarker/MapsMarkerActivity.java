@@ -138,7 +138,7 @@ public class MapsMarkerActivity extends AppCompatActivity
                 startTime = System.currentTimeMillis();
 
                 // Call controller code
-                getLotsFromServer(43.675255, -79.456852);
+                getLotsFromServer(latitude, longitude);
             }
 
         }
@@ -389,7 +389,8 @@ public class MapsMarkerActivity extends AppCompatActivity
             }
 
             // Update the map and the drawer list
-            getLotsFromServer(43.675255, -79.456852);
+
+            getLotsFromServer(latitude, longitude);
 
         }
     }
@@ -724,7 +725,7 @@ public class MapsMarkerActivity extends AppCompatActivity
                 @Override
                 public void onDismiss() {
                     startTimer();
-                    getLotsFromServer(43.675255, -79.456852);
+                    getLotsFromServer(latitude, longitude);
                 }
             });
 
