@@ -12,8 +12,13 @@ import android.graphics.Typeface;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterManager;
 import com.google.maps.android.clustering.view.DefaultClusterRenderer;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
 
 public class Renderer extends DefaultClusterRenderer<ParkingLot> {
@@ -31,13 +36,22 @@ public class Renderer extends DefaultClusterRenderer<ParkingLot> {
         String vacancyString = Integer.toString(vacancy);
 
         double r = (1.0 * occupancy) / (1.0 * capacity);
-        String color, assetPath;
+        String color, assetPath, absPath;
 
         if (r >= 0.75) { color = "red"; }
         else if (r >= 0.5 && r < 0.75) { color = "orange"; }
         else { color = "green"; }
 
-        assetPath = "assets/solidAndFullMarkers/" + color + "_solid_marker.png";
+        assetPath = "solidAndFullMarkers/" + color + "_solid_marker.png";
+
+        AssetManager am = context.getAssets();
+
+        InputStream in = null;
+        try {
+            in = am.open(assetPath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         Bitmap bitmap = null;
 
@@ -45,14 +59,9 @@ public class Renderer extends DefaultClusterRenderer<ParkingLot> {
         options.inJustDecodeBounds = false;
         options.inMutable = true;
 
-        bitmap = BitmapFactory.decodeFile(assetPath, options);
+        bitmap = BitmapFactory.decodeStream(in, null, options);
 
-        if (bitmap == null) {
-            Bitmap.Config conf = Bitmap.Config.ARGB_8888;
-            bitmap = Bitmap.createBitmap(200, 50, conf);
-        }
-
-        Typeface tf = Typeface.create("Helvetica", Typeface.NORMAL);
+        Typeface tf = Typeface.create("Arial", Typeface.NORMAL);
 
         Paint paint = new Paint();
 
@@ -60,11 +69,11 @@ public class Renderer extends DefaultClusterRenderer<ParkingLot> {
         paint.setColor(Color.BLACK);
         paint.setTypeface(tf);
         paint.setTextAlign(Paint.Align.CENTER);
-        paint.setTextSize(50);
+        paint.setTextSize(40);
 
         Canvas canvas = new Canvas(bitmap);
 
-        canvas.drawText(vacancyString, 100, 50, paint);
+        canvas.drawText(vacancyString, 50, 57, paint);
 
         markerOptions.icon(BitmapDescriptorFactory.fromBitmap(bitmap));
         //markerOptions.icon(BitmapDescriptorFactory.fromAsset(assetPath));

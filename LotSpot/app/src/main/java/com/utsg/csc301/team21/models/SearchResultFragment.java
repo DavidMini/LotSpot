@@ -61,7 +61,7 @@ public class SearchResultFragment extends ListFragment {
     // Use this by
     // getSupportFragmentManager().findFragmentById(R.id.result_fragment).updateResult(......)
 
-    public void updateResult(List<AbstractParkingLot> parkingLots, int cost, int dist, int height,
+    public List<AbstractParkingLot> filterResult(List<AbstractParkingLot> parkingLots, int cost, int dist, int height,
                              boolean access, double curr_lat, double curr_lng) {
         List<AbstractParkingLot> lots = new ArrayList<AbstractParkingLot>();
 
@@ -79,8 +79,8 @@ public class SearchResultFragment extends ListFragment {
             if (p_height < height) {
                 continue;
             }
-            // Checks accessibility //TODO: we don't have accessibility in ParkingLot
-            boolean p_access = true;
+            // Checks accessibility
+            boolean p_access = p.handicapParking;
             if (!p_access && access) {
                 continue;
             }
@@ -98,6 +98,8 @@ public class SearchResultFragment extends ListFragment {
         // Update this fragment with the latest ParkingLots
         adp.clear();
         adp.addAll(lots);
+
+        return lots;
     }
 
     public double CalculationByDistance(LatLng StartP, LatLng EndP) {

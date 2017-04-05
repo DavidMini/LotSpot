@@ -49,20 +49,19 @@ myApp.controller("myCont" +
     $scope.updateLot = function (){
         $http({
             method:'PUT',
-            url:'/api/lots/:id',
-            params: {id: $scope.clickedLot._id},
+            url:'/api/lots/' + $scope.clickedLot._id,
             data: {
-                name: $scope.newLot.name,
-                address: $scope.newLot.address,
-                lat: $scope.newLot.lat,
-                lng: $scope.newLot.lng,
-                phoneNumber: $scope.newLot.phoneNumber,
-                capacity: $scope.newLot.capacity,
-                occupancy: $scope.newLot.occupancy,
-                price: $scope.newLot.price,
-                paymentType: $scope.newLot.paymentType,
-                hours: $scope.newLot.hours,
-                handicapParking: $scope.newLot.handicapParking
+                name: $scope.clickedLot.name,
+                address: $scope.clickedLot.address,
+                lat: $scope.clickedLot.lat,
+                lng: $scope.clickedLot.lng,
+                phoneNumber: $scope.clickedLot.phoneNumber,
+                capacity: $scope.clickedLot.capacity,
+                occupancy: $scope.clickedLot.occupancy,
+                price: $scope.clickedLot.price,
+                paymentType: $scope.clickedLot.paymentType,
+                hours: $scope.clickedLot.hours,
+                handicapParking: $scope.clickedLot.handicapParking
             }
         }).then(function(res){
 
