@@ -7,6 +7,8 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -109,6 +111,9 @@ public class MapsMarkerActivity extends AppCompatActivity
     private int oHeight = 2;
     private boolean oAccess = true;
 
+    //latitude and longitude of user or of searched location if it exists
+    private double longitude;
+    private double latitude;
     // Holds the system start time
     long startTime = 0;
 
@@ -204,7 +209,7 @@ public class MapsMarkerActivity extends AppCompatActivity
 
     }
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(final Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
         searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
@@ -217,8 +222,11 @@ public class MapsMarkerActivity extends AppCompatActivity
 
         public boolean onQueryTextSubmit(String query) {
             //Here u can get the value "query" which is entered in the search box.
+            searchView.setIconified(true);
+            searchView.clearFocus();
             onSearch(query);
-            return true;
+            (menu.findItem(R.id.action_search)).collapseActionView();
+            return false;
         }
 
     };
@@ -289,11 +297,18 @@ public class MapsMarkerActivity extends AppCompatActivity
                 //Location Permission already granted
 
                 mGoogleMap.setMyLocationEnabled(true);
-            } else {
+                LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+                Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                longitude = location.getLongitude();
+                latitude = location.getLatitude();
+
+        } else {
                 //Request Location Permission
             requestPermissions ();
 
-            }
+        }
+
+
         // Cluster Markers
         setUpCluster();
     }
@@ -356,6 +371,8 @@ public class MapsMarkerActivity extends AppCompatActivity
                 if(searched!= null){
                     searched.remove();
                 }
+                longitude = latLng.longitude;
+                latitude = latLng.latitude;
                 searched = mGoogleMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
                 mGoogleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
             }
@@ -391,6 +408,7 @@ public class MapsMarkerActivity extends AppCompatActivity
                             == PackageManager.PERMISSION_GRANTED) {
 
                         mGoogleMap.setMyLocationEnabled(true);
+
                     }
 
                 } else {
@@ -528,9 +546,16 @@ public class MapsMarkerActivity extends AppCompatActivity
     @Override
     public void onMapClick(LatLng latLng) {
         destroyInfoBox();
+        removeSearch();
         getSupportActionBar().collapseActionView();
     }
 
+    public void removeSearch(){
+        if(searched!= null){
+            searched.remove();
+            searched = null;
+        }
+    }
     /** Called when the user clicks a marker. */
     @Override
     public boolean onMarkerClick(final Marker marker) {
