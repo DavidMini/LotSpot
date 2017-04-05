@@ -143,7 +143,8 @@ public class MapsMarkerActivity extends AppCompatActivity
 
                     if (seconds >= interval) {
                         startTime = System.currentTimeMillis();
-                        Log.w("MyActivity", "Timer activated");
+                        //Log.w("MyActivity", "Timer activated");
+
                         // Call controller code
                         getLotsFromServer(43.675255, -79.456852);
                     }
