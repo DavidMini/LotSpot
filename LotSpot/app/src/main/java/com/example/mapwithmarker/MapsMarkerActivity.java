@@ -121,7 +121,7 @@ public class MapsMarkerActivity extends AppCompatActivity
     long startTime = 0;
 
     // Holds the interval (seconds) in which the map refreshes
-    int interval = 5;
+    int interval = 15;
 
     // Holds if the timer should run or not
     boolean timerPaused = false;
