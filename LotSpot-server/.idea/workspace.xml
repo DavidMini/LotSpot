@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="de1db530-3201-4894-83cc-f819e260b52c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/html/app.html" afterPath="$PROJECT_DIR$/html/app.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/frontapp.js" afterPath="$PROJECT_DIR$/js/frontapp.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -44,8 +43,8 @@
       <file leaf-file-name="app.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/html/app.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="423">
-              <caret line="388" column="36" lean-forward="true" selection-start-line="388" selection-start-column="36" selection-end-line="388" selection-end-column="36" />
+            <state relative-caret-position="304">
+              <caret line="381" column="30" lean-forward="true" selection-start-line="381" selection-start-column="30" selection-end-line="381" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -267,11 +266,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15792000" />
+    <option name="totallyTimeSpent" value="15964000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="457" y="337" width="1616" height="924" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15842839" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -668,8 +666,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/html/app.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="423">
-          <caret line="388" column="36" lean-forward="true" selection-start-line="388" selection-start-column="36" selection-end-line="388" selection-end-column="36" />
+        <state relative-caret-position="304">
+          <caret line="381" column="30" lean-forward="true" selection-start-line="381" selection-start-column="30" selection-end-line="381" selection-end-column="30" />
           <folding />
         </state>
       </provider>
