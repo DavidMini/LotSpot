@@ -900,8 +900,8 @@ public class MapsMarkerActivity extends AppCompatActivity
     public void addItems_v2(ArrayList<AbstractParkingLot> lots){
         Log.d("MyActivity", "addItems_v2: " + lots.toString());
         // Initial focus on UofT TODO:Set to current location
-        LatLng uoft = new LatLng(43.662892, -79.395656);
-        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(uoft, 14));
+        //LatLng uoft = new LatLng(43.662892, -79.395656);
+        //mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(uoft, 14));
 
         for (AbstractParkingLot p: lots) {
             mClusterManager.addItem((ParkingLot)p);
