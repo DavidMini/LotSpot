@@ -453,7 +453,7 @@ public class MapsMarkerActivity extends AppCompatActivity
         mClusterManager.setRenderer(r);
 
         // Hard coded ParkingLot objects
-        addItems();
+        addItems_v2(lots);
     }
 
 
@@ -815,6 +815,7 @@ public class MapsMarkerActivity extends AppCompatActivity
                             }
                             ((SearchResultFragment) getSupportFragmentManager().findFragmentById(R.id.result_fragment)).filterResult(lots, oCost, oDistance, oHeight, oAccess, 43.675255, -79.456852);
 
+                            setUpCluster();
 
 
                         } catch (Exception e) {
@@ -836,6 +837,18 @@ public class MapsMarkerActivity extends AppCompatActivity
         //(SearchResultFragment)(findViewById(R.id.)))
         Log.d("MyActivity", "final lots!"+ lots.toString());
         return lots;
+    }
+
+    public void addItems_v2(ArrayList<AbstractParkingLot> lots){
+        Log.d("MyActivity", "addItems_v2: " + lots.toString());
+        // Initial focus on UofT TODO:Set to current location
+        LatLng uoft = new LatLng(43.662892, -79.395656);
+        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(uoft, 14));
+
+        mClusterManager.clearItems();
+        for (AbstractParkingLot p: lots) {
+            mClusterManager.addItem((ParkingLot)p);
+        }
     }
 
 
