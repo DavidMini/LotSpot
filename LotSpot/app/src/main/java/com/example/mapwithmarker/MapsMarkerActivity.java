@@ -310,7 +310,6 @@ public class MapsMarkerActivity extends AppCompatActivity
 
         }
 
-
         // Cluster Markers
         setUpCluster();
     }
