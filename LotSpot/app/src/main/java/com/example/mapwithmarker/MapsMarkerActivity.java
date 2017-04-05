@@ -129,6 +129,7 @@ public class MapsMarkerActivity extends AppCompatActivity
     // Result parkinglot from HTTPS call
     ArrayList<AbstractParkingLot> lots = new ArrayList<AbstractParkingLot>();
 
+    // Timer thread
     Thread timer = new Thread(new Runnable() {
         public void run(){
             long millis;
@@ -398,7 +399,8 @@ public class MapsMarkerActivity extends AppCompatActivity
             }
 
             // Update the map and the drawer list
-            getLotsFromServer(43.675255, -79.456852);
+
+            getLotsFromServer(latitude, longitude);
 
         }
     }
@@ -491,6 +493,7 @@ public class MapsMarkerActivity extends AppCompatActivity
 
         mClusterManager.clearItems();
         mGoogleMap.clear();
+        mClusterManager.cluster();
 
         // Point the map's listener at the listeners implemented by the cluster manager.
         mGoogleMap.setOnCameraIdleListener(mClusterManager);
@@ -501,6 +504,7 @@ public class MapsMarkerActivity extends AppCompatActivity
         }
         r.setMinClusterSize(5);
         mClusterManager.setRenderer(r);
+
 
         // Hard coded ParkingLot objects
         addItems_v2(lots);
@@ -731,7 +735,7 @@ public class MapsMarkerActivity extends AppCompatActivity
                 @Override
                 public void onDismiss() {
                     startTimer();
-                    getLotsFromServer(43.675255, -79.456852);
+                    getLotsFromServer(latitude, longitude);
                 }
             });
 
@@ -899,7 +903,6 @@ public class MapsMarkerActivity extends AppCompatActivity
         LatLng uoft = new LatLng(43.662892, -79.395656);
         mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(uoft, 14));
 
-        mClusterManager.clearItems();
         for (AbstractParkingLot p: lots) {
             mClusterManager.addItem((ParkingLot)p);
         }
