@@ -1,4 +1,4 @@
-# project-team-21
+# LotSpot
 
 kev-zz: On top of the commits to the app, I also made the demo videos for the deliverables, which can be found here:
 [`Deliverable 2 Video`](https://youtu.be/57IooisiD-o)
